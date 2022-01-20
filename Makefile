@@ -12,10 +12,10 @@ CYAN        = \033[1;36m
 WHITE       = \033[1;37m
 
 # SYMBOLS
-INFO = $(BLUE)ℹ️ $(NOC)
-SUCCESS = $(GREEN)✅ $(GREEN)
-WARNING = $(YELLOW)⚠️ $(YELLOW)
-ERROR = $(RED)❌$(WHITE) $(RED)
+INFO = $(BLUE)ℹ️  $(NOC)
+SUCCESS = $(GREEN)✅  $(GREEN)
+WARNING = $(YELLOW)⚠️  $(YELLOW)
+ERROR = $(RED)❌$(WHITE)  $(RED)
 
 # Binary
 NAME=minishell
@@ -23,28 +23,30 @@ NAME=minishell
 # Path
 SRC_PATH = ./srcs/
 OBJ_PATH = ./objs/
-INCDIR = includes
+INCDIR = ./includes
 
 # Name
 SRC_NAME =	main.c \
+			app.c \
+			utils/output.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
 # Files
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
-OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
+OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
 
 # Libft
 FT		= ./libft/
 FT_LIB	= $(addprefix $(FT),libft.a)
 FT_INC	= -I ./libft
-FT_LNK	= -L ./libft -l ft
+FT_LNK	= -L ./libft -l ft -lreadline
 
 # Flags
 CC = gcc $(CFLAGS)
 CFLAGS = -Wall -Wextra -Werror
 
-all: obj $(FT_LIB) $(GLIB_LIB) $(MLX_LIB) $(NAME)
+all: obj $(FT_LIB) $(NAME)
 
 obj:
 	@echo "$(INFO)Creating objects folder... $(NOC)"
@@ -63,7 +65,7 @@ $(FT_LIB):
 
 $(NAME): $(OBJ)
 	@echo "$(INFO)Building $(NAME)...$(NOC)"
-	@$(CC) $(OBJ) $(FT_LNK) $(GLIB_LNK) $(MLX_LNK) -o $@
+	@$(CC) $(OBJ) $(FT_LNK) -o $@
 	@echo "$(SUCCESS)$(NAME) built successfully!$(NOC)"
 
 clean:

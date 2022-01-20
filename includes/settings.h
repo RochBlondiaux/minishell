@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   settings.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 19:04:41 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 21:03:51 by rblondia         ###   ########.fr       */
+/*   Created: 2022/01/20 19:12:21 by rblondia          #+#    #+#             */
+/*   Updated: 2022/01/20 20:51:47 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef SETTINGS_H
+#define SETTINGS_H
 
-int	main(void)
-{
-	t_app	*app;
+#define PROMPT_SYMBOL "➜ "
 
-	app = load_application();
-		// error(readline(ft_strjoin(GREEN, PROMPT_SYMBOL)));
-	unload_application(app);
-	return (EXIT_SUCCESS);
-}
+#endif

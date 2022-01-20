@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   messages.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 19:04:41 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 21:03:51 by rblondia         ###   ########.fr       */
+/*   Created: 2022/01/20 20:57:04 by rblondia          #+#    #+#             */
+/*   Updated: 2022/01/20 20:57:42 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef MESSAGES_H
+#define MESSAGES_H
 
-int	main(void)
-{
-	t_app	*app;
+# define APP_INITIALIZATION_FAILED "Application initialization failed!"
 
-	app = load_application();
-		// error(readline(ft_strjoin(GREEN, PROMPT_SYMBOL)));
-	unload_application(app);
-	return (EXIT_SUCCESS);
-}
+#endif
