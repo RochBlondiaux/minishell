@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 20:53:40 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 22:06:26 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/20 22:07:16 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_app	*load_application(void)
 
 void	unload_application(t_app *app)
 {
-	free(app->path);
+	if (app->path)
+		free(app->path);
 	free(app);
 }

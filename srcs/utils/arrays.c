@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 21:18:27 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 21:22:25 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/20 21:45:36 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ size_t	array_length(char **a)
 	size_t	l;
 
 	l = 0;
-	while (a[l++])
-		;
+	while (a[l])
+		l++;
 	return (l);
 }
 

@@ -40,8 +40,8 @@ SRC_NAME =	main.c \
 			commands/echo.c \
 			commands/unset.c \
 			commands/exit.c \
-			utils/output.c \
 			utils/files.c \
+			utils/app.c \
 			utils/arrays.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -100,7 +100,7 @@ leaks: $(NAME)
 	$(LEAKS_CMD) ./$(NAME)
 
 run: $(NAME)
-	./$(NAME)
+	@./$(NAME)
 
 re: fclean all
 

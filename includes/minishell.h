@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 21:55:51 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/20 22:28:41 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <signal.h>
 # include <dirent.h>
 # include <errno.h>
+# include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -78,5 +79,8 @@ void	info(char *a);
 size_t	array_length(char **a);
 void	free_array(char **a);
 char	*working_directory(void);
+char	*home_directory(void);
+int		set_path(t_app *app, char *a);
+char	*path(char *raw);
 
 #endif
