@@ -1,18 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   settings.h                                         :+:      :+:    :+:   */
+/*   arrays.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 19:12:21 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 22:07:42 by rblondia         ###   ########.fr       */
+/*   Created: 2022/01/20 21:18:27 by rblondia          #+#    #+#             */
+/*   Updated: 2022/01/20 21:22:25 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SETTINGS_H
-# define SETTINGS_H
+#include "../../includes/minishell.h"
 
-# define PROMPT_SYMBOL "\033[0;32m➜ \033[0m"
+size_t	array_length(char **a)
+{
+	size_t	l;
 
-#endif
+	l = 0;
+	while (a[l++])
+		;
+	return (l);
+}
+
+void	free_array(char **a)
+{
+	size_t	i;
+
+	i = 0;
+	while (a[i])
+		free(a[i++]);
+	free(a);
+}

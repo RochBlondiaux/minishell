@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   settings.h                                         :+:      :+:    :+:   */
+/*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 19:12:21 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 22:07:42 by rblondia         ###   ########.fr       */
+/*   Created: 2022/01/20 22:04:33 by rblondia          #+#    #+#             */
+/*   Updated: 2022/01/20 22:05:11 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SETTINGS_H
-# define SETTINGS_H
+#include "../../includes/minishell.h"
 
-# define PROMPT_SYMBOL "\033[0;32m➜ \033[0m"
+char	*working_directory(void)
+{
+	char cwd[PATH_MAX];
 
-#endif
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		return ft_strdup(cwd);
+	return NULL;
+}

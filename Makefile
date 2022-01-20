@@ -25,10 +25,24 @@ SRC_PATH = ./srcs/
 OBJ_PATH = ./objs/
 INCDIR = ./includes
 
+# Leaks cmd
+LEAKS_CMD = valgrind --leak-check=yes
+
 # Name
 SRC_NAME =	main.c \
 			app.c \
+			engine.c \
+			commands/command_handler.c \
+			commands/cd.c \
+			commands/pwd.c \
+			commands/export.c \
+			commands/env.c \
+			commands/echo.c \
+			commands/unset.c \
+			commands/exit.c \
 			utils/output.c \
+			utils/files.c \
+			utils/arrays.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -51,7 +65,7 @@ all: obj $(FT_LIB) $(NAME)
 obj:
 	@echo "$(INFO)Creating objects folder... $(NOC)"
 	@mkdir -p $(OBJ_PATH)
-	@mkdir -p $(OBJ_PATH)/parsing
+	@mkdir -p $(OBJ_PATH)/commands
 	@mkdir -p $(OBJ_PATH)/utils
 	@echo "$(SUCCESS)Objects folder created successfully$(NOC)"
 
@@ -75,12 +89,19 @@ clean:
 	@echo "$(INFO)Deleting libft files..."
 	@make -C $(FT) clean
 	@echo "$(SUCCESS)Libft files deleted successfully!$(NOC)"
+
 fclean: clean
 	@echo "$(INFO)Deleting $(NAME)...$(NOC)"
 	@rm -rf $(NAME)
 	@echo "$(SUCCESS)$(NAME) deleted successfully!$(NOC)"
 	@make -C $(FT) fclean
 
+leaks: $(NAME)
+	$(LEAKS_CMD) ./$(NAME)
+
+run: $(NAME)
+	./$(NAME)
+
 re: fclean all
 
-.PHONY:			all clean fclean re
+.PHONY:			all clean fclean re leaks run

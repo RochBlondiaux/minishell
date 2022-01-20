@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   settings.h                                         :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 19:12:21 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 22:07:42 by rblondia         ###   ########.fr       */
+/*   Created: 2022/01/20 21:38:54 by rblondia          #+#    #+#             */
+/*   Updated: 2022/01/20 22:02:59 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SETTINGS_H
-# define SETTINGS_H
+#include "../../includes/minishell.h"
 
-# define PROMPT_SYMBOL "\033[0;32m➜ \033[0m"
-
-#endif
+void	m_pwd(t_app *app, char **args)
+{
+	(void) args;
+	printf("%s\n", app->path);
+}

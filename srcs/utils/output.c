@@ -6,11 +6,11 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 20:57:58 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 20:57:58 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/20 21:20:27 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	info(char *a)
 {
