@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 21:38:54 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 22:54:16 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/21 11:05:49 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ void	m_cd(t_app *app, char **args)
 	else
 		target = home_directory();
 	if (!set_path(app, target))
-		perror(strerror(ENOENT));
+		error(app, ENOENT);
 }

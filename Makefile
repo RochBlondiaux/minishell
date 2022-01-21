@@ -44,6 +44,7 @@ SRC_NAME =	main.c \
 			utils/env.c \
 			utils/process.c \
 			utils/app.c \
+			utils/outputs.c \
 			utils/arrays.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -68,6 +69,7 @@ obj:
 	@echo "$(INFO)Creating objects folder... $(NOC)"
 	@mkdir -p $(OBJ_PATH)
 	@mkdir -p $(OBJ_PATH)/commands
+	@mkdir -p $(OBJ_PATH)/controls
 	@mkdir -p $(OBJ_PATH)/utils
 	@echo "$(SUCCESS)Objects folder created successfully$(NOC)"
 

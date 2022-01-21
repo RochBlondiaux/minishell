@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   settings.h                                         :+:      :+:    :+:   */
+/*   outputs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 19:12:21 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 11:03:48 by rblondia         ###   ########.fr       */
+/*   Created: 2022/01/21 11:07:00 by rblondia          #+#    #+#             */
+/*   Updated: 2022/01/21 11:12:12 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SETTINGS_H
-# define SETTINGS_H
+#include "../../includes/minishell.h"
 
-# define PROMPT_SYMBOL "\033[0;32m➜ \033[0m"
-# define ERROR_PROMPT_SYMBOL "\033[0;31m➜ \033[0m"
+void	error(t_app *app, int code)
+{
+	perror(strerror(code));
+	app->error = 1;
+}
 
-#endif
+void	str_error(t_app *app, char *error)
+{
+	ft_putendl_fd(error, 2);
+	app->error = 1;
+}

@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 21:09:14 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 01:16:58 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/21 11:10:53 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	handle_user_input(t_app *app, char *input)
 	{
 		result = execute_command(args);
 		if (!result)
-			printf("%s%s\n", RED, COMMAND_NOT_FOUND);
+			str_error(app, COMMAND_NOT_FOUND);
 	}
 	add_history(input);
 	free_array(args);
@@ -55,7 +55,11 @@ void	launch_engine_loop(t_app *app)
 
 	while (app->running)
 	{
-		line = readline(PROMPT_SYMBOL);
+		if (app->error)
+			line = readline(ERROR_PROMPT_SYMBOL);
+		else
+			line = readline(PROMPT_SYMBOL);
+		app->error = 0;
 		if (ft_strlen(line) == 0)
 			continue ;
 		handle_user_input(app, line);

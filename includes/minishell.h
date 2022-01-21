@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 00:59:57 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/21 11:08:38 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 typedef struct s_app {
 	char	*path;
 	int		running;
+	int		error;
 }			t_app;
 
 /**
@@ -74,10 +75,12 @@ void	unload_application(t_app *app);
 void	start_application(t_app *app);
 
 /**
+ * Controls functions
+ */
+
+/**
  * Utils functions
  */
-void	error(char *a);
-void	info(char *a);
 size_t	array_length(char **a);
 void	free_array(char **a);
 char	*working_directory(void);
@@ -86,5 +89,7 @@ int		set_path(t_app *app, char *a);
 char	*path(char *raw);
 char	*get_program_path(char *name);
 pid_t	sub_process(void);
+void	error(t_app *app, int code);
+void	str_error(t_app *app, char *error);
 
 #endif

@@ -29,6 +29,7 @@ t_app	*load_application(void)
 		exit(EXIT_FAILURE);
 	}
 	app->path = working_directory();
+	app->error = 0;
 	return (app);
 }
 
