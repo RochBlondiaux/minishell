@@ -33,6 +33,7 @@ static char	**process_redirections(t_app *app, char **args)
 static int	execute_command(t_app *app, char *name, char **args)
 {
 	char	*path;
+
 	path = get_program_path(name);
 	if (!path)
 		return (FALSE);
@@ -76,7 +77,7 @@ void	launch_engine_loop(t_app *app)
 		line = readline(get_prompt_symbol(app));
 		app->error = FALSE;
 		if (!line)
-			break;
+			break ;
 		else if (ft_strlen(line) == FALSE)
 		{
 			app->error = TRUE;

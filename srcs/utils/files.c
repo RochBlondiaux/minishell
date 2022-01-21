@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 22:04:33 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 12:14:28 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/21 21:31:22 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*working_directory(void)
 
 char	*home_directory(void)
 {
-	return env("HOME");
+	return (env("HOME"));
 }
 
 int	exists(char *path)
@@ -57,10 +57,12 @@ char	*parent(char *path)
 		if (l - 1 != index)
 		{
 			if (l - 2 > index)
-				final = ft_strjoin_properly(final, ft_strjoin_properly(a[index], ft_strdup("/")));
+				final = ft_strjoin_properly(final,
+						ft_strjoin_properly(a[index], ft_strdup("/")));
 			else
 				final = ft_strjoin_properly(final, a[index]);
-		} else
+		}
+		else
 			free (a[index]);
 	}
 	free(a);

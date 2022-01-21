@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static char *get_accurate_path(char *path, char *name)
+static char	*get_accurate_path(char *path, char *name)
 {
 	char	*final;
 	char	*tmp;
@@ -23,7 +23,7 @@ static char *get_accurate_path(char *path, char *name)
 		tmp = ft_strdup(path);
 	final = ft_strjoin(tmp, name);
 	free(tmp);
-	return final;
+	return (final);
 }
 
 char	*get_program_path(char *name)
@@ -36,7 +36,7 @@ char	*get_program_path(char *name)
 	i = 0;
 	paths = ft_split(getenv("PATH"), ':');
 	path = NULL;
-	while(paths[i])
+	while (paths[i])
 	{
 		tmp = get_accurate_path(paths[i], name);
 		if (tmp && access(tmp, X_OK) == FALSE)

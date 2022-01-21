@@ -80,7 +80,7 @@ void	start_application(t_app *app);
  */
 void	handle_controls(t_app *app);
 void	handle_input_redirection(t_app *app, char **args);
-void	handle_output_redirection(t_app *app,char **args);
+void	handle_output_redirection(t_app *app, char **args);
 
 /**
  * Utils functions

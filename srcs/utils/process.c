@@ -14,7 +14,7 @@
 
 pid_t	sub_process(void)
 {
-	pid_t id;
+	pid_t	id;
 
 	id = fork();
 	if (id == -1)
