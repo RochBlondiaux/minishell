@@ -27,7 +27,7 @@ int	hande_command(t_app *app, char *name, char **args)
 	else if (ft_strcmp(name, "env"))
 		m_env(args);
 	else if (ft_strcmp(name, "exit"))
-		m_exit(app, args);
+		m_exit(app);
 	else
 		return (0);
 	return (1);

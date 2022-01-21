@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   outputs.c                                          :+:      :+:    :+:   */
+/*   controls_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/21 11:07:00 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 11:12:18 by rblondia         ###   ########.fr       */
+/*   Created: 2022/01/21 11:14:44 by rblondia          #+#    #+#             */
+/*   Updated: 2022/01/21 11:41:58 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	error(t_app *app, int code)
+t_app	*g_app;
+
+static void exit_handler(int a)
 {
-	perror(strerror(code));
-	app->error = TRUE;
+	(void) a;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
-void	str_error(t_app *app, char *error)
+void	handle_controls(t_app *app)
 {
-	ft_putendl_fd(error, 2);
-	app->error = TRUE;
+	g_app = app;
+	signal(SIGINT, exit_handler);
 }

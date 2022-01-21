@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 11:08:38 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/21 11:15:39 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	m_env(char **args);
 void	m_export(char **args);
 void	m_pwd(t_app *app, char **args);
 void	m_unset(char **args);
-void	m_exit(t_app *app, char **args);
+void	m_exit(t_app *app);
 int		hande_command(t_app *app, char *name, char **args);
 
 /**
@@ -77,6 +77,7 @@ void	start_application(t_app *app);
 /**
  * Controls functions
  */
+void	handle_controls(t_app *app);
 
 /**
  * Utils functions

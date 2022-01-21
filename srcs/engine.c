@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 21:09:14 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 11:10:53 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/21 11:31:28 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	execute_command(char **args)
 
 	path = get_program_path(args[0]);
 	if (!path)
-		return (0);
+		return (FALSE);
 	sub = sub_process();
 	if (sub == 0)
 	{
@@ -59,9 +59,14 @@ void	launch_engine_loop(t_app *app)
 			line = readline(ERROR_PROMPT_SYMBOL);
 		else
 			line = readline(PROMPT_SYMBOL);
-		app->error = 0;
-		if (ft_strlen(line) == 0)
+		app->error = FALSE;
+		if (!line)
+			break;
+		else if (ft_strlen(line) == FALSE)
+		{
+			app->error = TRUE;
 			continue ;
+		}
 		handle_user_input(app, line);
 	}
 }

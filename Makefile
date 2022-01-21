@@ -40,6 +40,7 @@ SRC_NAME =	main.c \
 			commands/echo.c \
 			commands/unset.c \
 			commands/exit.c \
+			controls/controls_handler.c \
 			utils/files.c \
 			utils/env.c \
 			utils/process.c \

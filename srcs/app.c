@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 20:53:40 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 23:42:51 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/21 11:27:16 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	start_application(t_app *app)
 {
 	app->running = TRUE;
+	handle_controls(app);
 	launch_engine_loop(app);
 }
 
@@ -23,19 +24,20 @@ t_app	*load_application(void)
 	t_app	*app;
 
 	app = malloc(sizeof(t_app *));
+	app->error = FALSE;
 	if (!app)
 	{
-		error(APP_INITIALIZATION_FAILED);
+		str_error(app, APP_INITIALIZATION_FAILED);
 		exit(EXIT_FAILURE);
 	}
 	app->path = working_directory();
-	app->error = 0;
 	return (app);
 }
 
 void	unload_application(t_app *app)
 {
-	if (app->path)
-		free(app->path);
+	printf("%s%s\n", GREEN, EXIT_MESSAGE);
+	free(app->path);
 	free(app);
+	exit(EXIT_SUCCESS);
 }

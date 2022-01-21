@@ -15,8 +15,8 @@
 int	set_path(t_app *app, char *a)
 {
 	if (!a)
-		return (0);
+		return (FALSE);
 	free(app->path);
 	app->path = a;
-	return (chdir(a) == 0);
+	return (chdir(a) == FALSE);
 }

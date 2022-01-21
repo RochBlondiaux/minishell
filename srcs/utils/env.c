@@ -39,7 +39,7 @@ char	*get_program_path(char *name)
 	while(paths[i])
 	{
 		tmp = get_accurate_path(paths[i], name);
-		if (tmp && access(tmp, X_OK) == 0)
+		if (tmp && access(tmp, X_OK) == FALSE)
 			path = ft_strdup(tmp);
 		free(tmp);
 		free(paths[i]);
