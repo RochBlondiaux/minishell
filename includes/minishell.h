@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 13:59:57 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/21 14:59:38 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_app {
 	char	*path;
 	int		running;
 	int		error;
+	pid_t	sub;
 }			t_app;
 
 /**
@@ -75,9 +76,11 @@ void	unload_application(t_app *app);
 void	start_application(t_app *app);
 
 /**
- * Controls functions
+ * Handlers functions
  */
 void	handle_controls(t_app *app);
+void	handle_input_redirection(t_app *app, char **args);
+void	handle_output_redirection(t_app *app,char **args);
 
 /**
  * Utils functions
@@ -97,5 +100,7 @@ char	*parent(char *path);
 char	*env(char *name);
 char	*get_prompt_symbol(t_app *app);
 char	**process_env_vars(char **args);
+char	*read_file(t_app *app, char *path);
+char	*gnl(int fd);
 
 #endif

@@ -1,4 +1,4 @@
-TODO:
+## TODO:
 * Not interpret unclosed quotes or special characters which are not required by the
 subject such as \ (backslash) or ; (semicolon).
 * Handle ’ (single quote) which should prevent the shell from interpreting the meta-
@@ -6,7 +6,6 @@ characters in the quoted sequence.
 * Handle " (double quote) which should prevent the shell from interpreting the meta-
 characters in the quoted sequence except for $ (dollar sign).
 * Implement redirections:
-* < should redirect input.
 * \> should redirect output.
 * << should be given a delimiter, then read the input until a line containing the
 delimiter is seen. However, it doesn’t have to update the history!
@@ -19,6 +18,8 @@ foreground pipeline.
 * unset with no options
 * env with no options or arguments
 
+## FIXES:
+* Find a way to kill sub processes on exit/on ctrl-c & ctrl-d
 * FIX cd command, it doesn't work properly, example:
 ```bash
 ➜ cd /var/www
@@ -29,12 +30,11 @@ foreground pipeline.
 .git/
 ```
 
-IN PROGRESS
+## IN PROGRESS:
 
-* Handle environment variables ($ followed by a sequence of characters) which
-  should expand to their values.
+* < should redirect input.
 
-DONE:
+## DONE
 * Display a prompt when waiting for a new command.
 * Have a working history.
 * Search and launch the right executable (based on the PATH variable or using a
@@ -50,3 +50,5 @@ its purpose. (I used it in controls/controls_handler.c)
 * cd with only a relative or absolute path
 * pwd with no options
 * exit with no options
+* Handle environment variables ($ followed by a sequence of characters) which
+    should expand to their values.

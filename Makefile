@@ -40,8 +40,10 @@ SRC_NAME =	main.c \
 			commands/echo.c \
 			commands/unset.c \
 			commands/exit.c \
-			controls/controls_handler.c \
+			handlers/controls_handler.c \
+			handlers/redirection_handler.c \
 			utils/files.c \
+			utils/files_1.c \
 			utils/programms.c \
 			utils/env.c \
 			utils/process.c \
@@ -71,7 +73,7 @@ obj:
 	@echo "$(INFO)Creating objects folder... $(NOC)"
 	@mkdir -p $(OBJ_PATH)
 	@mkdir -p $(OBJ_PATH)/commands
-	@mkdir -p $(OBJ_PATH)/controls
+	@mkdir -p $(OBJ_PATH)/handlers
 	@mkdir -p $(OBJ_PATH)/utils
 	@echo "$(SUCCESS)Objects folder created successfully$(NOC)"
 

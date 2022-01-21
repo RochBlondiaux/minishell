@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   controls_handler.c                                 :+:      :+:    :+:   */
+/*   redirection_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/21 11:14:44 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 11:41:58 by rblondia         ###   ########.fr       */
+/*   Created: 2022/01/21 14:52:44 by rblondia          #+#    #+#             */
+/*   Updated: 2022/01/21 15:00:21 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_app	*g_app;
-
-static void exit_handler(int a)
+void	handle_input_redirection(t_app *app, char **args)
 {
-	(void) a;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	(void) app;
+	(void) args;
 }
 
-void	handle_controls(t_app *app)
+void	handle_output_redirection(t_app *app,char **args)
 {
-	g_app = app;
-	signal(SIGINT, exit_handler);
+	(void) app;
+	(void) args;
 }
+

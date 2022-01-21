@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 20:53:40 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 11:27:48 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/21 14:36:46 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	unload_application(t_app *app)
 {
 	if (FANCY_MODE)
 		printf("%s%s\n", GREEN, EXIT_MESSAGE);
+	if (app->sub)
+		kill(app->sub, SIGKILL);
 	free(app->path);
 	free(app);
 	exit(EXIT_SUCCESS);
