@@ -41,6 +41,8 @@ SRC_NAME =	main.c \
 			commands/unset.c \
 			commands/exit.c \
 			utils/files.c \
+			utils/env.c \
+			utils/process.c \
 			utils/app.c \
 			utils/arrays.c
 

@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 22:28:41 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/21 00:59:57 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # include "colors.h"
 # include "settings.h"
@@ -82,5 +84,7 @@ char	*working_directory(void);
 char	*home_directory(void);
 int		set_path(t_app *app, char *a);
 char	*path(char *raw);
+char	*get_program_path(char *name);
+pid_t	sub_process(void);
 
 #endif
