@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 22:04:33 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 12:13:10 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/21 12:14:28 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,7 @@ char	*working_directory(void)
 
 char	*home_directory(void)
 {
-	char	*dir;
-
-	dir = getenv("HOME");
-	if (dir == NULL)
-		return (NULL);
-	return (ft_strdup(dir));
+	return env("HOME");
 }
 
 int	exists(char *path)

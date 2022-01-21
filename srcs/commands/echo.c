@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 21:38:54 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 23:38:10 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/21 13:53:20 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	m_echo(char **args)
 	size_t	i;
 	size_t	l;
 
-	i = 0;
+	i = -1;
 	mode = 0;
 	l = array_length(args);
-	if (l >= 2 && ft_strcmp(args[1], "-n"))
+	if (l > 0 && ft_strcmp(args[0], "-n"))
 	{
 		mode = 1;
 		i += 1;
@@ -33,7 +33,7 @@ void	m_echo(char **args)
 		else
 			printf("%s ", args[i]);
 	}
-	if (l > 1)
+	if (l > 0)
 	{
 		if (mode)
 			printf("%s%s%%%s", BOLD, "\033[3;107;30m", RESET);

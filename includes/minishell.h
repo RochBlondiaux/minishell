@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 11:48:44 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/21 13:59:57 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,8 @@ void	error(t_app *app, int code);
 void	str_error(t_app *app, char *error);
 int		exists(char *path);
 char	*parent(char *path);
+char	*env(char *name);
+char	*get_prompt_symbol(t_app *app);
+char	**process_env_vars(char **args);
 
 #endif

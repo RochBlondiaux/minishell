@@ -6,45 +6,37 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 23:45:08 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 00:55:33 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/21 14:19:11 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char *get_accurate_path(char *path, char *name)
+char	*env(char *name)
 {
-	char	*final;
-	char	*tmp;
+	char	*v;
 
-	if (path[ft_strlen(path) - 1] != '/')
-		tmp = ft_strjoin(path, "/");
-	else
-		tmp = ft_strdup(path);
-	final = ft_strjoin(tmp, name);
-	free(tmp);
-	return final;
+	v = getenv(name);
+	if (v == NULL)
+		return (NULL);
+	return (ft_strdup(v));
 }
 
-char	*get_program_path(char *name)
+char	**process_env_vars(char **args)
 {
-	char	**paths;
-	int		i;
-	char	*path;
+	size_t	i;
 	char	*tmp;
 
-	i = 0;
-	paths = ft_split(getenv("PATH"), ':');
-	path = NULL;
-	while(paths[i])
+	i = -1;
+	while (args[++i])
 	{
-		tmp = get_accurate_path(paths[i], name);
-		if (tmp && access(tmp, X_OK) == FALSE)
-			path = ft_strdup(tmp);
-		free(tmp);
-		free(paths[i]);
-		i++;
+		if (!args[i] || args[i][0] != '$')
+			continue ;
+		tmp = env(&args[i][1]);
+		if (!tmp)
+			continue ;
+		free(args[i]);
+		args[i] = tmp;
 	}
-	free(paths);
-	return (path);
+	return (args);
 }

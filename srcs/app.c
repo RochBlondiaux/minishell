@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 20:53:40 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 11:27:16 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/21 11:27:48 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ t_app	*load_application(void)
 
 void	unload_application(t_app *app)
 {
-	printf("%s%s\n", GREEN, EXIT_MESSAGE);
+	if (FANCY_MODE)
+		printf("%s%s\n", GREEN, EXIT_MESSAGE);
 	free(app->path);
 	free(app);
 	exit(EXIT_SUCCESS);

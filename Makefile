@@ -42,6 +42,7 @@ SRC_NAME =	main.c \
 			commands/exit.c \
 			controls/controls_handler.c \
 			utils/files.c \
+			utils/programms.c \
 			utils/env.c \
 			utils/process.c \
 			utils/app.c \
