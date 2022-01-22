@@ -1,6 +1,4 @@
 ## TODO:
-* Not interpret unclosed quotes or special characters which are not required by the
-subject such as \ (backslash) or ; (semicolon).
 * Handle ’ (single quote) which should prevent the shell from interpreting the meta-
 characters in the quoted sequence.
 * Handle " (double quote) which should prevent the shell from interpreting the meta-
@@ -17,8 +15,7 @@ foreground pipeline.
 * unset with no options
 * env with no options or arguments
 
-## FIXES:
-* Find a way to kill sub processes on exit/on ctrl-c & ctrl-d
+## BUGS:
 * FIX cd command, it doesn't work properly, example:
 ```bash
 ➜ cd /var/www
@@ -27,6 +24,12 @@ foreground pipeline.
 ➜ cd .git
 ➜ pwd
 .git/
+```
+* Fix the input redirection to avoid that:
+```bash
+➜ echo < eazaz
+Bad file descriptor: No such file or directory #This shouldn't append, NEVER!
+< eazaz
 ```
 
 ## IN PROGRESS:
@@ -51,3 +54,5 @@ its purpose. (I used it in controls/controls_handler.c)
 * exit with no options
 * Handle environment variables ($ followed by a sequence of characters) which
     should expand to their values.
+* Not interpret unclosed quotes or special characters which are not required by the
+  subject such as \ (backslash) or ; (semicolon).
