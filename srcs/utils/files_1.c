@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 22:04:33 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 14:47:54 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/22 15:04:27 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	*read_file(t_app *app, char *path)
 		return (NULL);
 	}
 	tmp = ft_read(fd);
+	content = NULL;
 	while (tmp)
 	{
 		if (!content)

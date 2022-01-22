@@ -14,7 +14,7 @@
 
 t_app	*g_app;
 
-static void exit_handler(int a)
+static void	exit_handler(int a)
 {
 	(void) a;
 	if (g_app->sub)

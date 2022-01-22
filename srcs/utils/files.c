@@ -44,19 +44,17 @@ char	*parent(char *path)
 	char	**a;
 	char	*final;
 	size_t	index;
-	size_t	l;
 
 	if (!exists(path))
 		return (NULL);
 	a = ft_split(path, '/');
 	index = -1;
-	l = array_length(a);
 	final = ft_strdup("/");
 	while (a[++index])
 	{
-		if (l - 1 != index)
+		if (array_length(a) - 1 != index)
 		{
-			if (l - 2 > index)
+			if (array_length(a) - 2 > index)
 				final = ft_strjoin_properly(final,
 						ft_strjoin_properly(a[index], ft_strdup("/")));
 			else

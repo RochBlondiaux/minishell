@@ -6,14 +6,15 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 21:09:14 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 14:59:48 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/22 16:50:06 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	**process_redirections(t_app *app, char **args)
+static char	*process_redirections(t_app *app, char **args)
 {
+	char	*input;
 	size_t	i;
 
 	i = -1;
@@ -22,19 +23,26 @@ static char	**process_redirections(t_app *app, char **args)
 		if (args[i] && ft_strlen(args[i]) == 1)
 		{
 			if (args[i][0] == '<')
-				handle_input_redirection(app, &args[i + 1]);
+			{
+				input = handle_input_redirection(app, &args[i + 1]);
+				if (input)
+					return (input);
+			}
 			else if (args[i][0] == '>')
 				handle_output_redirection(app, &args[i + 1]);
 		}
 	}
-	return (args);
+	return (NULL);
 }
 
-static int	execute_command(t_app *app, char *name, char **args)
+static int	execute_command(t_app *app, char *name,
+							char **args, char *input)
 {
 	char	*path;
 
 	path = get_program_path(name);
+	// TODO:  do something with input
+	(void) input;
 	if (!path)
 		return (FALSE);
 	app->sub = sub_process();
@@ -51,15 +59,17 @@ static void	handle_user_input(t_app *app, char *input)
 	char	**args;
 	int		result;
 	char	*command;
+	char	*redirection_input;
 
 	args = ft_split(input, ' ');
 	command = args[0];
 	args = process_env_vars(args);
-	args = process_redirections(app, args);
+	redirection_input = process_redirections(app, args);
 	result = hande_command(app, command, &args[1]);
 	if (!result)
 	{
-		result = execute_command(app, command, &args[0]);
+		result = execute_command(app, command,
+				&args[0], redirection_input);
 		if (!result)
 			str_error(app, COMMAND_NOT_FOUND);
 	}
