@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 21:09:14 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/22 17:11:31 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/22 18:17:27 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static char	*process_redirections(t_app *app, char **args)
 				input = handle_input_redirection(app, &args[i + 1]);
 				if (input)
 					return (input);
+				return ("");
 			}
 			else if (args[i][0] == '>')
 				handle_output_redirection(app, &args[i + 1]);
@@ -51,7 +52,7 @@ static void	handle_user_input(t_app *app, char *input)
 	{
 		result = handle_env_cmd(app, command,
 				&args[0], redirection_input);
-		if (!result)
+		if (result == 0)
 			str_error(app, COMMAND_NOT_FOUND);
 	}
 	add_history(input);

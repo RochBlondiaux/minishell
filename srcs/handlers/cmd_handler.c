@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 17:10:54 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/22 17:43:46 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/22 18:16:57 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@ static void	execute_normal_cmd(t_app *app, char *path, char **args)
 	waitpid(app->sub, &status, 0);
 	kill(app->sub, SIGKILL);
 	app->error = WEXITSTATUS(status);
+}
+
+static int	handle_special_cmd(t_app *app, char *input, int *fd)
+{
+	int	status;
+
+	close(fd[0]);
+	write(fd[1], input, ft_strlen(input));
+	close(fd[1]);
+	waitpid(app->sub, &status, 0);
+	return (status);
 }
 
 static void	execute_special_cmd(t_app *app, char *path,
@@ -47,12 +58,7 @@ static void	execute_special_cmd(t_app *app, char *path,
 		execv(path, args);
 	}
 	else
-	{
-		close(fd[0]);
-		write(fd[1], input, ft_strlen(input));
-		close(fd[1]);
-		waitpid(app->sub, &status, 0);
-	}
+		status = handle_special_cmd(app, input, fd);
 	kill(app->sub, SIGKILL);
 	app->error = WEXITSTATUS(status);
 }
@@ -62,8 +68,9 @@ int	handle_env_cmd(t_app *app, char *name,
 {
 	char	*path;
 
+	if (input && !input[0])
+		return (-1);
 	path = get_program_path(name);
-	// TODO:  do something with input
 	if (!path)
 		return (FALSE);
 	if (!input)
@@ -71,5 +78,6 @@ int	handle_env_cmd(t_app *app, char *name,
 	else
 		execute_special_cmd(app, path, name, input);
 	free(path);
+	free(input);
 	return (1);
 }

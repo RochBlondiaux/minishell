@@ -5,7 +5,6 @@ subject such as \ (backslash) or ; (semicolon).
 characters in the quoted sequence.
 * Handle " (double quote) which should prevent the shell from interpreting the meta-
 characters in the quoted sequence except for $ (dollar sign).
-* Implement redirections:
 * \> should redirect output.
 * << should be given a delimiter, then read the input until a line containing the
 delimiter is seen. However, it doesn’t have to update the history!
@@ -32,9 +31,9 @@ foreground pipeline.
 
 ## IN PROGRESS:
 
-* < should redirect input.
 
 ## DONE
+* < should redirect input.
 * Display a prompt when waiting for a new command.
 * Have a working history.
 * Search and launch the right executable (based on the PATH variable or using a
