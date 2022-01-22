@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 14:59:38 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/22 17:12:20 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	start_application(t_app *app);
 void	handle_controls(t_app *app);
 char	*handle_input_redirection(t_app *app, char **args);
 void	handle_output_redirection(t_app *app, char **args);
-
+int		handle_env_cmd(t_app *app, char *name,
+			char **args, char *input);
 /**
  * Utils functions
  */

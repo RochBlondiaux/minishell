@@ -41,6 +41,7 @@ SRC_NAME =	main.c \
 			commands/unset.c \
 			commands/exit.c \
 			handlers/controls_handler.c \
+			handlers/cmd_handler.c \
 			handlers/redirection_handler.c \
 			utils/files.c \
 			utils/files_1.c \
