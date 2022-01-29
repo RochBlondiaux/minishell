@@ -1,33 +1,11 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arrays.c                                           :+:      :+:    :+:   */
+/*   arrays                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
+/*   By: rblondia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 21:18:27 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 21:45:36 by rblondia         ###   ########.fr       */
-/*                                                                            */
+/*   Created: 2021/09/17 14:02:15 by rblondia          #+#    #+#             */
+/*   Updated: 2021/09/17 14:25:36 by rblondia         /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-
-size_t	array_length(char **a)
-{
-	size_t	l;
-
-	l = 0;
-	while (a[l])
-		l++;
-	return (l);
-}
-
-void	free_array(char **a)
-{
-	size_t	i;
-
-	i = 0;
-	while (a[i])
-		free(a[i++]);
-	free(a);
-}

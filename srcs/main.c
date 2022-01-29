@@ -1,23 +1,11 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
+/*   By: rblondia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 19:04:41 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 21:35:03 by rblondia         ###   ########.fr       */
-/*                                                                            */
+/*   Created: 2021/09/17 14:02:15 by rblondia          #+#    #+#             */
+/*   Updated: 2021/09/17 14:25:36 by rblondia         /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-int	main(void)
-{
-	t_app	*app;
-
-	app = load_application();
-	start_application(app);
-	unload_application(app);
-	return (EXIT_SUCCESS);
-}
