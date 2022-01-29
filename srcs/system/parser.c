@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 16:36:33 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/26 16:46:21 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/29 16:57:18 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,7 @@ t_command	**parse(char **args)
 	{
 		commands[++cmds] = create_command(args, args[index], &index);
 		if (is_separator(args[index]))
-		{
-			// TODO : parse separator
-		}
+
 		if (index >= (int) array_length(args))
 			break ;
 		index++;

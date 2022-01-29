@@ -34,6 +34,7 @@ SRC_NAME =	main.c \
 			engine.c \
 			system/lexer.c \
 			system/parser.c \
+			utils/tokens.c \
 			utils/commands.c \
 			utils/parser.c \
 			utils/arrays.c

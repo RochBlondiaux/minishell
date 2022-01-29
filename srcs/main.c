@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:41 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/20 21:35:03 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/29 16:57:15 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,20 @@ int	main(void)
 
 	app.running = 0;
 	app.error = 0;
-	char **a = lexer(&app, "wc -l | cat > out.txt | echo -n | grep Makefile < test.out", &b);
+	char **a = lexer(&app, "wc -l || cat > out.txt | echo -n | grep Makefile < test.out", &b);
 	t_command **cmds = parse(a);
-	/*
-	int i = 0;
-	while (cmds[i])
+	int i = -1;
+	while (cmds[++i])
 	{
-		printf("Cmd name: %s\n", cmds[i]->name);
-		int j = 0;
-		while (cmds[i]->args[j])
-		{
-			printf("Arg: %s\n", cmds[i]->args[j]);
-			j++;
-		}
-		printf("-----------\n");
-		i++;
-	} */
+		printf("--------[%s]--------\n", cmds[i]->name);
+		printf("Input path: %s\n", cmds[i]->input_path);
+		printf("Output path: %s\n", cmds[i]->output_path);
+		printf("Input pipe: %d\n", cmds[i]->input_pipe);
+		printf("Output pipe: %d\n", cmds[i]->output_pipe);
+		int j = -1;
+		while (cmds[i]->args[++j])
+			printf("%s\n", cmds[i]->args[j]);
+		printf("\n\n");
+	}
 	free_commands(cmds);
 }

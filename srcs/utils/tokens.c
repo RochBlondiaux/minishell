@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rblondia <rblondia@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 14:07:21 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/29 16:57:17 by rblondia         ###   ########.fr       */
+/*   Created: 2022/01/26 16:36:33 by rblondia          #+#    #+#             */
+/*   Updated: 2022/01/29 16:57:18 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_tolower(int a)
+#include "../../includes/minishell.h"
+
+e_token	parse_tokens(t_command *command, t_command *next, char *token)
 {
-	if (a >= 'A' && a <= 'Z')
-		return (a + 32);
-	return (a);
+
 }

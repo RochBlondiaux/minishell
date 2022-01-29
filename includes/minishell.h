@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/26 16:46:21 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/29 16:57:17 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,12 @@
 /**
  * Structures
  */
-typedef struct s_app {
-	char	*path;
-	int		running;
-	int		error;
-	pid_t	sub;
-}			t_app;
-
-enum e_token_type {
-	PIPELINE,
-	QUOTE,
-	DOUBLE_QUOTE,
+enum e_token {
+	PIPE,
 	SEMICOLON,
 	AMPERSAND,
-	DOUBLE_AMPERSAND
+	DOUBLE_AMPERSAND,
+	DOUBLE_PIPE,
 };
 
 typedef struct s_command {
@@ -67,8 +59,19 @@ typedef struct s_command {
 	char	*output_path;
 	int		input_pipe;
 	int		output_pipe;
-	int		asynchronous;
 }			t_command;
+
+typedef struct	s_command_map {
+	t_command	**commands;
+	e_token		*tokens;
+}				t_command_map;
+
+typedef struct s_app {
+	char	*path;
+	int		running;
+	int		error;
+	pid_t	sub;
+}			t_app;
 
 /**
  * Lexer
@@ -91,6 +94,11 @@ void		parse_redirections(t_command *command);
 size_t		array_length(char **array);
 void		free_array(char **array);
 char		**sub_array(char **array, size_t start, size_t length);
+
+/**
+ * Tokens utils
+ */
+e_token		parse_tokens(t_command *command, t_command *next, char *token);
 
 /**
  * Commands utils

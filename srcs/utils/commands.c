@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 20:53:40 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/21 14:36:46 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/29 16:57:18 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	free_commands(t_command **commands)
 	{
 		cmd = commands[i];
 		free(cmd->name);
+		free(cmd->output_path);
+		free(cmd->input_path);
 		free_array(cmd->args);
 		free(cmd);
 	}
@@ -70,7 +72,6 @@ static char	**get_command_arguments(char **args, char *name, int *ret)
 	while (args[index] && !is_separator(args[index]))
 	{
 		args_[arguments] = ft_strdup(args[index]);
-		printf("Argument #%zu: %s\n", arguments, args_[arguments]);
 		arguments++;
 		index++;
 	}
@@ -89,8 +90,6 @@ t_command	*create_command(char **args, char *name, int *index)
 	if (!cmd)
 		return (NULL);
 	cmd->name = ft_strdup(name);
-	printf("------ [%s] ------\n", cmd->name);
 	cmd->args = get_command_arguments(args, name, index);
-	printf("\n");
 	return (cmd);
 }
