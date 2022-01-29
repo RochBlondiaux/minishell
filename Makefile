@@ -32,24 +32,10 @@ LEAKS_CMD = valgrind --leak-check=yes
 SRC_NAME =	main.c \
 			app.c \
 			engine.c \
-			commands/command_handler.c \
-			commands/cd.c \
-			commands/pwd.c \
-			commands/export.c \
-			commands/env.c \
-			commands/echo.c \
-			commands/unset.c \
-			commands/exit.c \
-			handlers/controls_handler.c \
-			handlers/cmd_handler.c \
-			handlers/redirection_handler.c \
-			utils/files.c \
-			utils/files_1.c \
-			utils/programms.c \
-			utils/env.c \
-			utils/process.c \
-			utils/app.c \
-			utils/outputs.c \
+			system/lexer.c \
+			system/parser.c \
+			utils/commands.c \
+			utils/parser.c \
 			utils/arrays.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -73,6 +59,7 @@ all: obj $(FT_LIB) $(NAME)
 obj:
 	@echo "$(INFO)Creating objects folder... $(NOC)"
 	@mkdir -p $(OBJ_PATH)
+	@mkdir -p $(OBJ_PATH)/system
 	@mkdir -p $(OBJ_PATH)/commands
 	@mkdir -p $(OBJ_PATH)/handlers
 	@mkdir -p $(OBJ_PATH)/utils

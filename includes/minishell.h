@@ -6,7 +6,7 @@
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/22 17:12:20 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/01/26 16:46:21 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,57 +51,53 @@ typedef struct s_app {
 	pid_t	sub;
 }			t_app;
 
-/**
- * Commands functions
- */
-void	m_cd(t_app *app, char **args);
-void	m_echo(char **args);
-void	m_env(char **args);
-void	m_export(char **args);
-void	m_pwd(t_app *app, char **args);
-void	m_unset(char **args);
-void	m_exit(t_app *app);
-int		hande_command(t_app *app, char *name, char **args);
+enum e_token_type {
+	PIPELINE,
+	QUOTE,
+	DOUBLE_QUOTE,
+	SEMICOLON,
+	AMPERSAND,
+	DOUBLE_AMPERSAND
+};
+
+typedef struct s_command {
+	char	*name;
+	char	**args;
+	char	*input_path;
+	char	*output_path;
+	int		input_pipe;
+	int		output_pipe;
+	int		asynchronous;
+}			t_command;
 
 /**
- * Engine functions
+ * Lexer
  */
-void	launch_engine_loop(t_app *app);
+char		**lexer(t_app *app, char *input, int *result);
 
 /**
- * Application functions
+ * Parser
  */
-t_app	*load_application(void);
-void	unload_application(t_app *app);
-void	start_application(t_app *app);
+t_command	**parse(char **args);
 
 /**
- * Handlers functions
+ * Parsing utils
  */
-void	handle_controls(t_app *app);
-char	*handle_input_redirection(t_app *app, char **args);
-void	handle_output_redirection(t_app *app, char **args);
-int		handle_env_cmd(t_app *app, char *name,
-			char **args, char *input);
+void		parse_redirections(t_command *command);
+
 /**
- * Utils functions
+ * Arrays Utils
  */
-size_t	array_length(char **a);
-void	free_array(char **a);
-char	*working_directory(void);
-char	*home_directory(void);
-int		set_path(t_app *app, char *a);
-char	*path(char *raw);
-char	*get_program_path(char *name);
-pid_t	sub_process(void);
-void	error(t_app *app, int code);
-void	str_error(t_app *app, char *error);
-int		exists(char *path);
-char	*parent(char *path);
-char	*env(char *name);
-char	*get_prompt_symbol(t_app *app);
-char	**process_env_vars(char **args);
-char	*read_file(t_app *app, char *path);
-char	*gnl(int fd);
+size_t		array_length(char **array);
+void		free_array(char **array);
+char		**sub_array(char **array, size_t start, size_t length);
+
+/**
+ * Commands utils
+ */
+int			is_separator(char *a);
+t_command	*create_command(char **args, char *name, int *index);
+size_t		commands_length(t_command **commands);
+void		free_commands(t_command **commands);
 
 #endif

@@ -32,6 +32,35 @@ Bad file descriptor: No such file or directory #This shouldn't append, NEVER!
 < eazaz
 ```
 
+ENV var
+```
+➜  minishell git:(main) ✗ unset truc
+➜  minishell git:(main) ✗ 12=machin
+➜  minishell git:(main) ✗ echo $&é
+[1] 6602
+$
+[1]  + 6602 done       echo $
+zsh: command not found: é
+➜  minishell git:(main) ✗ echo $12
+machin
+➜  minishell git:(main) ✗ export 12
+export: not an identifier: 12
+➜  minishell git:(main) ✗ unset 12
+➜  minishell git:(main) ✗ test=aaa
+➜  minishell git:(main) ✗ echo %test%
+%test%
+➜  minishell git:(main) ✗ echo %HOME%
+%HOME%
+➜  minishell git:(main) ✗ export 12=machin
+export: not an identifier: 12
+➜  minishell git:(main) ✗ echo $12
+machin
+➜  minishell git:(main) ✗ unset 12
+➜  minishell git:(main) ✗ 
+
+```
+
+
 ## IN PROGRESS:
 
 
