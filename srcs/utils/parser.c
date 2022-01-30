@@ -63,12 +63,20 @@ void	parse_redirections(t_command *command)
 
 	index = -1;
 	args = command->args;
+	command->output_path = ft_strdup("");
+	command->input_path = ft_strdup("");
 	while (args[++index])
 	{
 		if (ft_strcmp(args[index], ">") && args[index + 1])
+		{
+			free(command->output_path);
 			command->output_path = ft_strdup(args[index + 1]);
+		}
 		else if (ft_strcmp(args[index], "<") && args[index + 1])
+		{
+			free(command->input_path);
 			command->input_path = ft_strdup(args[index + 1]);
+		}
 	}
 	command->args = remove_redirection(args);
 }
