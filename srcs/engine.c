@@ -12,22 +12,41 @@
 
 #include "../includes/minishell.h"
 
+static int	runtime(t_app *app, char *input)
+{
+	char		**args;
+	t_command	**commands;
+	int			result;
+
+	result = 0;
+	args = lexer(app, input, &result);
+	if (!args)
+		return (result);
+	commands = parse(args);
+	if (!commands)
+		return (-1);
+	expand(commands);
+	// TODO : call executor
+	free_commands(commands);
+	return (TRUE);
+}
+
 void	start_engine(t_app *app)
 {
 	char	*line;
+	int		rv;
 
 	while (app->running)
 	{
 		line = readline(get_prompt_symbol(app));
 		app->error = FALSE;
-		if (!line)
+		rv = runtime(app, line);
+		if (rv == -2)
 			break ;
-		else if (ft_strlen(line) == FALSE)
-		{
-			app->error = TRUE;
+		if (rv == -1)
 			continue ;
-		}
-		if (!app->error)
+		runtime(app, line);
+		if (app->error == FALSE)
 			add_history(line);
 		free(line);
 	}

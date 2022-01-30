@@ -81,14 +81,11 @@ void		stop_application(t_app *app);
 void		start_engine(t_app *app);
 
 /**
- * Lexer
+ * System modules
  */
 char		**lexer(t_app *app, char *input, int *result);
-
-/**
- * Parser
- */
 t_command	**parse(char **args);
+void		expand(t_command **commands);
 
 /**
  * Builtins
