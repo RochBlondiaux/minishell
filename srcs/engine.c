@@ -11,3 +11,24 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	start_engine(t_app *app)
+{
+	char	*line;
+
+	while (app->running)
+	{
+		line = readline(get_prompt_symbol(app));
+		app->error = FALSE;
+		if (!line)
+			break ;
+		else if (ft_strlen(line) == FALSE)
+		{
+			app->error = TRUE;
+			continue ;
+		}
+		if (!app->error)
+			add_history(line);
+		free(line);
+	}
+}

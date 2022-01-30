@@ -11,3 +11,32 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+t_app *load_application(void)
+{
+	t_app	*app;
+
+	app = malloc(sizeof(t_app));
+	if (!app)
+	{
+		str_error(app, APP_INITIALIZATION_FAILED);
+		exit(EXIT_FAILURE);
+	}
+	app->path = working_directory();
+	app->error = FALSE;
+	return (app);
+}
+
+void start_application(t_app *app)
+{
+	app->running = TRUE;
+	handle_ctrl(app);
+	start_engine(app);
+}
+
+void stop_application(t_app *app)
+{
+	printf("%s%s\n", GREEN, EXIT_MESSAGE);
+	free(app->path);
+	free(app);
+}

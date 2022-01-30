@@ -66,8 +66,19 @@ typedef struct s_app {
 	char	*path;
 	int		running;
 	int		error;
-	pid_t	sub;
 }			t_app;
+
+/**
+ * Application
+ */
+t_app		*load_application(void);
+void		start_application(t_app *app);
+void		stop_application(t_app *app);
+
+/**
+ * Engine
+ */
+void		start_engine(t_app *app);
 
 /**
  * Lexer
@@ -103,5 +114,32 @@ int			is_separator(char *a);
 t_command	*create_command(char **args, char *name, int *index);
 size_t		commands_length(t_command **commands);
 void		free_commands(t_command **commands);
+
+/**
+ * Outputs utils
+ */
+void		error(t_app *app, int code);
+void		str_error(t_app *app, char *error);
+
+/**
+ * Environment utils
+ */
+char		*env(char *name);
+
+/**
+ * Path utils
+ */
+char		*working_directory(void);
+char		*home_directory(void);
+int			exists(char *path);
+char		*parent(char *path);
+char		*path(char *raw);
+
+/**
+ * Application utils
+ */
+int			set_path(t_app *app, char *a);
+char		*get_prompt_symbol(t_app *app);
+void		handle_ctrl(t_app *app);
 
 #endif

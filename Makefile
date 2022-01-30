@@ -34,8 +34,13 @@ SRC_NAME =	main.c \
 			engine.c \
 			system/lexer.c \
 			system/parser.c \
+			misc/ctrl_handler.c \
 			utils/tokens.c \
 			utils/commands.c \
+			utils/outputs.c \
+			utils/env.c \
+			utils/paths.c \
+			utils/app.c \
 			utils/parser.c \
 			utils/arrays.c
 
@@ -61,6 +66,7 @@ obj:
 	@echo "$(INFO)Creating objects folder... $(NOC)"
 	@mkdir -p $(OBJ_PATH)
 	@mkdir -p $(OBJ_PATH)/system
+	@mkdir -p $(OBJ_PATH)/misc
 	@mkdir -p $(OBJ_PATH)/commands
 	@mkdir -p $(OBJ_PATH)/handlers
 	@mkdir -p $(OBJ_PATH)/utils

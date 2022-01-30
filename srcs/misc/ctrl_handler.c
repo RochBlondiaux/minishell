@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   settings.h                                         :+:      :+:    :+:   */
+/*   ctrl_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 19:12:21 by rblondia          #+#    #+#             */
+/*   Created: 2022/01/21 11:14:44 by rblondia          #+#    #+#             */
 /*   Updated: 2022/01/29 16:57:17 by rblondia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SETTINGS_H
-# define SETTINGS_H
+#include "../../includes/minishell.h"
 
-# define PROMPT_SYMBOL "\033[0;32m➜ \033[0m"
-# define ERROR_PROMPT_SYMBOL "\033[0;31m➜ \033[0m"
+t_app	*g_app;
 
-# define READ_BUFFER_SIZE 1024
+static void	exit_handler(int a)
+{
+	(void) a;
+	// TODO : kill running sub process
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
 
-#endif
+void	handle_ctrl(t_app *app)
+{
+	g_app = app;
+	signal(SIGINT, exit_handler);
+}
