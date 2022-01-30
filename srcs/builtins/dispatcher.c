@@ -12,15 +12,17 @@
 
 #include "../../includes/minishell.h"
 
-int	builtin_dispatcher(t_app *app, t_command *command)
+int	dispatch_builtin(t_app *app, t_command *command)
 {
 	char	*name;
+	char	**args;
 
+	args = command->args;
 	name = command->name;
 	if (ft_strcmp(name, "cd"))
 		builtin_cd(app, args);
 	else if (ft_strcmp(name, "pwd"))
-		builtin_pwd(app, args);
+		builtin_pwd(app);
 	else if (ft_strcmp(name, "echo"))
 		builtin_echo(args);
 	else if (ft_strcmp(name, "export"))

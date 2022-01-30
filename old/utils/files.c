@@ -43,7 +43,7 @@ char	*parent(char *path)
 {
 	char	**a;
 	char	*final;
-	size_t	index;
+	int		index;
 
 	if (!exists(path))
 		return (NULL);

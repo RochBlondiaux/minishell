@@ -86,11 +86,12 @@ void		start_engine(t_app *app);
 char		**lexer(t_app *app, char *input, int *result);
 t_command	**parse(char **args);
 void		expand(t_command **commands);
+void		executor(t_app *app, t_command **commands);
 
 /**
  * Builtins
  */
-int			builtin_dispatcher(t_app *app, t_command *command);
+int			dispatch_builtin(t_app *app, t_command *command);
 void		builtin_cd(t_app *app, char **args);
 void		builtin_echo(char **args);
 void		builtin_env(char **args);

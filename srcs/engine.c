@@ -26,7 +26,7 @@ static int	runtime(t_app *app, char *input)
 	if (!commands)
 		return (-1);
 	expand(commands);
-	// TODO : call executor
+	executor(app, commands);
 	free_commands(commands);
 	return (TRUE);
 }

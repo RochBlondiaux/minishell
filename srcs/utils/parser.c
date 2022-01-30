@@ -58,8 +58,8 @@ static char	**remove_redirection(char **args)
 
 void	parse_redirections(t_command *command)
 {
-	size_t		index;
-	char		**args;
+	int		index;
+	char	**args;
 
 	index = -1;
 	args = command->args;

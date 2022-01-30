@@ -36,6 +36,7 @@ SRC_NAME =	main.c \
 			system/parser.c \
 			system/expander.c \
 			system/executor.c \
+			builtins/dispatcher.c \
 			builtins/echo.c \
 			builtins/exit.c \
 			builtins/env.c \

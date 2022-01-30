@@ -19,7 +19,7 @@ static int	is_envars(char *a)
 
 static void expand_single(t_command *command)
 {
-	size_t	index;
+	int		index;
 	char	*tmp;
 	char	*vars;
 

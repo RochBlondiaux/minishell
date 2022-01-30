@@ -22,7 +22,7 @@ int	is_separator(char *a)
 
 static size_t	get_commands_count(char **args)
 {
-	size_t	index;
+	int		index;
 	size_t	cmds;
 
 	index = -1;
@@ -37,7 +37,7 @@ static size_t	get_commands_count(char **args)
 
 static t_command	**complementary_parse(t_command **commands)
 {
-	size_t	index;
+	int	index;
 
 	index = -1;
 	while (commands[++index])
