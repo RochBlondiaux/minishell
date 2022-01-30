@@ -44,21 +44,22 @@
 /**
  * Structures
  */
-enum e_token {
+typedef enum e_token {
 	PIPE,
 	SEMICOLON,
 	AMPERSAND,
 	DOUBLE_AMPERSAND,
 	DOUBLE_PIPE,
-};
+	NONE
+}	t_token;
 
 typedef struct s_command {
 	char	*name;
 	char	**args;
 	char	*input_path;
 	char	*output_path;
-	int		input_pipe;
-	int		output_pipe;
+	t_token	previous_token;
+	t_token	next_token;
 }			t_command;
 
 typedef struct s_app {
@@ -93,6 +94,7 @@ char		**sub_array(char **array, size_t start, size_t length);
 /**
  * Tokens utils
  */
+void		parse_tokens(t_command **commands, char **args);
 
 /**
  * Commands utils

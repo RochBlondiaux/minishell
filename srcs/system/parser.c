@@ -39,12 +39,9 @@ static t_command	**complementary_parse(t_command **commands)
 {
 	size_t	index;
 
-	index = 0;
+	index = -1;
 	while (commands[++index])
-	{
 		parse_redirections(commands[index]);
-		// TODO : parse tokens maybe?
-	}
 	return (commands);
 }
 
@@ -54,7 +51,7 @@ t_command	**parse(char **args)
 	size_t		cmds;
 	t_command	**commands;
 
-	commands = malloc(sizeof(t_command *) * (get_commands_count(args) + 1));
+	commands = malloc(sizeof(t_command *) * get_commands_count(args));
 	if (!commands)
 		return (NULL);
 	index = 0;
@@ -62,15 +59,12 @@ t_command	**parse(char **args)
 	while (args[index])
 	{
 		commands[++cmds] = create_command(args, args[index], &index);
-		if (is_separator(args[index]))
-		{
-			// TODO : parse ||
-		}
 		if (index >= (int) array_length(args))
 			break ;
 		index++;
 	}
 	commands[++cmds] = NULL;
+	parse_tokens(commands,	args);
 	free_array(args);
 	return (complementary_parse(commands));
 }
