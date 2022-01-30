@@ -34,6 +34,15 @@ SRC_NAME =	main.c \
 			engine.c \
 			system/lexer.c \
 			system/parser.c \
+			system/expander.c \
+			system/executor.c \
+			builtins/echo.c \
+			builtins/exit.c \
+			builtins/env.c \
+			builtins/cd.c \
+			builtins/export.c \
+			builtins/pwd.c \
+			builtins/unset.c \
 			misc/ctrl_handler.c \
 			utils/tokens.c \
 			utils/commands.c \
@@ -65,6 +74,7 @@ all: obj $(FT_LIB) $(NAME)
 obj:
 	@echo "$(INFO)Creating objects folder... $(NOC)"
 	@mkdir -p $(OBJ_PATH)
+	@mkdir -p $(OBJ_PATH)/builtins
 	@mkdir -p $(OBJ_PATH)/system
 	@mkdir -p $(OBJ_PATH)/misc
 	@mkdir -p $(OBJ_PATH)/commands

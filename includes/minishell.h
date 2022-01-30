@@ -91,6 +91,18 @@ char		**lexer(t_app *app, char *input, int *result);
 t_command	**parse(char **args);
 
 /**
+ * Builtins
+ */
+int			builtin_dispatcher(t_app *app, t_command *command);
+void		builtin_cd(t_app *app, char **args);
+void		builtin_echo(char **args);
+void		builtin_env(char **args);
+void		builtin_exit(t_app *app);
+void		builtin_export(char **args);
+void		builtin_unset(char **args);
+void		builtin_pwd(t_app *app);
+
+/**
  * Parsing utils
  */
 void		parse_redirections(t_command *command);

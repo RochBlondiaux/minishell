@@ -16,7 +16,6 @@ foreground pipeline.
 * env with no options or arguments
 
 ## BUGS:
-* Parser don't support duplicated commands in a single line. (example: cat License.md && cat License.txt)
 * FIX cd command, it doesn't work properly, example:
 ```bash
 ➜ cd /var/www
@@ -25,12 +24,6 @@ foreground pipeline.
 ➜ cd .git
 ➜ pwd
 .git/
-```
-* Fix the input redirection to avoid that:
-```bash
-➜ echo < eazaz
-Bad file descriptor: No such file or directory #This shouldn't append, NEVER!
-< eazaz
 ```
 
 ENV var
@@ -86,3 +79,4 @@ its purpose. (I used it in controls/controls_handler.c)
     should expand to their values.
 * Not interpret unclosed quotes or special characters which are not required by the
   subject such as \ (backslash) or ; (semicolon).
+* Parser don't support duplicated commands in a single line. (example: cat License.md && cat License.txt)
