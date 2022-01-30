@@ -61,11 +61,6 @@ typedef struct s_command {
 	int		output_pipe;
 }			t_command;
 
-typedef struct	s_command_map {
-	t_command	**commands;
-	e_token		*tokens;
-}				t_command_map;
-
 typedef struct s_app {
 	char	*path;
 	int		running;
@@ -98,7 +93,6 @@ char		**sub_array(char **array, size_t start, size_t length);
 /**
  * Tokens utils
  */
-e_token		parse_tokens(t_command *command, t_command *next, char *token);
 
 /**
  * Commands utils

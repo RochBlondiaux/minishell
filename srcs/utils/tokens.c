@@ -12,7 +12,3 @@
 
 #include "../../includes/minishell.h"
 
-e_token	parse_tokens(t_command *command, t_command *next, char *token)
-{
-
-}

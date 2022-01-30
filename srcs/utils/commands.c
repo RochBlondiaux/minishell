@@ -40,12 +40,12 @@ void	free_commands(t_command **commands)
 	free(commands);
 }
 
-static	size_t	arguments_count(char **args, char *name)
+static	size_t	arguments_count(char **args, size_t start, char *name)
 {
 	size_t	index;
 	size_t	arguments;
 
-	index = 0;
+	index = start;
 	arguments = 0;
 	while (args[index] && !ft_strcmp(name, args[index]))
 		index++;
@@ -54,18 +54,18 @@ static	size_t	arguments_count(char **args, char *name)
 		arguments++;
 		index++;
 	}
-	return (arguments - 1);
+	return (arguments);
 }
 
-static char	**get_command_arguments(char **args, char *name, int *ret)
+static char	**get_command_arguments(char **args, size_t start, char *name, int *ret)
 {
 	size_t	index;
 	size_t	arguments;
 	char	**args_;
 
-	index = 0;
+	index = start;
 	arguments = 0;
-	args_ = malloc(sizeof(char *) * (arguments_count(args, name) + 1));
+	args_ = malloc(sizeof(char *) * arguments_count(args, start, name));
 	while (args[index] && !ft_strcmp(name, args[index]))
 		index++;
 	index++;
@@ -90,6 +90,6 @@ t_command	*create_command(char **args, char *name, int *index)
 	if (!cmd)
 		return (NULL);
 	cmd->name = ft_strdup(name);
-	cmd->args = get_command_arguments(args, name, index);
+	cmd->args = get_command_arguments(args, *index, name, index);
 	return (cmd);
 }

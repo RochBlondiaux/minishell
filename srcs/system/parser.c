@@ -41,7 +41,10 @@ static t_command	**complementary_parse(t_command **commands)
 
 	index = 0;
 	while (commands[++index])
+	{
 		parse_redirections(commands[index]);
+		// TODO : parse tokens maybe?
+	}
 	return (commands);
 }
 
@@ -60,7 +63,9 @@ t_command	**parse(char **args)
 	{
 		commands[++cmds] = create_command(args, args[index], &index);
 		if (is_separator(args[index]))
-
+		{
+			// TODO : parse ||
+		}
 		if (index >= (int) array_length(args))
 			break ;
 		index++;

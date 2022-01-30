@@ -19,7 +19,7 @@ int	main(void)
 
 	app.running = 0;
 	app.error = 0;
-	char **a = lexer(&app, "wc -l || cat > out.txt | echo -n | grep Makefile < test.out", &b);
+	char **a = lexer(&app, "wc -l || cat > out.txt | cat > licence.txt Licence.MD | grep < test.out Makefile", &b);
 	t_command **cmds = parse(a);
 	int i = -1;
 	while (cmds[++i])

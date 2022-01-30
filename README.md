@@ -16,6 +16,7 @@ foreground pipeline.
 * env with no options or arguments
 
 ## BUGS:
+* Parser don't support duplicated commands in a single line. (example: cat License.md && cat License.txt)
 * FIX cd command, it doesn't work properly, example:
 ```bash
 ➜ cd /var/www
