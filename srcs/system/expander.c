@@ -21,25 +21,20 @@ static void expand_single(t_command *command)
 {
 	int		index;
 	char	*tmp;
-	char	*vars;
 
 	index = -1;
 	while (command->args[++index])
 	{
 		if (!is_envars(command->args[index]))
 			continue ;
-		vars = ft_substr(command->args[index], 1, ft_strlen(command->args[index]));
-		tmp = env(vars);
-		free(vars);
+		tmp = env(&command->args[index][1]);
 		if (!tmp)
 			continue ;
-		printf("Envars: %s to %s\n", command->args[index], tmp);
 		free(command->args[index]);
 		command->args[index] = tmp;
 	}
 }
 
-// TODO : not sure if we're supposed to expand wildcards (ex: cat README.*)
 void	expand(t_command **commands)
 {
 	size_t	index;
@@ -47,4 +42,5 @@ void	expand(t_command **commands)
 	index = -1;
 	while (commands[++index])
 		expand_single(commands[index]);
+	// TODO : not sure if we're supposed to expand wildcards (ex: cat README.*)
 }

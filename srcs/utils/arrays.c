@@ -50,3 +50,17 @@ char	**sub_array(char **array, size_t start, size_t length)
 		new[index - start] = ft_strdup(array[index]);
 	return (new);
 }
+
+char	**add_array_element(char **array, char *element)
+{
+	size_t	index;
+	char	**a;
+
+	a = malloc(sizeof(char *) * (array_length(array) + 2));
+	index = -1;
+	a[0] = ft_strdup(element);
+	while (array[++index])
+		a[index + 1] = ft_strdup(array[index]);
+	a[index + 1] = NULL;
+	return (a);
+}

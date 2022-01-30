@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,19 +12,20 @@
 
 #include "../../includes/minishell.h"
 
-void executor(t_app *app, t_command **commands)
+char	*redirect_input(t_command *command)
 {
-	int			index;
-	t_command	*cmd;
+	size_t	length;
+	char	*input;
+	char	**args;
 
-	index = -1;
-	while (commands[++index])
-	{
-		cmd = commands[index];
-		if (dispatch_builtin(app, cmd))
-			continue ;
-		if (execute_native_command(app, cmd))
-			continue ;
-		str_error(app, COMMAND_NOT_FOUND);
-	}
+	args = command->args;
+	length = array_length(args);
+	if (length == 0)
+		return (NULL);
+	return (read_file(app, args[length - 1]));
+}
+
+void redirect_output(t_command *command)
+{
+	(void) command;
 }

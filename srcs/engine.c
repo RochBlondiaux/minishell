@@ -45,7 +45,6 @@ void	start_engine(t_app *app)
 			break ;
 		if (rv == -1)
 			continue ;
-		runtime(app, line);
 		if (app->error == FALSE)
 			add_history(line);
 		free(line);
