@@ -12,25 +12,23 @@
 
 #include "../../includes/minishell.h"
 
-// TODO : handle input redirection
-// -> might be executed in another function (bc of the pipe() function)
-int	execute_native_command(t_app *app, t_command *cmd)
+t_native *execute_native_command(t_app *app, t_command *cmd)
 {
-	int		ret;
-	char	**tmp;
-	int		status;
+	t_native	*native;
+	int			status;
 
-	ret = fork();
-	if (ret < 0)
+	native = create_native_cmd(cmd);
+	if (!native)
+		return (NULL);
+	if (native->pid < 0)
 		str_error(app, OCCURRED_ERROR);
-	else if (ret == 0)
-	{
-		tmp = add_array_element(cmd->args, cmd->name);
-		execv(get_command_path(cmd->name), tmp);
-		free_array(tmp);
-	}
-	waitpid(ret, &status, 0);
-	kill(ret, SIGKILL);
-	app->error = WEXITSTATUS(status);
-	return (ret);
+	else if (native->pid == 0)
+		execv(native->name, native->args);
+	if (waitpid(native->pid, &status, WUNTRACED | WCONTINUED) == -1)
+		app->error = 1;
+	else
+		app->error = WEXITSTATUS(status);
+	native->exit = WEXITSTATUS(status);
+	kill(native->pid, SIGKILL);
+	return (native);
 }

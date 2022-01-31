@@ -12,6 +12,17 @@
 
 #include "../../includes/minishell.h"
 
+static int	native_executor(t_app *app, t_command *cmd)
+{
+	t_native	*native;
+
+	native = execute_native_command(app, cmd);
+	if (!native || native->pid < 0)
+		return (0);
+	free_native_cmd(native);
+	return (1);
+}
+
 void executor(t_app *app, t_command **commands)
 {
 	int			index;
@@ -21,9 +32,8 @@ void executor(t_app *app, t_command **commands)
 	while (commands[++index])
 	{
 		cmd = commands[index];
-		if (dispatch_builtin(app, cmd))
-			continue ;
-		if (execute_native_command(app, cmd))
+		if (dispatch_builtin(app, cmd)
+			|| native_executor(app, cmd))
 			continue ;
 		str_error(app, COMMAND_NOT_FOUND);
 	}

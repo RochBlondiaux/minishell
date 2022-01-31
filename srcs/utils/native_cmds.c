@@ -48,3 +48,27 @@ char	*get_command_path(char *name)
 	free(paths);
 	return (path);
 }
+
+void	free_native_cmd(t_native *cmd)
+{
+	free(cmd->output);
+	free(cmd->args);
+	free(cmd->name);
+	free(cmd);
+}
+
+t_native	*create_native_cmd(t_command *cmd)
+{
+	t_native	*native;
+
+	native = malloc(sizeof(t_native));
+	if (!native)
+		return (NULL);
+	native->command = cmd;
+	native->exit = -1;
+	native->pid = fork();
+	native->args = add_array_element(cmd->args, cmd->name);
+	native->name = get_command_path(cmd->name);
+	native->output = ft_strdup("");
+	return (native);
+}

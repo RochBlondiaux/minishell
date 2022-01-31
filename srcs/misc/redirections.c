@@ -12,10 +12,9 @@
 
 #include "../../includes/minishell.h"
 
-char	*redirect_input(t_command *command)
+char	*redirect_input(t_app *app, t_command *command)
 {
 	size_t	length;
-	char	*input;
 	char	**args;
 
 	args = command->args;

@@ -14,8 +14,8 @@
 # define MESSAGES_H
 
 # define APP_INITIALIZATION_FAILED "Application initialization failed!"
-# define COMMAND_NOT_FOUND "Command not found!"
-# define OCCURRED_ERROR "An error occurred!"
+# define COMMAND_NOT_FOUND "\033[0;31mCommand not found!\033[0m"
+# define OCCURRED_ERROR "\033[0;31mAn error occurred!\033[0m"
 # define EXIT_MESSAGE "Goodbye buddy!"
 
 #endif

@@ -62,6 +62,15 @@ typedef struct s_command {
 	t_token	next_token;
 }			t_command;
 
+typedef struct s_native {
+	t_command	*command;
+	char		*name;
+	char		**args;
+	pid_t 		pid;
+	int			exit;
+	char		*output;
+}				t_native;
+
 typedef struct s_app {
 	char	*path;
 	int		running;
@@ -91,12 +100,12 @@ void		executor(t_app *app, t_command **commands);
 /**
  * Native commands
  */
-int			execute_native_command(t_app *app, t_command *cmd);
+t_native	*execute_native_command(t_app *app, t_command *cmd);
 
 /**
  * Redirections
  */
-char		*redirect_input(t_command *command);
+char		*redirect_input(t_app *app, t_command *command);
 void		redirect_output(t_command *command);
 
 /**
@@ -161,6 +170,8 @@ char		*path(char *raw);
  * Native commands utils
  */
 char		*get_command_path(char *name);
+void		free_native_cmd(t_native *cmd);
+t_native	*create_native_cmd(t_command *command);
 
 /**
  * File utils
