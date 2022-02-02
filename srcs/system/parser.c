@@ -42,6 +42,7 @@ static t_command	**complementary_parse(t_command **commands)
 	index = -1;
 	while (commands[++index])
 		parse_redirections(commands[index]);
+	init_commands(commands);
 	return (commands);
 }
 

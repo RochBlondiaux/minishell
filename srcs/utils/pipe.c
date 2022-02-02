@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_commands.c                                    :+:      :+:    :+:   */
+/*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,17 +11,3 @@
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void init_commands(t_command **commands)
-{
-	size_t	i;
-
-	i = -1;
-	while (commands[++i])
-	{
-		if (i > 0)
-			commands[i]->previous = commands[i - 1];
-		if (i < commands_length(commands) - 1)
-			commands[i]->next = commands[i + 1];
-	}
-}

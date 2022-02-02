@@ -49,6 +49,8 @@ SRC_NAME =	main.c \
 			misc/native_cmds.c \
 			utils/native_cmds.c \
 			utils/files.c \
+			utils/init_commands.c \
+			utils/pipe.c \
 			utils/tokens.c \
 			utils/commands.c \
 			utils/outputs.c \
