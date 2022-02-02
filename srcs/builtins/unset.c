@@ -14,5 +14,5 @@
 
 void	builtin_unset(t_app *app, char **args)
 {
-	app->env = ft_free_env_variable(&app->env, args[0]);
+	remove_env(&app->env, args[0]);
 }

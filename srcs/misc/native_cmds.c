@@ -41,10 +41,10 @@ static void post_check(t_app *app, t_native *native, int *status)
 // TODO : implement execute_native_command with input
 // TODO : implement execute_native_command with output
 
-static t_native *execute_native_input(t_app *app, t_command *cmd)
+static t_native *execute_native_input(t_app *app, t_command *cmd, int *status)
 {
 	t_native	*native;
-	int			status;
+	int			state;
 	int			fd[2];
 
 	pipe(fd);
@@ -63,9 +63,9 @@ static t_native *execute_native_input(t_app *app, t_command *cmd)
 		close(fd[0]);
 		write(fd[1], cmd->input, ft_strlen(cmd->input));
 		close(fd[1]);
-		waitpid(native->pid, &status, 0);
+		waitpid(native->pid, &state, 0);
 	}
-	post_check(app, native, &status);
+	post_check(app, native, status);
 	return (native);
 }
 
@@ -75,7 +75,7 @@ t_native *execute_native_command(t_app *app, t_command *cmd)
 	int			status;
 
 	if (cmd->input)
-		return (execute_native_input(app, cmd));
+		return (execute_native_input(app, cmd, &status));
 	native = pre_check(cmd);
 	if (!native)
 		return (NULL);

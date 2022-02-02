@@ -21,7 +21,7 @@ void	builtin_env(t_app *app)
 		return ;
 	while (tmp)
 	{
-		printf("%s\n", tmp->variable);
+		printf("%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
 }

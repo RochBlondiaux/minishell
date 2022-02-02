@@ -24,7 +24,7 @@ t_app *load_application(char **env)
 		exit(EXIT_FAILURE);
 	}
 	app->path = working_directory();
-	app->env = list_env(env);
+	app->env = init_env_map(env);
 	app->error = FALSE;
 	return (app);
 }
@@ -39,7 +39,7 @@ void start_application(t_app *app)
 void stop_application(t_app *app)
 {
 	printf("%s%s\n", GREEN, EXIT_MESSAGE);
-	free_list_env(&app->env);
+	free_map(&app->env);
 	free(app->path);
 	free(app);
 }

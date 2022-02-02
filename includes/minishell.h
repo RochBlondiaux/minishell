@@ -77,7 +77,8 @@ typedef struct s_native {
 
 typedef struct s_env
 {
-	char			*variable;
+	char			*key;
+	char			*value;
 	struct s_env	*next;
 }			t_env;
 
@@ -197,10 +198,14 @@ int			set_path(t_app *app, char *a);
 char		*get_prompt_symbol(t_app *app);
 void		handle_ctrl(t_app *app);
 
-t_env	*list_env(char **env);
-void	free_list_env(t_env **env);
-t_env	*ft_env_new(char *content);
-void	ft_env_add_back(t_env **alst, t_env *new);
-t_env	*ft_free_env_variable(t_env **env, char *name);
+/**
+ * Environment linked map utils
+ */
+t_env		*create_env_vars(char *entry);
+void		add_env(t_env **env, t_env *new);
+t_env		*init_env_map(char **env);
+void		free_map(t_env **env);
+void		remove_env(t_env **env, char *key);
+
 
 #endif

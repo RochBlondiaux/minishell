@@ -55,11 +55,11 @@ SRC_NAME =	main.c \
 			utils/commands.c \
 			utils/outputs.c \
 			utils/env.c \
+			utils/map.c \
 			utils/paths.c \
 			utils/app.c \
 			utils/parser.c \
 			utils/arrays.c \
-			utils/env_list.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

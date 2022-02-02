@@ -14,5 +14,5 @@
 
 void	builtin_export(t_app *app, char **args)
 {
-	ft_env_add_back(&app->env, ft_env_new(args[0]));
+	add_env(&app->env, create_env_vars(args[0]));
 }
