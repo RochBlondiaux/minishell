@@ -57,6 +57,7 @@ typedef struct s_command {
 	char	*name;
 	char	**args;
 	char	*input_path;
+	char	*input;
 	char	*output_path;
 	t_token	previous_token;
 	t_token	next_token;
@@ -94,7 +95,7 @@ void		start_engine(t_app *app);
  */
 char		**lexer(t_app *app, char *input, int *result);
 t_command	**parse(char **args);
-void		expand(t_command **commands);
+void		expand(t_app *app, t_command **commands);
 void		executor(t_app *app, t_command **commands);
 
 /**

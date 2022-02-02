@@ -34,6 +34,7 @@ void	free_commands(t_command **commands)
 		free(cmd->name);
 		free(cmd->output_path);
 		free(cmd->input_path);
+		free(cmd->input);
 		free_array(cmd->args);
 		free(cmd);
 	}
@@ -91,5 +92,6 @@ t_command	*create_command(char **args, char *name, int *index)
 		return (NULL);
 	cmd->name = ft_strdup(name);
 	cmd->args = get_command_arguments(args, *index, name, index);
+	cmd->input = ft_strdup("");
 	return (cmd);
 }

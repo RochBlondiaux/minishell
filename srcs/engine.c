@@ -25,7 +25,7 @@ static int	runtime(t_app *app, char *input)
 	commands = parse(args);
 	if (!commands)
 		return (-1);
-	expand(commands);
+	expand(app, commands);
 	executor(app, commands);
 	free_commands(commands);
 	return (TRUE);
