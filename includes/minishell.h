@@ -156,7 +156,7 @@ int			is_separator(char *a);
 t_command	*create_command(char **args, char *name, int *index);
 size_t		commands_length(t_command **commands);
 void		free_commands(t_command **commands);
-void		init_commands(t_command *commands);
+void		init_commands(t_command **commands);
 
 /**
  * Outputs utils

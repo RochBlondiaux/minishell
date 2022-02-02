@@ -12,13 +12,16 @@
 
 #include "../../includes/minishell.h"
 
-void init_commands(t_commands *commands)
+void init_commands(t_commands **commands)
 {
 	size_t	i;
 
 	i = -1;
 	while (commands[++i])
 	{
-		(void) commands[i];
+		if (i > 0)
+			commands[i]->previous = commands[i + 1];
+		if (i < commands_length(commands) - 1)
+			commands[i]->next = commands[i + 1];
 	}
 }
