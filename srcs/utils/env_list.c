@@ -26,7 +26,7 @@ static t_env	*ft_lstnew(char *content)
 
 void	free_list_env(t_env *env)
 {
-	
+	(void) env;
 }
 
 t_env	*list_env(char **env)

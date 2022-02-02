@@ -77,11 +77,7 @@ typedef struct s_env
 {
 	char			*variable;
 	struct s_env	*next;
-<<<<<<< Updated upstream
-}					t_env;
-=======
 }			t_env;
->>>>>>> Stashed changes
 
 typedef struct s_app {
 	char	*path;
@@ -197,5 +193,8 @@ char		*read_file(t_app *app, char *path);
 int			set_path(t_app *app, char *a);
 char		*get_prompt_symbol(t_app *app);
 void		handle_ctrl(t_app *app);
+
+t_env	*list_env(char **env);
+void	free_list_env(t_env *env);
 
 #endif
