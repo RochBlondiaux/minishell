@@ -18,9 +18,10 @@ void	builtin_env(t_env	**env)
 
 	tmp = (*env);
 	if (!*env)
-		return (NULL);
-	while (*env)
+		return ;
+	while (tmp)
 	{
-		
+		printf("%s\n", tmp->variable);
+		tmp = tmp->next;
 	}
 }

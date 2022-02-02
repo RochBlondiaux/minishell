@@ -30,7 +30,7 @@ int	dispatch_builtin(t_app *app, t_command *command)
 	else if (ft_strcmp(name, "unset"))
 		builtin_unset(args);
 	else if (ft_strcmp(name, "env"))
-		builtin_env(args);
+		builtin_env(&app->env);
 	else if (ft_strcmp(name, "exit"))
 		builtin_exit(app);
 	else
