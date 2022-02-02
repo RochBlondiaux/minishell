@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	builtin_export(char **args)
+void	builtin_export(t_env **env, char **args)
 {
 	(void) args;
 }
