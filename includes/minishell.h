@@ -72,8 +72,15 @@ typedef struct s_native {
 	char		*output;
 }				t_native;
 
+typedef struct s_list
+{
+	char			*variable;
+	struct s_list	*next;
+}			t_list;
+
 typedef struct s_app {
 	char	*path;
+	t_list	*env;
 	int		running;
 	int		error;
 }			t_app;

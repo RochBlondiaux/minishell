@@ -12,10 +12,13 @@
 
 #include "../includes/minishell.h"
 
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
 	t_app *app;
+	size_t	i;
 
+	(void) ac;
+	(void) av;
 	app = load_application();
 	start_application(app);
 	stop_application(app);
