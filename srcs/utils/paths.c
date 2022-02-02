@@ -70,16 +70,18 @@ char	*parent(char *path)
 char	*path(char *raw)
 {
 	char	*tmp;
+	char	*temp;
 
 	if (!raw)
 		return (NULL);
 	if (raw[ft_strlen(raw) - 1] != '/')
-		tmp = ft_strjoin(raw, "/");
+		temp = ft_strjoin(raw, "/");
 	else
-		tmp = ft_strdup(raw);
-	if (exists(tmp))
-		return (tmp);
-	tmp = ft_strjoin_properly(working_directory(), tmp);
+		temp = ft_strdup(raw);
+	if (exists(temp) && raw[0] == '/')
+		return (temp);
+	tmp = ft_strjoin_properly(working_directory(), ft_strdup("/"));
+	tmp = ft_strjoin_properly(tmp, temp);
 	if (!exists(tmp))
 	{
 		free(tmp);
