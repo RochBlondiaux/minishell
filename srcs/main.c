@@ -20,6 +20,7 @@ int	main(int ac, char **av, char **env)
 	(void) env;
 	(void) av;
 	app = load_application();
+	app->env = list_env(char **env);
 	start_application(app);
 	stop_application(app);
 	return (EXIT_SUCCESS);

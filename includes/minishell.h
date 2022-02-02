@@ -77,11 +77,15 @@ typedef struct s_env
 {
 	char			*variable;
 	struct s_env	*next;
+<<<<<<< Updated upstream
 }					t_env;
+=======
+}			t_env;
+>>>>>>> Stashed changes
 
 typedef struct s_app {
 	char	*path;
-	t_list	*env;
+	t_env	*env;
 	int		running;
 	int		error;
 }			t_app;
