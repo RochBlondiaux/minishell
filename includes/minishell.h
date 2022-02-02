@@ -59,6 +59,7 @@ typedef struct s_command {
 	char	*input_path;
 	char	*input;
 	char	*output_path;
+	char	*output;
 	t_token	previous_token;
 	t_token	next_token;
 }			t_command;
@@ -72,11 +73,11 @@ typedef struct s_native {
 	char		*output;
 }				t_native;
 
-typedef struct s_list
+typedef struct s_env
 {
 	char			*variable;
-	struct s_list	*next;
-}			t_list;
+	struct s_env	*next;
+}					t_env;
 
 typedef struct s_app {
 	char	*path;
@@ -108,7 +109,7 @@ void		executor(t_app *app, t_command **commands);
 /**
  * Native commands
  */
-t_native	*execute_native_command(t_app *app, t_command *cmd);
+t_native *execute_native_command(t_app *app, t_command *cmd);
 
 /**
  * Redirections

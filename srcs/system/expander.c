@@ -53,8 +53,5 @@ void	expand(t_app *app, t_command **commands)
 	{
 		expand_single(commands[index]);
 		expand_input(app, commands[index]);
-		if (commands[index]->input)
-		printf("Cmd: %s Input: %s\n", commands[index]->name, commands[index]->input);
-		// TODO : not sure if we're supposed to expand wildcards (ex: cat README.*)
 	}
 }

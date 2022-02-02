@@ -52,7 +52,9 @@ t_native *execute_native_command(t_app *app, t_command *cmd)
 	if (native->pid < 0)
 		str_error(app, OCCURRED_ERROR);
 	else if (native->pid == 0)
+	{
 		execv(native->name, native->args);
+	}
 	post_check(app, native, &status);
 	return (native);
 }
