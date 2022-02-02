@@ -201,6 +201,6 @@ t_env	*list_env(char **env);
 void	free_list_env(t_env **env);
 t_env	*ft_env_new(char *content);
 void	ft_env_add_back(t_env **alst, t_env *new);
-void	ft_free_env_variable(t_env **env, char *name);
+t_env	*ft_free_env_variable(t_env **env, char *name);
 
 #endif

@@ -24,20 +24,44 @@ t_env	*ft_env_new(char *content)
 	return (thelist);
 }
 
-void	ft_free_env_variable(t_env **env, char *name)
+int	env_exist(char *env, char *name)
 {
-	if (!env)
-		return ;
-	while (*env)
+	size_t	i;
+
+	i = 0;
+	while (name[i])
 	{
-		if (ft_strncmp((*env)->variable, name, ft_strlen(name)))
+		if (env[i] == name[i])
+			i ++;
+		return (-1);
+	}
+	if ((unsigned char)env[i] != '=')
+		return (-1);
+	return (0);
+}
+
+t_env	*ft_free_env_variable(t_env **env, char *name)
+{
+	t_env	*tmp;
+
+	if (!env)
+		return (NULL);
+	tmp = *env;
+	while (tmp)
+	{
+		tmp = (*env)->next;
+		if (env_exist((*env)->variable, name) == 0)
 		{
+			if (tmp->next)
+				tmp = tmp->next;
+			else
+				tmp = NULL;
 			free((*env)->variable);
-			(*env)->next = (*env)->next->next;
 			free(*env);
 		}
-		(*env) = (*env)->next;
+		*env = tmp;
 	}
+	return (*env);
 }
 
 void	ft_env_add_back(t_env **alst, t_env *new)
