@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static t_env	*ft_lstnew(char *content)
+static t_env	*ft_env_new(char *content)
 {
 	t_env	*thelist;
 
@@ -37,7 +37,8 @@ t_env	*list_env(char **env)
 	i = 0;
 	while (env[i])
 	{
-		env_var = ft_lstnew(env[i]);
+		env_var = ft_env_new(env[i]);
+		printf("%s\n", env_var->variable);
 		i ++;
 	}
 	return (env_var);

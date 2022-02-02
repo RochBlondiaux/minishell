@@ -12,10 +12,11 @@
 
 #include "../includes/minishell.h"
 
-t_app *load_application(void)
+t_app *load_application(char **env)
 {
 	t_app	*app;
 
+	(void) env;
 	app = malloc(sizeof(t_app));
 	if (!app)
 	{
@@ -23,6 +24,7 @@ t_app *load_application(void)
 		exit(EXIT_FAILURE);
 	}
 	app->path = working_directory();
+	app->env = list_env(env);
 	app->error = FALSE;
 	return (app);
 }

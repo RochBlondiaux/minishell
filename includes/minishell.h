@@ -89,7 +89,7 @@ typedef struct s_app {
 /**
  * Application
  */
-t_app		*load_application(void);
+t_app		*load_application(char **env);
 void		start_application(t_app *app);
 void		stop_application(t_app *app);
 

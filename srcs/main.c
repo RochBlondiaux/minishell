@@ -17,10 +17,8 @@ int	main(int ac, char **av, char **env)
 	t_app *app;
 
 	(void) ac;
-	(void) env;
 	(void) av;
-	app = load_application();
-	app->env = list_env(char **env);
+	app = load_application(env);
 	start_application(app);
 	stop_application(app);
 	return (EXIT_SUCCESS);
