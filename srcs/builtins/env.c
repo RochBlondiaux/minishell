@@ -12,12 +12,12 @@
 
 #include "../../includes/minishell.h"
 
-void	builtin_env(t_env	**env)
+void	builtin_env(t_app *app)
 {
 	t_env	*tmp;
 
-	tmp = (*env);
-	if (!*env)
+	tmp = app->env;
+	if (!app->env)
 		return ;
 	while (tmp)
 	{

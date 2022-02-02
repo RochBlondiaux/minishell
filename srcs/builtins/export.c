@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	builtin_export(t_env **env, char **args)
+void	builtin_export(t_app *app, char **args)
 {
-	(void) args;
+	ft_env_add_back(&app->env, ft_env_new(args[0]));
 }

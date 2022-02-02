@@ -125,10 +125,10 @@ void		redirect_output(t_command *command);
 int			dispatch_builtin(t_app *app, t_command *command);
 void		builtin_cd(t_app *app, char **args);
 void		builtin_echo(char **args);
-void		builtin_env(t_env **env);
+void		builtin_env(t_app *app);
 void		builtin_exit(t_app *app);
-void		builtin_export(t_env **env, char **args);
-void		builtin_unset(t_env **env, char **args);
+void		builtin_export(t_app *app, char **args);
+void		builtin_unset(t_app *app, char **args);
 void		builtin_pwd(t_app *app);
 
 /**
@@ -199,5 +199,8 @@ void		handle_ctrl(t_app *app);
 
 t_env	*list_env(char **env);
 void	free_list_env(t_env **env);
+t_env	*ft_env_new(char *content);
+void	ft_env_add_back(t_env **alst, t_env *new);
+void	ft_free_env_variable(t_env **env, char *name);
 
 #endif

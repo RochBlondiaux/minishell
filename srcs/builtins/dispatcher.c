@@ -26,11 +26,11 @@ int	dispatch_builtin(t_app *app, t_command *command)
 	else if (ft_strcmp(name, "echo"))
 		builtin_echo(args);
 	else if (ft_strcmp(name, "export"))
-		builtin_export(&app->env, args);
+		builtin_export(app, args);
 	else if (ft_strcmp(name, "unset"))
-		builtin_unset(&app->env, args);
+		builtin_unset(app, args);
 	else if (ft_strcmp(name, "env"))
-		builtin_env(&app->env);
+		builtin_env(app);
 	else if (ft_strcmp(name, "exit"))
 		builtin_exit(app);
 	else

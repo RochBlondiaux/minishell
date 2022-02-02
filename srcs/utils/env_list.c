@@ -12,16 +12,32 @@
 
 #include "../../includes/minishell.h"
 
-static t_env	*ft_env_new(char *content)
+t_env	*ft_env_new(char *content)
 {
 	t_env	*thelist;
 
 	thelist = malloc(sizeof(t_env));
 	if (!thelist)
 		return (NULL);
-	thelist->variable = content;
+	thelist->variable = ft_strdup(content);
 	thelist->next = NULL;
 	return (thelist);
+}
+
+void	ft_free_env_variable(t_env **env, char *name)
+{
+	if (!env)
+		return ;
+	while (*env)
+	{
+		if (ft_strncmp((*env)->variable, name, ft_strlen(name)))
+		{
+			free((*env)->variable);
+			(*env)->next = (*env)->next->next;
+			free(*env);
+		}
+		(*env) = (*env)->next;
+	}
 }
 
 void	ft_env_add_back(t_env **alst, t_env *new)
@@ -49,6 +65,7 @@ void	free_list_env(t_env **env)
 	while (*env)
 	{
 		tmp = (*env)->next;
+		free((*env)->variable);
 		free(*env);
 		*env = tmp;
 	}

@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	builtin_unset(t_env **env, char **args)
+void	builtin_unset(t_app *app, char **args)
 {
-	(void) args;
+	ft_free_env_variable(&app->env, args[0]);
 }
