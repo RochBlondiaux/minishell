@@ -156,7 +156,7 @@ int			is_separator(char *a);
 t_command	*create_command(char **args, char *name, int *index);
 size_t		commands_length(t_command **commands);
 void		free_commands(t_command **commands);
-void		init_commands(t_commands *commands);
+void		init_commands(t_command *commands);
 
 /**
  * Outputs utils
@@ -198,6 +198,6 @@ char		*get_prompt_symbol(t_app *app);
 void		handle_ctrl(t_app *app);
 
 t_env	*list_env(char **env);
-void	free_list_env(t_env *env);
+void	free_list_env(t_env **env);
 
 #endif

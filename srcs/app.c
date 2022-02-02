@@ -39,6 +39,7 @@ void start_application(t_app *app)
 void stop_application(t_app *app)
 {
 	printf("%s%s\n", GREEN, EXIT_MESSAGE);
+	free_list_env(&app->env);
 	free(app->path);
 	free(app);
 }
