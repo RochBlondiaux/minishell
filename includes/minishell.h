@@ -125,7 +125,7 @@ void		redirect_output(t_command *command);
 int			dispatch_builtin(t_app *app, t_command *command);
 void		builtin_cd(t_app *app, char **args);
 void		builtin_echo(char **args);
-void		builtin_env(char **args);
+void		builtin_env(t_env **env);
 void		builtin_exit(t_app *app);
 void		builtin_export(char **args);
 void		builtin_unset(char **args);

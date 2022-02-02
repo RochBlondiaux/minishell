@@ -12,7 +12,15 @@
 
 #include "../../includes/minishell.h"
 
-void	builtin_env(char **args)
+void	builtin_env(t_env	**env)
 {
-	(void) args;
+	t_env	*tmp;
+
+	tmp = (*env);
+	if (!*env)
+		return (NULL);
+	while (*env)
+	{
+		
+	}
 }
