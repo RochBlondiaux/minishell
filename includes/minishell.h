@@ -54,14 +54,16 @@ typedef enum e_token {
 }	t_token;
 
 typedef struct s_command {
-	char	*name;
-	char	**args;
-	char	*input_path;
-	char	*input;
-	char	*output_path;
-	char	*output;
-	t_token	previous_token;
-	t_token	next_token;
+	char				*name;
+	char				**args;
+	char				*input_path;
+	char				*input;
+	char				*output_path;
+	char				*output;
+	struct s_command	*previous;
+	struct s_command	*next;
+	t_token				previous_token;
+	t_token				next_token;
 }			t_command;
 
 typedef struct s_native {
@@ -154,6 +156,7 @@ int			is_separator(char *a);
 t_command	*create_command(char **args, char *name, int *index);
 size_t		commands_length(t_command **commands);
 void		free_commands(t_command **commands);
+void		init_commands(t_commands *commands);
 
 /**
  * Outputs utils
