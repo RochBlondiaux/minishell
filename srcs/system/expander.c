@@ -28,19 +28,31 @@ static void expand_single(t_command *command)
 		if (!is_envars(command->args[index]))
 			continue ;
 		tmp = env(&command->args[index][1]);
-		if (!tmp)
-			continue ;
 		free(command->args[index]);
+		if (!tmp)
+			tmp = ft_strdup("");
 		command->args[index] = tmp;
 	}
 }
 
-void	expand(t_command **commands)
+static void expand_input(t_app *app, t_command *cmd)
+{
+	if (!cmd->input_path
+		|| !cmd->input_path[0])
+		return ;
+	free(cmd->input);
+	cmd->input = read_file(app, cmd->input_path);
+}
+
+void	expand(t_app *app, t_command **commands)
 {
 	size_t	index;
 
 	index = -1;
 	while (commands[++index])
+	{
 		expand_single(commands[index]);
-	// TODO : not sure if we're supposed to expand wildcards (ex: cat README.*)
+		expand_input(app, commands[index]);
+		// TODO : not sure if we're supposed to expand wildcards (ex: cat README.*)
+	}
 }
