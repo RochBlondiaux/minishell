@@ -66,7 +66,7 @@ void parse_delimiter(t_command *cmd)
 	index = -1;
 	args = cmd->args;
 	cmd->delimiter = ft_strdup("");
-	cmd->appender = ft_strdup("");
+	cmd->appender = FALSE;
 	while (args[++index])
 	{
 		if (ft_strcmp(args[index], "<<") && args[index + 1])
@@ -76,8 +76,9 @@ void parse_delimiter(t_command *cmd)
 		}
 		else if (ft_strcmp(args[index], ">>") && args[index + 1])
 		{
-			free(cmd->appender);
-			cmd->appender = ft_strdup(args[index + 1]);
+			cmd->appender = TRUE;
+			free(cmd->output_path);
+			cmd->output_path = ft_strdup(args[index + 1]);
 		}
 	}
 	cmd->args = remove_delimiter(args);

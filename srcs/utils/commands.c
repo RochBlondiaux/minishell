@@ -37,7 +37,6 @@ void	free_commands(t_command **commands)
 		free(cmd->input_path);
 		free(cmd->input);
 		free(cmd->delimiter);
-		free(cmd->appender);
 		free_array(cmd->args);
 		free(cmd);
 	}
