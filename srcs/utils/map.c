@@ -77,27 +77,28 @@ t_env *get_env(t_env **env, char *key)
 void	remove_env(t_env **env, char *key)
 {
 	t_env	*tmp;
-	t_env	*tmp1;
+	t_env	*prev;
 
-	while (*env)
+	tmp = *env;
+	prev = NULL;
+	if (tmp != NULL && ft_strcmp(tmp->key, key))
 	{
-		tmp = (*env)->next;
-		if (!tmp || !tmp->next)
-		{
-			tmp1 = tmp->next;
-			if (tmp1 && ft_strcmp(tmp1->key, key) == 0)
-			{
-				if (tmp1->next)
-					tmp->next = tmp1->next;
-				else
-					tmp->next = NULL;
-				free(tmp1->key);
-				free(tmp1->value);
-				free(tmp1);
-			}
-		}
-		*env = tmp;
+		*env = tmp->next;
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
+		return ;
 	}
+	while (tmp && !ft_strcmp(tmp->key, key)) {
+		prev = tmp;
+		tmp = tmp->next;
+	}
+	if (!tmp)
+		return;
+	prev->next = tmp->next;
+	free(tmp->key);
+	free(tmp->value);
+	free(tmp);
 }
 
 void free_map(t_env **env)
