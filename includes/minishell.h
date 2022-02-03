@@ -61,6 +61,7 @@ typedef struct s_command {
 	char				*output_path;
 	char				*output;
 	char				*delimiter;
+	char				*appender;
 	struct s_command	*previous;
 	struct s_command	*next;
 	t_token				previous_token;

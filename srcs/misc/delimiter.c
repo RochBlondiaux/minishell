@@ -12,6 +12,12 @@
 
 #include "../../includes/minishell.h"
 
+static int	is_delimiter_char(char *a)
+{
+	return (ft_strcmp(a, "<<") || ft_strcmp(a, ">>"));
+}
+
+
 static int	get_arguments(char **args)
 {
 	size_t	i;
@@ -21,8 +27,8 @@ static int	get_arguments(char **args)
 	count = 0;
 	while (args[++i])
 	{
-		if (ft_strcmp(args[i], "<<")
-			|| (i > 0 && ft_strcmp(args[i - 1], "<<")))
+		if (is_delimiter_char(args[i])
+			|| (i > 0 && is_delimiter_char(args[i - 1])))
 			continue ;
 		count++;
 	}
@@ -40,8 +46,8 @@ static char	**remove_delimiter(char **args)
 	a = malloc(sizeof(char *) * get_arguments(args));
 	while (args[++i])
 	{
-		if (ft_strcmp(args[i], "<<")
-			|| (i > 0 && ft_strcmp(args[i - 1], "<<")))
+		if (is_delimiter_char(args[i])
+			|| (i > 0 && is_delimiter_char(args[i - 1])))
 			continue ;
 		a[j] = ft_strdup(args[i]);
 		j++;
@@ -60,12 +66,18 @@ void parse_delimiter(t_command *cmd)
 	index = -1;
 	args = cmd->args;
 	cmd->delimiter = ft_strdup("");
+	cmd->appender = ft_strdup("");
 	while (args[++index])
 	{
 		if (ft_strcmp(args[index], "<<") && args[index + 1])
 		{
 			free(cmd->delimiter);
 			cmd->delimiter = ft_strdup(args[index + 1]);
+		}
+		else if (ft_strcmp(args[index], ">>") && args[index + 1])
+		{
+			free(cmd->appender);
+			cmd->appender = ft_strdup(args[index + 1]);
 		}
 	}
 	cmd->args = remove_delimiter(args);
