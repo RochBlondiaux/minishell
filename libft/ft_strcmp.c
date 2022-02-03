@@ -12,6 +12,21 @@
 
 #include "libft.h"
 
+int	ft_strcmp_sensitive(const char *a, const char *b)
+{
+	int	i;
+
+	if (!a || !b || ft_strlen(a) != ft_strlen(b))
+		return (0);
+	i = -1;
+	while (a[++i])
+	{
+		if (a[i] != b[i])
+			return (0);
+	}
+	return (1);
+}
+
 int	ft_strcmp(const char *a, const char *b)
 {
 	int	i;

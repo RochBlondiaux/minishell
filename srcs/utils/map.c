@@ -81,7 +81,7 @@ void	remove_env(t_env **env, char *key)
 
 	tmp = *env;
 	prev = NULL;
-	if (tmp != NULL && ft_strcmp(tmp->key, key))
+	if (tmp != NULL && ft_strcmp_sensitive(tmp->key, key))
 	{
 		*env = tmp->next;
 		free(tmp->key);
@@ -89,7 +89,8 @@ void	remove_env(t_env **env, char *key)
 		free(tmp);
 		return ;
 	}
-	while (tmp && !ft_strcmp(tmp->key, key)) {
+	while (tmp && !ft_strcmp_sensitive(tmp->key, key))
+	{
 		prev = tmp;
 		tmp = tmp->next;
 	}
