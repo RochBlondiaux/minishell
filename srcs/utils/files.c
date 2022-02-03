@@ -57,10 +57,14 @@ char	*read_file(t_app *app, char *path)
 
 void	write_output(t_app *app, t_command *cmd)
 {
-	int	file;
+	int	fd;
 
-	(void)app;
-	file = open(cmd->output_path, O_CREAT | O_RDWR | O_TRUNC, 0);
-	write (file, cmd->output, ft_strlen(cmd->output));
-	close(file);
+	fd = open(cmd->output_path, O_CREAT | O_WRONLY | O_TRUNC);
+	if (fd < 0)
+	{
+		error(app, errno);
+		return ;
+	}
+	ft_putstr_fd(cmd->output, fd);
+	close(fd);
 }

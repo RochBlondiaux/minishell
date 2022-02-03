@@ -66,13 +66,16 @@ static void execute_child(t_native *native, t_command *cmd, int *fd)
 static void execute_parent(t_native *native, t_command *cmd, t_app *app, int *fd)
 {
 	int		state;
-	char	buff[1];
+	char	buff[2];
 
 	if (cmd->output_path)
 	{
 		close(fd[1]);
 		while(read(fd[0], buff, 1) > 0)
+		{
+			buff[1] = '\0';
 			cmd->output = ft_strjoin_properly(cmd->output, ft_strdup(buff));
+		}
 		close(fd[0]);
 		waitpid(native->pid, &state, 0);
 		write_output(app ,cmd);
@@ -80,7 +83,7 @@ static void execute_parent(t_native *native, t_command *cmd, t_app *app, int *fd
 	else if (cmd->input)
 	{
 		close(fd[0]);
-		write(fd[1], cmd->input, ft_strlen(cmd->input));
+		ft_putstr_fd(cmd->input, fd[1]);
 		close(fd[1]);
 		waitpid(native->pid, &state, 0);
 	}
