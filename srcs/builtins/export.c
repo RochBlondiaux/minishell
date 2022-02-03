@@ -28,8 +28,24 @@ static int	is_valid(char *arg)
 
 void	builtin_export(t_app *app, char **args)
 {
-	if (is_valid(args[0]) == 1)
-		add_env(&app->env, create_env_vars(args[0]));
-	else
+	char	**e;
+
+	e = ft_split(args[0], '=');
+	if (get_env(app->env, e[0]))
+	{
+		free(get_env(app->env, e[0])->value);
+		get_env(app->env, e[0])->value = ft_strdup(e[1]);
+		free_array(e);
 		return ;
+	}
+	else if (is_valid(args[0]) == 1)
+	{
+		add_env(&app->env, create_env_vars(args[0]));
+		free_array(e);
+	}
+	else
+	{
+		free_array(e);
+		return ;
+	}
 }

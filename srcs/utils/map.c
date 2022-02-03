@@ -67,7 +67,7 @@ t_env *get_env(t_env *env, char *key)
 	while (env)
 	{
 		tmp = (env)->next;
-		if (tmp && ft_strcmp(tmp->key, key))
+		if (tmp && ft_strcmp_sensitive(tmp->key, key))
 			return (tmp);
 		env = tmp;
 	}
