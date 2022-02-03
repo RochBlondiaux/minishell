@@ -60,6 +60,7 @@ typedef struct s_command {
 	char				*input;
 	char				*output_path;
 	char				*output;
+	char				*delimiter;
 	struct s_command	*previous;
 	struct s_command	*next;
 	t_token				previous_token;
@@ -136,6 +137,7 @@ void		builtin_pwd(t_app *app);
  * Parsing utils
  */
 void		parse_redirections(t_command *command);
+void		parse_delimiter(t_command *cmd);
 
 /**
  * Arrays Utils

@@ -45,6 +45,7 @@ SRC_NAME =	main.c \
 			builtins/pwd.c \
 			builtins/unset.c \
 			misc/ctrl_handler.c \
+			misc/delimiter.c \
 			misc/redirections.c \
 			misc/native_cmds.c \
 			utils/native_cmds.c \

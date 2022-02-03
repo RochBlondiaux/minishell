@@ -48,8 +48,7 @@ void	start_engine(t_app *app)
 			free(line);
 			continue ;
 		}
-		if (app->error == FALSE)
-			add_history(line);
+		add_history(line);
 		free(line);
 	}
 }
