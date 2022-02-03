@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static t_native	*pre_check(t_command *cmd)
+static t_native	*pre_check(t_app *app, t_command *cmd)
 {
 	t_native *native;
 
@@ -25,6 +25,11 @@ static t_native	*pre_check(t_command *cmd)
 		return (NULL);
 	}
 	native->pid = fork();
+	if (native->pid == -1)
+	{
+		str_error(app, OCCURRED_ERROR);
+		return (NULL);
+	}
 	return (native);
 }
 
@@ -41,48 +46,48 @@ static void post_check(t_app *app, t_native *native, int *status)
 // TODO : implement execute_native_command with input
 // TODO : implement execute_native_command with output
 
-static t_native *execute_native_input(t_app *app, t_command *cmd, int *status)
+static void execute_child(t_native *native, t_command *cmd, int *fd)
 {
-	t_native	*native;
-	int			state;
-	int			fd[2];
-
-	pipe(fd);
-	native = pre_check(cmd);
-	if (!native)
-		return (NULL);
-	if (native->pid == 0)
+	(void) native;
+	if (cmd->input)
 	{
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
-		execv(native->name, native->args);
 	}
-	else
+}
+
+static void execute_parent(t_native *native, t_command *cmd, int *fd)
+{
+	int	state;
+
+	if (cmd->input)
 	{
 		close(fd[0]);
 		write(fd[1], cmd->input, ft_strlen(cmd->input));
 		close(fd[1]);
 		waitpid(native->pid, &state, 0);
 	}
-	post_check(app, native, status);
-	return (native);
 }
 
 t_native *execute_native_command(t_app *app, t_command *cmd)
 {
 	t_native	*native;
 	int			status;
+	int			fd[2];
 
-	if (cmd->input)
-		return (execute_native_input(app, cmd, &status));
-	native = pre_check(cmd);
+	if (pipe(fd) == -1)
+		return (NULL);
+	native = pre_check(app, cmd);
 	if (!native)
 		return (NULL);
 	if (native->pid == 0)
+	{
+		execute_child(native, cmd, fd);
 		execv(native->name, native->args);
+	}
 	else
-		str_error(app, OCCURRED_ERROR);
+		execute_parent(native, cmd, fd);
 	post_check(app, native, &status);
 	return (native);
 }
