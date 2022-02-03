@@ -54,3 +54,13 @@ char	*read_file(t_app *app, char *path)
 	}
 	return (content);
 }
+
+void	write_output(t_app *app, t_command *cmd)
+{
+	int	file;
+
+	(void)app;
+	file = open(cmd->output_path, O_CREAT | O_RDWR | O_TRUNC, 0);
+	write (file, cmd->output, ft_strlen(cmd->output));
+	close(file);
+}
