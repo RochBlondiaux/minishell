@@ -59,7 +59,7 @@ void	write_output(t_app *app, t_command *cmd)
 {
 	int	fd;
 
-	fd = open(cmd->output_path, O_CREAT | O_WRONLY | O_TRUNC);
+	fd = open(cmd->output_path, O_CREAT | O_RDWR | O_TRUNC, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 	if (fd < 0)
 	{
 		error(app, errno);
