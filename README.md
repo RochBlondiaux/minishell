@@ -11,9 +11,6 @@ delimiter is seen. However, it doesn’t have to update the history!
 connected to the input of the next command via a pipe.
 * Handle $? which should expand to the exit status of the most recently executed
 foreground pipeline.
-* export with no options
-* unset with no options
-* env with no options or arguments
 
 ## BUGS:
 * FIX cd command, it doesn't work properly, example:
@@ -80,3 +77,6 @@ its purpose. (I used it in controls/controls_handler.c)
 * Not interpret unclosed quotes or special characters which are not required by the
   subject such as \ (backslash) or ; (semicolon).
 * Parser don't support duplicated commands in a single line. (example: cat License.md && cat License.txt)
+* export with no options
+* unset with no options
+* env with no options or arguments

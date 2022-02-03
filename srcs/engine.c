@@ -44,7 +44,10 @@ void	start_engine(t_app *app)
 		if (rv == -2)
 			break ;
 		if (rv == -1)
+		{
+			free(line);
 			continue ;
+		}
 		if (app->error == FALSE)
 			add_history(line);
 		free(line);

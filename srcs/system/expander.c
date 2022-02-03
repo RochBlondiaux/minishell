@@ -17,21 +17,22 @@ static int	is_envars(char *a)
 	return (ft_strlen(a) > 0 && a[0] == '$');
 }
 
-static void expand_single(t_command *command)
+static void expand_env_vars(t_app *app, t_command *command)
 {
 	int		index;
-	char	*tmp;
+	t_env	*var;
 
 	index = -1;
 	while (command->args[++index])
 	{
 		if (!is_envars(command->args[index]))
 			continue ;
-		tmp = env(&command->args[index][1]);
+		var = get_env(&app->env, &command->args[index][1]);
 		free(command->args[index]);
-		if (!tmp)
-			tmp = ft_strdup("");
-		command->args[index] = tmp;
+		if (!var)
+			command->args[index] = ft_strdup("");
+		else
+			command->args[index] = ft_strdup(var->value);
 	}
 }
 
@@ -51,7 +52,7 @@ void	expand(t_app *app, t_command **commands)
 	index = -1;
 	while (commands[++index])
 	{
-		expand_single(commands[index]);
+		expand_env_vars(app, commands[index]);
 		expand_input(app, commands[index]);
 	}
 }
