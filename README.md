@@ -3,28 +3,24 @@
 characters in the quoted sequence.
 * Handle " (double quote) which should prevent the shell from interpreting the meta-
 characters in the quoted sequence except for $ (dollar sign).
-* \> should redirect output.
 * << should be given a delimiter, then read the input until a line containing the
 delimiter is seen. However, it doesn’t have to update the history!
-* \>> should redirect output in append mode.
 * Implement pipes (| character). The output of each command in the pipeline is
 connected to the input of the next command via a pipe.
 * Handle $? which should expand to the exit status of the most recently executed
 foreground pipeline.
 
 ## BUGS:
-* FIX cd command, it doesn't work properly, example:
+Redirection & Appender
 ```bash
-➜ cd /var/www
-➜ pwd
-/var/www/
-➜ cd .git
-➜ pwd
-.git/
+➜ >> a cat LICENSE.md
+Command not found!
+➜ cat >> a LICENSE.md
+➜ cat > a LICENSE.md
 ```
 
 ENV var
-```
+```bash
 ➜  minishell git:(main) ✗ unset truc
 ➜  minishell git:(main) ✗ 12=machin
 ➜  minishell git:(main) ✗ echo $&é
@@ -54,7 +50,6 @@ machin
 
 ## IN PROGRESS:
 
-
 ## DONE
 * < should redirect input.
 * Display a prompt when waiting for a new command.
@@ -80,3 +75,14 @@ its purpose. (I used it in controls/controls_handler.c)
 * export with no options
 * unset with no options
 * env with no options or arguments
+* FIX cd command, it doesn't work properly, example:
+```bash
+➜ cd /var/www
+➜ pwd
+/var/www/
+➜ cd .git
+➜ pwd
+.git/
+```
+* \>> should redirect output in append mode.
+* \> should redirect output.

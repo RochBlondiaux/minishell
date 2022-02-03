@@ -14,7 +14,7 @@
 
 static t_native	*pre_check(t_app *app, t_command *cmd)
 {
-	t_native *native;
+	t_native	*native;
 
 	native = create_native_cmd(cmd);
 	if (!native)
@@ -33,7 +33,7 @@ static t_native	*pre_check(t_app *app, t_command *cmd)
 	return (native);
 }
 
-static void post_check(t_app *app, t_native *native, int *status)
+static void	post_check(t_app *app, t_native *native, int *status)
 {
 	if (waitpid(native->pid, status, WUNTRACED | WCONTINUED) == -1)
 		app->error = 1;
@@ -43,12 +43,8 @@ static void post_check(t_app *app, t_native *native, int *status)
 	kill(native->pid, SIGKILL);
 }
 
-// TODO : implement execute_native_command with input
-// TODO : implement execute_native_command with output
-
-static void execute_child(t_native *native, t_command *cmd, int *fd)
+static void	execute_child(t_command *cmd, int *fd)
 {
-	(void) native;
 	if (cmd->output_path[0])
 	{
 		close(fd[0]);
@@ -63,14 +59,14 @@ static void execute_child(t_native *native, t_command *cmd, int *fd)
 	}
 }
 
-static void execute_parent(t_command *cmd, t_app *app, int *fd)
+static void	execute_parent(t_command *cmd, t_app *app, int *fd)
 {
 	char	buff[2];
 
 	if (cmd->output_path[0])
 	{
 		close(fd[1]);
-		while(read(fd[0], &buff, 1) > 0)
+		while (read(fd[0], &buff, 1) > 0)
 		{
 			buff[1] = '\0';
 			cmd->output = ft_strjoin_properly(cmd->output, ft_strdup(buff));
@@ -86,7 +82,7 @@ static void execute_parent(t_command *cmd, t_app *app, int *fd)
 	}
 }
 
-t_native *execute_native_command(t_app *app, t_command *cmd)
+t_native	*execute_native_command(t_app *app, t_command *cmd)
 {
 	t_native	*native;
 	int			status;
@@ -99,7 +95,7 @@ t_native *execute_native_command(t_app *app, t_command *cmd)
 		return (NULL);
 	if (native->pid == 0)
 	{
-		execute_child(native, cmd, fd);
+		execute_child(cmd, fd);
 		execv(native->name, native->args);
 	}
 	else

@@ -23,7 +23,7 @@ static int	native_executor(t_app *app, t_command *cmd)
 	return (1);
 }
 
-void executor(t_app *app, t_command **commands)
+void	executor(t_app *app, t_command **commands)
 {
 	int			index;
 	t_command	*cmd;

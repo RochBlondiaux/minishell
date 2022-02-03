@@ -68,7 +68,7 @@ t_command	**parse(char **args)
 		index++;
 	}
 	commands[++cmds] = NULL;
-	parse_tokens(commands,	args);
+	parse_tokens(commands, args);
 	free_array(args);
 	return (complementary_parse(commands));
 }

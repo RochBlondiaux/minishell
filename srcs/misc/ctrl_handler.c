@@ -17,7 +17,6 @@ t_app	*g_app;
 static void	exit_handler(int a)
 {
 	(void) a;
-	// TODO : kill running sub process
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);

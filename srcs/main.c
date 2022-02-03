@@ -14,7 +14,7 @@
 
 int	main(int ac, char **av, char **env)
 {
-	t_app *app;
+	t_app	*app;
 
 	(void) ac;
 	(void) av;

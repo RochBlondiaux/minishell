@@ -60,9 +60,13 @@ void	write_output(t_app *app, t_command *cmd)
 	int	fd;
 
 	if (cmd->appender)
-		fd = open(cmd->output_path, O_CREAT | O_RDWR | O_APPEND, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+		fd = open(cmd->output_path,
+				O_CREAT | O_RDWR | O_APPEND, S_IRUSR
+				| S_IRGRP | S_IWGRP | S_IWUSR);
 	else
-		fd = open(cmd->output_path, O_CREAT | O_RDWR | O_TRUNC, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+		fd = open(cmd->output_path,
+				O_CREAT | O_RDWR | O_TRUNC, S_IRUSR
+				| S_IRGRP | S_IWGRP | S_IWUSR);
 	if (fd < 0)
 	{
 		error(app, errno);

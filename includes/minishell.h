@@ -72,7 +72,7 @@ typedef struct s_native {
 	t_command	*command;
 	char		*name;
 	char		**args;
-	pid_t 		pid;
+	pid_t		pid;
 	int			exit;
 	char		*output;
 }				t_native;
@@ -114,13 +114,7 @@ void		executor(t_app *app, t_command **commands);
 /**
  * Native commands
  */
-t_native *execute_native_command(t_app *app, t_command *cmd);
-
-/**
- * Redirections
- */
-char		*redirect_input(t_app *app, t_command *command);
-void		redirect_output(t_command *command);
+t_native	*execute_native_command(t_app *app, t_command *cmd);
 
 /**
  * Builtins

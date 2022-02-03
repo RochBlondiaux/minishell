@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void init_commands(t_command **commands)
+void	init_commands(t_command **commands)
 {
 	size_t	i;
 

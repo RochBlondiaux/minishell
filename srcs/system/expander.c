@@ -17,7 +17,7 @@ static int	is_envars(char *a)
 	return (ft_strlen(a) > 0 && a[0] == '$');
 }
 
-static void expand_env_vars(t_app *app, t_command *command)
+static void	expand_env_vars(t_app *app, t_command *command)
 {
 	int		index;
 	t_env	*var;
@@ -36,7 +36,7 @@ static void expand_env_vars(t_app *app, t_command *command)
 	}
 }
 
-static void expand_input(t_app *app, t_command *cmd)
+static void	expand_input(t_app *app, t_command *cmd)
 {
 	if (!cmd->input_path
 		|| !cmd->input_path[0])

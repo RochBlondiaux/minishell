@@ -60,49 +60,7 @@ t_env	*init_env_map(char **env)
 	return (env_var);
 }
 
-t_env *get_env(t_env *env, char *key)
-{
-	t_env	*tmp;
-
-	while (env)
-	{
-		tmp = (env)->next;
-		if (tmp && ft_strcmp_sensitive(tmp->key, key))
-			return (tmp);
-		env = tmp;
-	}
-	return (NULL);
-}
-
-void	remove_env(t_env **env, char *key)
-{
-	t_env	*tmp;
-	t_env	*prev;
-
-	tmp = *env;
-	prev = NULL;
-	if (tmp != NULL && ft_strcmp_sensitive(tmp->key, key))
-	{
-		*env = tmp->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
-		return ;
-	}
-	while (tmp && !ft_strcmp_sensitive(tmp->key, key))
-	{
-		prev = tmp;
-		tmp = tmp->next;
-	}
-	if (!tmp)
-		return;
-	prev->next = tmp->next;
-	free(tmp->key);
-	free(tmp->value);
-	free(tmp);
-}
-
-void free_map(t_env **env)
+void	free_map(t_env **env)
 {
 	t_env	*tmp;
 

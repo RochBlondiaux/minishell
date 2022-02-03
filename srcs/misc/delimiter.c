@@ -17,7 +17,6 @@ static int	is_delimiter_char(char *a)
 	return (ft_strcmp(a, "<<") || ft_strcmp(a, ">>"));
 }
 
-
 static int	get_arguments(char **args)
 {
 	size_t	i;
@@ -57,8 +56,7 @@ static char	**remove_delimiter(char **args)
 	return (a);
 }
 
-
-void parse_delimiter(t_command *cmd)
+void	parse_delimiter(t_command *cmd)
 {
 	size_t	index;
 	char	**args;

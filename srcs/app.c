@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-t_app *load_application(char **env)
+t_app	*load_application(char **env)
 {
 	t_app	*app;
 
@@ -29,14 +29,14 @@ t_app *load_application(char **env)
 	return (app);
 }
 
-void start_application(t_app *app)
+void	start_application(t_app *app)
 {
 	app->running = TRUE;
 	handle_ctrl(app);
 	start_engine(app);
 }
 
-void stop_application(t_app *app)
+void	stop_application(t_app *app)
 {
 	printf("%s%s\n", GREEN, EXIT_MESSAGE);
 	free_map(&app->env);

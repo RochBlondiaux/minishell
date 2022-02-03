@@ -60,7 +60,8 @@ static	size_t	arguments_count(char **args, size_t start, char *name)
 	return (arguments);
 }
 
-static char	**get_command_arguments(char **args, size_t start, char *name, int *ret)
+static char	**get_command_arguments(char **args, size_t start,
+									char *name, int *ret)
 {
 	size_t	index;
 	size_t	arguments;
