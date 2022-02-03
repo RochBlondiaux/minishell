@@ -49,7 +49,13 @@ static void post_check(t_app *app, t_native *native, int *status)
 static void execute_child(t_native *native, t_command *cmd, int *fd)
 {
 	(void) native;
-	if (cmd->input)
+	if (cmd->output_path)
+	{
+		close(fd[0]);
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[1]);
+	}
+	else if (cmd->input)
 	{
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
@@ -59,9 +65,18 @@ static void execute_child(t_native *native, t_command *cmd, int *fd)
 
 static void execute_parent(t_native *native, t_command *cmd, int *fd)
 {
-	int	state;
+	int		state;
+	char	buff[1];
 
-	if (cmd->input)
+	if (cmd->output_path)
+	{
+		close(fd[1]);
+		while(read(fd[0], buff, 1) > 0)
+			cmd->output = ft_strjoin_properly(cmd->output, ft_strdup(buff));
+		close(fd[0]);
+		waitpid(native->pid, &state, 0);
+	}
+	else if (cmd->input)
 	{
 		close(fd[0]);
 		write(fd[1], cmd->input, ft_strlen(cmd->input));
