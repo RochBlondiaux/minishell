@@ -206,6 +206,6 @@ void		add_env(t_env **env, t_env *new);
 t_env		*init_env_map(char **env);
 void		free_map(t_env **env);
 void		remove_env(t_env **env, char *key);
-t_env		*get_env(t_env **env, char *key);
+t_env		*get_env(t_env *env, char *key);
 
 #endif

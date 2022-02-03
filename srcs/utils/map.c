@@ -60,16 +60,16 @@ t_env	*init_env_map(char **env)
 	return (env_var);
 }
 
-t_env *get_env(t_env **env, char *key)
+t_env *get_env(t_env *env, char *key)
 {
 	t_env	*tmp;
 
-	while (*env)
+	while (env)
 	{
-		tmp = (*env)->next;
+		tmp = (env)->next;
 		if (tmp && ft_strcmp(tmp->key, key))
 			return (tmp);
-		*env = tmp;
+		env = tmp;
 	}
 	return (NULL);
 }

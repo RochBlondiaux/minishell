@@ -27,7 +27,7 @@ static void expand_env_vars(t_app *app, t_command *command)
 	{
 		if (!is_envars(command->args[index]))
 			continue ;
-		var = get_env(&app->env, &command->args[index][1]);
+		var = get_env(app->env, &command->args[index][1]);
 		free(command->args[index]);
 		if (!var)
 			command->args[index] = ft_strdup("");
