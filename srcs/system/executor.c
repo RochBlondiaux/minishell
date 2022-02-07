@@ -37,5 +37,7 @@ void	executor(t_app *app, t_command **commands)
 			continue ;
 		str_error(app, COMMAND_NOT_FOUND);
 		app->last_status = 127;
+		if (app->last_status != 0 && cmd->next_token == DOUBLE_PIPE)
+			continue ;
 	}
 }

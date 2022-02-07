@@ -5,10 +5,6 @@ characters in the quoted sequence.
 characters in the quoted sequence except for $ (dollar sign).
 * << should be given a delimiter, then read the input until a line containing the
 delimiter is seen. However, it doesn’t have to update the history!
-* Implement pipes (| character). The output of each command in the pipeline is
-connected to the input of the next command via a pipe.
-* Handle $? which should expand to the exit status of the most recently executed
-foreground pipeline.
 
 ## BUGS:
 Redirection & Appender
@@ -51,6 +47,10 @@ machin
 ## IN PROGRESS:
 
 ## DONE
+* Implement pipes (| character). The output of each command in the pipeline is
+  connected to the input of the next command via a pipe.
+* Handle $? which should expand to the exit status of the most recently executed
+  foreground pipeline.
 * < should redirect input.
 * Display a prompt when waiting for a new command.
 * Have a working history.
