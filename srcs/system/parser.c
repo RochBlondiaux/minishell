@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
+/*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 16:36:33 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/29 16:57:18 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/02/07 14:54:18 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_command	**parse(char **args)
 	cmds = -1;
 	while (args[index])
 	{
+		
 		commands[++cmds] = create_command(args, args[index], &index);
 		if (index >= (int) array_length(args))
 			break ;

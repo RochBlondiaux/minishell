@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
+/*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 20:53:40 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/29 16:57:18 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/02/07 14:53:52 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	free_commands(t_command **commands)
 	}
 	free(commands);
 }
+
+// echo q ! echo b
 
 static	size_t	arguments_count(char **args, size_t start, char *name)
 {
