@@ -74,6 +74,7 @@ typedef struct s_native {
 	char		**args;
 	pid_t		pid;
 	int			exit;
+	int			status;
 	char		*output;
 }				t_native;
 

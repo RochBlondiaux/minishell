@@ -33,13 +33,13 @@ static t_native	*pre_check(t_app *app, t_command *cmd)
 	return (native);
 }
 
-static void	post_check(t_app *app, t_native *native, int *status)
+static void	post_check(t_app *app, t_native *native)
 {
-	if (waitpid(native->pid, status, WUNTRACED | WCONTINUED) == -1)
+	if (waitpid(native->pid, &native->status, WUNTRACED | WCONTINUED) == -1)
 		app->error = 1;
 	else
-		app->error = WEXITSTATUS(*status);
-	native->exit = WEXITSTATUS(*status);
+		app->error = WEXITSTATUS(native->status);
+	native->exit = WEXITSTATUS(native->status);
 	kill(native->pid, SIGKILL);
 }
 
@@ -85,7 +85,6 @@ static void	execute_parent(t_command *cmd, t_app *app, int *fd)
 t_native	*execute_native_command(t_app *app, t_command *cmd)
 {
 	t_native	*native;
-	int			status;
 	int			fd[2];
 
 	if (pipe(fd) == -1)
@@ -100,6 +99,6 @@ t_native	*execute_native_command(t_app *app, t_command *cmd)
 	}
 	else
 		execute_parent(cmd, app, fd);
-	post_check(app, native, &status);
+	post_check(app, native);
 	return (native);
 }

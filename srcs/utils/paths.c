@@ -14,7 +14,7 @@
 
 char	*working_directory(void)
 {
-	char	cwd[PATH_MAX];
+	char	cwd[1024];
 
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		return (ft_strdup(cwd));
