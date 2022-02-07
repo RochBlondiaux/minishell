@@ -36,5 +36,6 @@ void	executor(t_app *app, t_command **commands)
 			|| native_executor(app, cmd))
 			continue ;
 		str_error(app, COMMAND_NOT_FOUND);
+		app->last_status = 127;
 	}
 }

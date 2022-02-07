@@ -20,19 +20,26 @@ static int	is_envars(char *a)
 static void	expand_env_vars(t_app *app, t_command *command)
 {
 	int		index;
-	t_env	*var;
+	char	*var;
+	t_env	*env;
 
 	index = -1;
 	while (command->args[++index])
 	{
 		if (!is_envars(command->args[index]))
 			continue ;
-		var = get_env(app->env, &command->args[index][1]);
-		free(command->args[index]);
-		if (!var)
-			command->args[index] = ft_strdup("");
+		if (ft_strcmp_sensitive(command->args[index], "$?"))
+			var = ft_itoa(app->last_status);
 		else
-			command->args[index] = ft_strdup(var->value);
+		{
+			env = get_env(app->env, &command->args[index][1]);
+			if (env)
+				var = ft_strdup(env->value);
+			else
+				var = ft_strdup("");
+		}
+		free(command->args[index]);
+		command->args[index] = var;
 	}
 }
 

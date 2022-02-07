@@ -89,6 +89,7 @@ typedef struct s_app {
 	char	*path;
 	t_env	*env;
 	int		running;
+	int		last_status;
 	int		error;
 }			t_app;
 
