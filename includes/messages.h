@@ -17,5 +17,6 @@
 # define COMMAND_NOT_FOUND "\033[0;31mCommand not found!\033[0m"
 # define OCCURRED_ERROR "\033[0;31mAn error occurred!\033[0m"
 # define EXIT_MESSAGE "Goodbye buddy!"
+# define TOO_MANY_ARGUMENTS "Too many arguments!"
 
 #endif

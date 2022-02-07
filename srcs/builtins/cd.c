@@ -17,7 +17,9 @@ void	builtin_cd(t_app *app, char **args)
 	char	*target;
 	char	*tmp;
 
-	if (array_length(args) == 1)
+	if (array_length(args) == 0)
+		target = home_directory();
+	else if (array_length(args) == 1)
 	{
 		if (ft_strcmp(args[0], ".."))
 		{
@@ -29,7 +31,10 @@ void	builtin_cd(t_app *app, char **args)
 			target = path(args[0]);
 	}
 	else
-		target = home_directory();
+	{
+		str_error(app, TOO_MANY_ARGUMENTS);
+		return ;
+	}
 	if (!set_path(app, target))
 		error(app, ENOENT);
 }
