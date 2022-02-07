@@ -46,3 +46,8 @@ void	parse_tokens(t_command **commands, char **args)
 	}
 	commands[j]->next_token = NONE;
 }
+
+int	is_pipe(t_token t)
+{
+	return (t == PIPE || t == DOUBLE_PIPE);
+}

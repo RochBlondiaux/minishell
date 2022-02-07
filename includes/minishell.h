@@ -148,6 +148,7 @@ char		**add_array_element(char **array, char *element);
  * Tokens utils
  */
 void		parse_tokens(t_command **commands, char **args);
+int			is_pipe(t_token t);
 
 /**
  * Commands utils
