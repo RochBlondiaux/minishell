@@ -6,7 +6,7 @@
 /*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 21:14:54 by rblondia          #+#    #+#             */
-/*   Updated: 2022/02/07 14:41:51 by lfilloux         ###   ########.fr       */
+/*   Updated: 2022/02/07 15:13:11 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ int	dispatch_builtin(t_app *app, t_command *command)
 	char	**args;
 
 	args = command->args;
-	printf("%s\n", args[0]);
 	name = command->name;
-	printf("%s\n", name);
 	if (ft_strcmp(name, "cd"))
 		builtin_cd(app, args);
 	else if (ft_strcmp(name, "pwd"))

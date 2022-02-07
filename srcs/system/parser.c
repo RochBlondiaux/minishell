@@ -6,7 +6,7 @@
 /*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 16:36:33 by rblondia          #+#    #+#             */
-/*   Updated: 2022/02/07 14:54:18 by lfilloux         ###   ########.fr       */
+/*   Updated: 2022/02/07 15:34:53 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static size_t	get_commands_count(char **args)
 		if (is_separator(args[index]))
 			cmds ++;
 	}
-	return (cmds + 1);
+	return (cmds + 2);
 }
 
 static t_command	**complementary_parse(t_command **commands)
@@ -59,16 +59,16 @@ t_command	**parse(char **args)
 	if (!commands)
 		return (NULL);
 	index = 0;
-	cmds = -1;
+	cmds = 0;
 	while (args[index])
 	{
-		
-		commands[++cmds] = create_command(args, args[index], &index);
+		commands[cmds] = create_command(args, args[index], &index);
+		cmds++;
 		if (index >= (int) array_length(args))
 			break ;
 		index++;
 	}
-	commands[++cmds] = NULL;
+	commands[cmds] = NULL;
 	parse_tokens(commands, args);
 	free_array(args);
 	return (complementary_parse(commands));
