@@ -17,6 +17,8 @@ static char	*get_accurate_path(char *path, char *name)
 	char	*final;
 	char	*tmp;
 
+	if (access(name, X_OK) == FALSE)
+		return (ft_strdup(name));
 	if (path[ft_strlen(path) - 1] != '/')
 		tmp = ft_strjoin(path, "/");
 	else
@@ -39,7 +41,7 @@ char	*get_command_path(char *name)
 	while (paths[i])
 	{
 		tmp = get_accurate_path(paths[i], name);
-		if (tmp && access(tmp, X_OK) == FALSE)
+		if (tmp && !path && access(tmp, X_OK) == FALSE)
 			path = ft_strdup(tmp);
 		free(tmp);
 		free(paths[i]);
