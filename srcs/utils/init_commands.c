@@ -23,5 +23,6 @@ void	init_commands(t_command **commands)
 			commands[i]->previous = commands[i - 1];
 		if (i < commands_length(commands) - 1)
 			commands[i]->next = commands[i + 1];
+		commands[i]->status = 0;
 	}
 }

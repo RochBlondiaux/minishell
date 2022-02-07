@@ -33,7 +33,7 @@ static t_native	*pre_check(t_app *app, t_command *cmd)
 	return (native);
 }
 
-static void	post_check(t_app *app, t_native *native)
+static void	post_check(t_app *app, t_command *cmd, t_native *native)
 {
 	if (waitpid(native->pid, &native->status, WUNTRACED | WCONTINUED) == -1)
 		app->error = 1;
@@ -41,18 +41,19 @@ static void	post_check(t_app *app, t_native *native)
 		app->error = WEXITSTATUS(native->status);
 	native->exit = WEXITSTATUS(native->status);
 	kill(native->pid, SIGKILL);
-	app->last_status = WEXITSTATUS(native->status);
+	app->last_status = native->exit;
+	cmd->status = native->exit;
 }
 
 static void	execute_child(t_command *cmd, int *fd)
 {
-	if (cmd->output_path[0] || is_pipe(cmd->next_token))
+	if (cmd->output_path[0] || cmd->next_token == PIPE)
 	{
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 	}
-	else if (cmd->input[0] || (is_pipe(cmd->previous_token) && cmd->previous))
+	else if (cmd->input[0] || (cmd->previous_token == PIPE && cmd->previous))
 	{
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
@@ -64,7 +65,7 @@ static void	execute_parent(t_command *cmd, t_app *app, int *fd)
 {
 	char	buff[2];
 
-	if (cmd->output_path[0] || is_pipe(cmd->next_token))
+	if (cmd->output_path[0] || cmd->next_token == PIPE)
 	{
 		close(fd[1]);
 		while (read(fd[0], &buff, 1) > 0)
@@ -73,15 +74,12 @@ static void	execute_parent(t_command *cmd, t_app *app, int *fd)
 			cmd->output = ft_strjoin_properly(cmd->output, ft_strdup(buff));
 		}
 		close(fd[0]);
-		if (!is_pipe(cmd->next_token))
-		{
-			printf("NOPE\n");
+		if (cmd->next_token != PIPE)
 			write_output(app, cmd);
-		}
 	}
-	else if (cmd->input[0] || is_pipe(cmd->previous_token))
+	else if (cmd->input[0] || cmd->previous_token == PIPE)
 	{
-		if (cmd->previous && is_pipe(cmd->previous_token))
+		if (cmd->previous && cmd->previous_token == PIPE)
 		{
 			free(cmd->input);
 			cmd->input = ft_strdup(cmd->previous->output);
@@ -109,6 +107,6 @@ t_native	*execute_native_command(t_app *app, t_command *cmd)
 	}
 	else
 		execute_parent(cmd, app, fd);
-	post_check(app, native);
+	post_check(app, cmd, native);
 	return (native);
 }

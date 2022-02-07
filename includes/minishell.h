@@ -64,6 +64,7 @@ typedef struct s_command {
 	int					appender;
 	struct s_command	*previous;
 	struct s_command	*next;
+	int					status;
 	t_token				previous_token;
 	t_token				next_token;
 }			t_command;
