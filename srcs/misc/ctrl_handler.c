@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ctrl_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
+/*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:14:44 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/29 16:57:17 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/02/07 17:15:41 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,14 @@ static void	exit_handler(int a)
 	rl_redisplay();
 }
 
+static void	do_nothing(int a)
+{
+	(void) a;
+}
+
 void	handle_ctrl(t_app *app)
 {
 	g_app = app;
 	signal(SIGINT, exit_handler);
+	signal(SIGQUIT, do_nothing);
 }
