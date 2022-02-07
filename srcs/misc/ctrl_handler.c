@@ -19,13 +19,14 @@ static void	exit_handler(int a)
 	(void) a;
 	printf("\n");
 	rl_on_new_line();
-	//rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
 static void	do_nothing(int a)
 {
 	(void) a;
+	rl_on_new_line();
 }
 
 void	handle_ctrl(t_app *app)
