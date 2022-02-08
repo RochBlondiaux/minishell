@@ -18,5 +18,6 @@
 # define OCCURRED_ERROR "\033[0;31mAn error occurred!\033[0m"
 # define EXIT_MESSAGE "Goodbye buddy!"
 # define TOO_MANY_ARGUMENTS "Too many arguments!"
+# define UNINITIALIZED "cd: OLDPWD not set"
 
 #endif

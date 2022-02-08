@@ -62,8 +62,13 @@ static int	special_cd_path(t_app *app, char **args, char *current)
 	}
 	else if (ft_strcmp(args[0], "-"))
 	{
-		set_path(app, app->last_path);
-		app->last_path = ft_strdup(current);
+		if (!app->last_path[0])
+			str_error(app, UNINITIALIZED);
+		else
+		{
+			set_path(app, app->last_path);
+			app->last_path = ft_strdup(current);
+		}
 		free(current);
 		return (0);
 	}
