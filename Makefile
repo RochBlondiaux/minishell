@@ -85,8 +85,6 @@ obj:
 	@mkdir -p $(OBJ_PATH)/builtins
 	@mkdir -p $(OBJ_PATH)/system
 	@mkdir -p $(OBJ_PATH)/misc
-	@mkdir -p $(OBJ_PATH)/commands
-	@mkdir -p $(OBJ_PATH)/handlers
 	@mkdir -p $(OBJ_PATH)/utils
 	@echo "$(SUCCESS)Objects folder created successfully$(NOC)"
 
