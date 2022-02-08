@@ -16,10 +16,12 @@ void	error(t_app *app, int code)
 {
 	perror(strerror(code));
 	app->error = TRUE;
+	app->exit = 1;
 }
 
 void	str_error(t_app *app, char *error)
 {
 	ft_putendl_fd(error, 2);
 	app->error = TRUE;
+	app->exit = 1;
 }
