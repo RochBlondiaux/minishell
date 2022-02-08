@@ -24,8 +24,10 @@ static size_t	count_types(char **args)
 		while (args[index] && get_token(args[index]) == NONE)
 			index++;
 		types++;
-		if (get_token(args[index]) != NONE)
-			types++;
+		if (index >= array_length(args))
+			break ;
+		types++;
+		continue ;
 	}
 	return (types);
 }
@@ -33,15 +35,26 @@ static size_t	count_types(char **args)
 static t_str_type *parse_types(char **args)
 {
 	size_t		index;
+	size_t		j;
 	t_str_type	*types;
 
 	index = -1;
-	printf("Types: %zu\n", count_types(args));
-	types = malloc(count_types(args) * sizeof(t_str_type) + 1);
+	j = -1;
+	types = malloc(count_types(args) * sizeof(t_str_type));
 	if (!types)
 		return (NULL);
 	while (args[++index])
 	{
+		while (args[index] && get_token(args[index]) == NONE)
+			index ++;
+		types[++j] = CMD;
+		if (index >= array_length(args))
+			break ;
+		if (get_token(args[index]) != NONE)
+			types[++j] = TOKEN;
+		else
+			types[++j] = UNKNOWN;
+		continue;
 	}
  	return (types);
 }
@@ -51,7 +64,12 @@ int	validate_syntax(char **args)
 	t_str_type	*types;
 
 	types = parse_types(args);
-	free_array(args);
-	free(types);
-	return (FALSE);
+	if (types[0] != CMD || types[count_types(args) - 1] != CMD)
+	{
+		printf("ERROR\n");
+		free_array(args);
+		free(types);
+		return (FALSE);
+	}
+	return (TRUE);
 }
