@@ -12,25 +12,40 @@
 
 #include "../../includes/minishell.h"
 
-static void	check_existing_cd(t_app *app, char *dest, char **args)
+static int	check_existing_cd(t_app *app, char *dest, char **args)
 {
 	char	*temp;
 
 	if (ft_strcmp(dest, ".."))
-		set_path(app, parent(working_directory()));
+	{
+		if (!set_path(app, parent(working_directory())))
+		{
+			error(app, ENOENT);
+			return (-1);
+		}
+	}
 	else
 	{
 		if (ft_strncmp(dest, "/", 1) && ft_strncmp(args[0], "/", 1) == 0)
 		{
 			temp = ft_strjoin("/", dest);
 			if (!set_path(app, path(temp)))
+			{
 				error(app, ENOENT);
+				return (-1);
+			}
 			free(temp);
 		}
 		else
+		{
 			if (!set_path(app, path(dest)))
+			{
 				error(app, ENOENT);
+				return (-1);
+			}
+		}
 	}
+	return (0);
 }
 
 void	builtin_cd(t_app *app, char **args)
@@ -46,10 +61,13 @@ void	builtin_cd(t_app *app, char **args)
 		dest = ft_split(args[0], '/');
 		while (dest[++i])
 		{
-			check_existing_cd(app, dest[i], args);
-			free(dest[i]);
+			if (check_existing_cd(app, dest[i], args) != 0)
+			{
+				free_array(dest);
+				return ;
+			}
 		}
-		free(dest);
+		free_array(dest);
 	}
 	else
 		str_error(app, TOO_MANY_ARGUMENTS);
