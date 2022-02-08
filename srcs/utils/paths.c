@@ -63,6 +63,7 @@ char	*parent(char *path)
 		else
 			free (a[index]);
 	}
+	free(path);
 	free(a);
 	return (final);
 }
@@ -74,7 +75,7 @@ char	*path(char *raw)
 
 	if (!raw)
 		return (NULL);
-	if (raw[ft_strlen(raw) - 1] != '/')
+	else if (raw[ft_strlen(raw) - 1] != '/')
 		temp = ft_strjoin(raw, "/");
 	else
 		temp = ft_strdup(raw);
