@@ -22,6 +22,8 @@
  */
 char	**lexer(t_app *app, char *input, int *result)
 {
+	char	**args;
+
 	if (!input || !app)
 	{
 		*result = -2;
@@ -33,5 +35,8 @@ char	**lexer(t_app *app, char *input, int *result)
 		*result = -1;
 		return (NULL);
 	}
-	return (ft_split(input, ' '));
+	args = ft_split(input, ' ');
+	if (!validate_syntax(args))
+		return (NULL);
+	return (args);
 }

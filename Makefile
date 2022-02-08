@@ -36,6 +36,7 @@ SRC_NAME =	main.c \
 			system/parser.c \
 			system/expander.c \
 			system/executor.c \
+			system/syntax.c \
 			builtins/dispatcher.c \
 			builtins/echo.c \
 			builtins/exit.c \
@@ -49,6 +50,7 @@ SRC_NAME =	main.c \
 			misc/native_cmds.c \
 			utils/native_cmds.c \
 			utils/files.c \
+			utils/types.c \
 			utils/init_commands.c \
 			utils/string.c \
 			utils/tokens.c \

@@ -44,6 +44,12 @@
 /**
  * Structures
  */
+typedef enum e_str_type {
+	CMD,
+	TOKEN,
+	UNKNOWN
+}	t_str_type;
+
 typedef enum e_token {
 	PIPE,
 	SEMICOLON,
@@ -150,6 +156,7 @@ char		**add_array_element(char **array, char *element);
  * Tokens utils
  */
 void		parse_tokens(t_command **commands, char **args);
+t_token		get_token(char *a);
 
 /**
  * Commands utils
@@ -212,8 +219,18 @@ t_env		*get_env(t_env *env, char *key);
 void		write_output(t_app *app, t_command *cmd);
 
 /**
+ * Syntax
+ */
+int			validate_syntax(char **args);
+
+/**
  * String utils
  */
 char		*ft_replace(char *src, char *find, char *replace);
+
+/**
+ * Str types utils
+ */
+size_t		str_types_length(t_str_type *types);
 
 #endif
