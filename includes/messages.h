@@ -19,5 +19,6 @@
 # define EXIT_MESSAGE "Goodbye buddy!"
 # define TOO_MANY_ARGUMENTS "Too many arguments!"
 # define UNINITIALIZED "cd: OLDPWD not set"
+# define SYNTAX_ERROR "Syntax error"
 
 #endif

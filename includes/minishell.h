@@ -56,6 +56,7 @@ typedef enum e_token {
 	AMPERSAND,
 	DOUBLE_AMPERSAND,
 	DOUBLE_PIPE,
+	UNDEFINED,
 	NONE
 }	t_token;
 
@@ -221,16 +222,12 @@ void		write_output(t_app *app, t_command *cmd);
 /**
  * Syntax
  */
-int			validate_syntax(char **args);
+int			validate_syntax(t_app *app, char **args);
 
 /**
  * String utils
  */
 char		*ft_replace(char *src, char *find, char *replace);
 
-/**
- * Str types utils
- */
-size_t		str_types_length(t_str_type *types);
 
 #endif

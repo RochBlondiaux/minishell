@@ -59,14 +59,15 @@ static t_str_type *parse_types(char **args)
  	return (types);
 }
 
-static int free__(char **args, t_str_type *types)
+static int free__(t_app *app, char **args, t_str_type *types)
 {
+	str_error(app, SYNTAX_ERROR);
 	free_array(args);
 	free(types);
 	return (FALSE);
 }
 
-int	validate_syntax(char **args)
+int	validate_syntax(t_app *app, char **args)
 {
 	t_str_type	*types;
 	size_t		index;
@@ -78,12 +79,12 @@ int	validate_syntax(char **args)
 		return (FALSE);
 	}
 	if (types[0] != CMD || types[count_types(args) - 1] != CMD)
-		return free__(args, types);
+		return (free__(app, args, types));
 	index = -1;
 	while (++index < count_types(args))
 	{
 		if (types[index] == TOKEN && types[index + 1] && types[index + 1] != CMD)
-			return (FALSE);
+			return (free__(app, args, types));
 	}
 	free(types);
 	return (TRUE);

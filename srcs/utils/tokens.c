@@ -16,15 +16,15 @@ t_token	get_token(char *a)
 {
 	if (!a || ft_strlen(a) == 0)
 		return (NONE);
-	if (ft_strcmp(a, "|"))
+	if (ft_strcmp_sensitive(a, "|"))
 		return (PIPE);
-	if (ft_strcmp(a, "||"))
+	if (ft_strcmp_sensitive(a, "||"))
 		return (DOUBLE_PIPE);
-	if (ft_strcmp(a, "&"))
+	if (ft_strcmp_sensitive(a, "&"))
 		return (AMPERSAND);
-	if (ft_strcmp(a, "&&"))
+	if (ft_strcmp_sensitive(a, "&&"))
 		return (DOUBLE_AMPERSAND);
-	if (ft_strcmp(a, ";"))
+	if (ft_strcmp_sensitive(a, ";"))
 		return (SEMICOLON);
 	return (NONE);
 }
