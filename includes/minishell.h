@@ -88,6 +88,7 @@ typedef struct s_env
 
 typedef struct s_app {
 	char	*path;
+	char	*last_path;
 	t_env	*env;
 	int		running;
 	int		exit;
