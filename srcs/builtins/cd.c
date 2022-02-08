@@ -16,7 +16,6 @@ static int	check_existing_cdpath(t_app *app, char *dest, char **args, size_t i)
 {
 	char	*temp;
 
-	printf("%s\n", dest);
 	if (ft_strncmp(dest, "/", 1) && ft_strncmp(args[0], "/", 1) == 0 && i == 0)
 		{
 			temp = ft_strjoin("/", dest);
@@ -63,6 +62,8 @@ void	builtin_cd(t_app *app, char **args)
 		set_path(app, home_directory());
 	else if (array_length(args) == 1)
 	{
+		if (ft_strcmp(args[0], "/"))
+			set_path(app, ft_strdup("/"));
 		i = -1;
 		dest = ft_split(args[0], '/');
 		while (dest[++i])
