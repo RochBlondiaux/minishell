@@ -12,34 +12,59 @@
 
 #include "../../includes/minishell.h"
 
-static int	is_envars(char *a)
+static int	contains_envars(char *a)
 {
-	return (ft_strlen(a) > 0 && a[0] == '$');
+	size_t	index;
+
+	index = -1;
+	while (a[++index])
+	{
+		if (a[index] == '$' && a[index + 1])
+			return (1);
+	}
+	return (0);
+}
+
+static char	*get_env_string(char *src)
+{
+	int	index;
+
+	index = ft_strchr(src, '$');
+	if (index == -1)
+		return (NULL);
+	index++;
+	while (src[index] && (ft_isalpha(src[index]) || (src[index] == '?'
+				&& (!src[index + 1] || !ft_isalpha(src[index + 1])))))
+		index++;
+	return (ft_substr(src, ft_strchr(src, '$'), index));
 }
 
 static void	expand_env_vars(t_app *app, t_command *command)
 {
 	int		index;
-	char	*var;
+	char	*v;
 	t_env	*env;
 
 	index = -1;
 	while (command->args[++index])
 	{
-		if (!is_envars(command->args[index]))
+		if (!contains_envars(command->args[index]))
 			continue ;
-		if (ft_strcmp_sensitive(command->args[index], "$?"))
-			var = ft_itoa(app->last_status);
+		v = get_env_string(command->args[index]);
+		if (!v)
+			continue ;
+		env = get_env(app->env, &v[1]);
+		if (env)
+			v = ft_replace(command->args[index], v, ft_strdup(env->value));
 		else
 		{
-			env = get_env(app->env, &command->args[index][1]);
-			if (env)
-				var = ft_strdup(env->value);
+			if (v[1] == '?')
+				v = ft_replace(command->args[index], v, ft_itoa(app->exit));
 			else
-				var = ft_strdup("");
+				v = ft_replace(command->args[index], v, ft_strdup(""));
 		}
 		free(command->args[index]);
-		command->args[index] = var;
+		command->args[index] = v;
 	}
 }
 

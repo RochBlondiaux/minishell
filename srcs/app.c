@@ -26,7 +26,7 @@ t_app	*load_application(char **env)
 	app->path = working_directory();
 	app->env = init_env_map(env);
 	app->error = FALSE;
-	app->last_status = 0;
+	app->exit = 0;
 	return (app);
 }
 

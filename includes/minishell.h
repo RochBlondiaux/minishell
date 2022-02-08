@@ -90,7 +90,7 @@ typedef struct s_app {
 	char	*path;
 	t_env	*env;
 	int		running;
-	int		last_status;
+	int		exit;
 	int		error;
 }			t_app;
 
@@ -209,5 +209,10 @@ void		remove_env(t_env **env, char *key);
 t_env		*get_env(t_env *env, char *key);
 
 void		write_output(t_app *app, t_command *cmd);
+
+/**
+ * String utils
+ */
+char		*ft_replace(char *src, char *find, char *replace);
 
 #endif

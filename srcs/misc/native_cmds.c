@@ -41,7 +41,7 @@ static void	post_check(t_app *app, t_command *cmd, t_native *native)
 		app->error = WEXITSTATUS(native->status);
 	native->exit = WEXITSTATUS(native->status);
 	kill(native->pid, SIGKILL);
-	app->last_status = native->exit;
+	app->exit = native->exit;
 	cmd->status = native->exit;
 }
 
