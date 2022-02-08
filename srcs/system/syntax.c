@@ -59,17 +59,32 @@ static t_str_type *parse_types(char **args)
  	return (types);
 }
 
+static int free__(char **args, t_str_type *types)
+{
+	free_array(args);
+	free(types);
+	return (FALSE);
+}
+
 int	validate_syntax(char **args)
 {
 	t_str_type	*types;
+	size_t		index;
 
 	types = parse_types(args);
-	if (types[0] != CMD || types[count_types(args) - 1] != CMD)
+	if (!types)
 	{
-		printf("ERROR\n");
 		free_array(args);
-		free(types);
 		return (FALSE);
 	}
+	if (types[0] != CMD || types[count_types(args) - 1] != CMD)
+		return free__(args, types);
+	index = -1;
+	while (++index < count_types(args))
+	{
+		if (types[index] == TOKEN && types[index + 1] && types[index + 1] != CMD)
+			return (FALSE);
+	}
+	free(types);
 	return (TRUE);
 }

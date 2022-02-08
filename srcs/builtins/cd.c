@@ -17,15 +17,15 @@ static int	check_existing_cdpath(t_app *app, char *dest, char **args, size_t i)
 	char	*temp;
 
 	if (ft_strncmp(dest, "/", 1) && ft_strncmp(args[0], "/", 1) == 0 && i == 0)
+	{
+		temp = ft_strjoin("/", dest);
+		if (!set_path(app, path(temp)))
 		{
-			temp = ft_strjoin("/", dest);
-			if (!set_path(app, path(temp)))
-			{
-				error(app, ENOENT);
-				return (-1);
-			}
-			free(temp);
+			error(app, ENOENT);
+			return (-1);
 		}
+		free(temp);
+	}
 	else
 	{
 		if (!set_path(app, path(dest)))

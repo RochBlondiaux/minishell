@@ -37,6 +37,9 @@ char	**lexer(t_app *app, char *input, int *result)
 	}
 	args = ft_split(input, ' ');
 	if (!validate_syntax(args))
+	{
+		printf("ERROR\n");
 		return (NULL);
+	}
 	return (args);
 }
