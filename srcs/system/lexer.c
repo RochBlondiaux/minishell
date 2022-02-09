@@ -23,6 +23,7 @@
 char	**lexer(t_app *app, char *input, int *result)
 {
 	char	**args;
+	char	**split;
 	size_t	i;
 
 	if (!input || !app)
@@ -40,11 +41,25 @@ char	**lexer(t_app *app, char *input, int *result)
 	i = 0;
 	while(args[i])
 	{
-		if (((unsigned char)args[i][0] == '"' && (unsigned char)args[i][1] == '"')
+		if (((unsigned char)args[i][0] == '"' && (unsigned char)args[i][1] == '"' && !args[i][2])
 			|| ft_strcmp(args[i], "''"))
 		{
 			free(args[i]);
 			args[i] = ft_strdup("");
+		}
+		else if (((unsigned char)args[i][0] == '"' && (unsigned char)args[i][1] == '"' && args[i][2]))
+		{
+			split = ft_split(args[i], '"');
+			free(args[i]);
+			args[i] = split[0];
+			free(split);
+		}
+		else if (((unsigned char)args[i][0] == 39 && (unsigned char)args[i][1] == 39 && args[i][2]))
+		{
+			split = ft_split(args[i], (unsigned char)39);
+			free(args[i]);
+			args[i] = split[0];
+			free(split);
 		}
 		i ++;
 	}
