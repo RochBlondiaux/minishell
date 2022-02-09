@@ -30,6 +30,11 @@ void	builtin_export(t_app *app, char **args)
 {
 	char	**e;
 
+	if (!args[0][0])
+	{
+		str_error(app, "export: not valid in this context:");
+		return ;
+	}
 	e = ft_split(args[0], '=');
 	if (get_env(app->env, e[0]))
 	{

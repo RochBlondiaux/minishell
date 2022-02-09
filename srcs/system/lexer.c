@@ -23,6 +23,7 @@
 char	**lexer(t_app *app, char *input, int *result)
 {
 	char	**args;
+	size_t	i;
 
 	if (!input || !app)
 	{
@@ -36,6 +37,17 @@ char	**lexer(t_app *app, char *input, int *result)
 		return (NULL);
 	}
 	args = ft_split(input, ' ');
+	i = 0;
+	while(args[i])
+	{
+		if (((unsigned char)args[i][0] == '"' && (unsigned char)args[i][1] == '"')
+			|| ft_strcmp(args[i], "''"))
+		{
+			free(args[i]);
+			args[i] = ft_strdup("");
+		}
+		i ++;
+	}
 	if (!validate_syntax(app, args))
 		return (NULL);
 	return (args);
