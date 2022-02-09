@@ -16,8 +16,8 @@ void	builtin_unset(t_app *app, char **args)
 {
 	if (!args[0][0])
 	{
-		str_error(app, "unset: : invalid parameter name");
+		str_error(app, UNSET_ERROR);
 		return ;
 	}
-	remove_env(&app->env, args[0]);
+	remove_env(app, &app->env, args[0]);
 }

@@ -36,7 +36,7 @@ t_env	*get_env(t_env *env, char *key)
 	return (NULL);
 }
 
-void	remove_env(t_env **env, char *key)
+void	remove_env(t_app *app, t_env **env, char *key)
 {
 	t_env	*tmp;
 	t_env	*prev;
@@ -57,7 +57,10 @@ void	remove_env(t_env **env, char *key)
 		tmp = tmp->next;
 	}
 	if (!tmp)
+	{
+		str_error(app, UNSET_ERROR);
 		return ;
+	}
 	prev->next = tmp->next;
 	free(tmp->key);
 	free(tmp->value);

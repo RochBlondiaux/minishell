@@ -214,7 +214,7 @@ t_env		*create_env_vars(char *entry);
 void		add_env(t_env **env, t_env *new);
 t_env		*init_env_map(char **env);
 void		free_map(t_env **env);
-void		remove_env(t_env **env, char *key);
+void		remove_env(t_app *app, t_env **env, char *key);
 t_env		*get_env(t_env *env, char *key);
 
 void		write_output(t_app *app, t_command *cmd);
