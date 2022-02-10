@@ -44,7 +44,6 @@ SRC_NAME =	main.c \
 			utils/app/error.c \
 			utils/modules/lexer/token.c \
 			utils/modules/syntaxer/token.c \
-			utils/modules/syntaxer/validator.c \
 			utils/string/strcat.c \
 			utils/string/replace.c \
 			utils/env/get.c \

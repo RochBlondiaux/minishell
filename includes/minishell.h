@@ -103,8 +103,6 @@ int			syntaxer(char *input, t_token *tokens);
 t_token		get_token(char *input, size_t i);
 t_token		get_real_token(char *a);
 size_t		tokens_length(t_token *tokens);
-int			validate_token(t_token *tokens, t_token token,
-				size_t index, t_token excepted);
 
 /**
  * App utils

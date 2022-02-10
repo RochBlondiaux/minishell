@@ -21,12 +21,17 @@ static int	which_token(char *input, size_t i)
 	n = input[i + 1];
 	if (c == '&' && (!n || n != '&'))
 		return (0);
-	if (c == '&' && (!input[i + 2] || input[i + 2] != '&'))
+	if (c == '&' && (input[i + 2] || input[i + 2] != '&'))
 		return (1);
 	if (c == '|' && (!n || n != '|'))
 		return (2);
-	if (c == '|' && (!input[i + 2] || input[i + 2] != '|'))
+	if (c == '|' && (input[i + 2] || input[i + 2] != '|'))
 		return (3);
+	if ((c == '>' && (!n || n != '<'))
+		|| (c == '<' && (!n || n != '>'))
+		|| (c == '>' && (input[i + 2] || input[i + 2] != '>'))
+		|| (c == '<' && (input[i + 2] || input[i + 2] != '<')))
+		return (4);
 	return (-1);
 }
 

@@ -12,34 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-void print(t_token token)
-{
-	switch(token)
-	{
-		case AMPERSAND:
-			printf("AMPERSAND ");
-			break;
-		case AND:
-			printf("AND ");
-			break;
-		case PIPE:
-			printf("PIPE ");
-			break;
-		case OR:
-			printf("OR ");
-			break;
-		case REDIRECTION:
-			printf("REDIRECTION ");
-			break;
-		case LITERAL:
-			printf("LITERAL ");
-			break;
-		default:
-			printf("ERROR\n");
-			break;
-	}
-}
-
 void	is_in_quotes(int *quote, char c)
 {
 	if (c == '"' && *quote != 2)
@@ -75,9 +47,6 @@ static t_token	*tokenize(char *input)
 	{
 		is_in_quotes(&quote, input[i]);
 		tokens[++j] = get_token(input, i);
-		printf("J: %zu I: %zu - ", j, i);
-		print(tokens[j]);
-		printf("\n");
 		if (quote != 0)
 			tokens[j] = LITERAL;
 		if (tokens[j] == OR || tokens[j] == AND
