@@ -42,6 +42,8 @@ SRC_NAME =	main.c \
 			modules/parser.c \
 			utils/app/prompt.c \
 			utils/app/error.c \
+			utils/commands/create.c \
+			utils/commands/free.c \
 			utils/modules/lexer/token.c \
 			utils/modules/syntaxer/token.c \
 			utils/string/strcat.c \
@@ -87,15 +89,19 @@ obj:
 	@mkdir -p $(OBJ_PATH)/app
 	@mkdir -p $(OBJ_PATH)/modules
 	@mkdir -p $(OBJ_PATH)/utils
-	@mkdir -p $(OBJ_PATH)/utils/modules
-	@mkdir -p $(OBJ_PATH)/utils/modules/lexer
-	@mkdir -p $(OBJ_PATH)/utils/modules/syntaxer
 	@mkdir -p $(OBJ_PATH)/utils/io
 	@mkdir -p $(OBJ_PATH)/utils/app
 	@mkdir -p $(OBJ_PATH)/utils/string
 	@mkdir -p $(OBJ_PATH)/utils/array
 	@mkdir -p $(OBJ_PATH)/utils/env
 	@mkdir -p $(OBJ_PATH)/utils/map
+	@mkdir -p $(OBJ_PATH)/utils/commands
+	@mkdir -p $(OBJ_PATH)/utils/modules
+	@mkdir -p $(OBJ_PATH)/utils/modules/lexer
+	@mkdir -p $(OBJ_PATH)/utils/modules/syntaxer
+	@mkdir -p $(OBJ_PATH)/utils/modules/executor
+	@mkdir -p $(OBJ_PATH)/utils/modules/expander
+	@mkdir -p $(OBJ_PATH)/utils/modules/parser
 	@echo "$(SUCCESS)Objects folder created successfully$(NOC)"
 
 $(OBJ_PATH)%.o:$(SRC_PATH)%.c

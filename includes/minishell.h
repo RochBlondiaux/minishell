@@ -67,7 +67,10 @@ typedef struct s_command {
 	char	*output_path;
 	char	*input;
 	char	*output;
+	int		delimiter;
+	int		appender;
 	int		status;
+	int		(*executor)(t_app *, t_command *);
 }			t_command;
 
 typedef struct s_env {
@@ -154,7 +157,11 @@ void		write_in_file(t_app *app, char *filename,
 void		ft_strcat(char *dst, char *src);
 char		*replace_str(char *sentence, char *find, char *replace);
 
-
-char		**parse(char *input);
+/**
+ * Commands utils
+ */
+t_command	*create_command(char **args);
+void		free_command(t_command *cmd);
+void		free_command_map(t_command **map);
 
 #endif
