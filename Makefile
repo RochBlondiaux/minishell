@@ -62,6 +62,7 @@ SRC_NAME =	main.c \
 			utils/app.c \
 			utils/parser.c \
 			utils/arrays.c \
+			utils/quotes.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

@@ -229,5 +229,6 @@ int			validate_syntax(t_app *app, char **args);
  */
 char		*ft_replace(char *src, char *find, char *replace);
 
+char		*check_for_quotes(char *arg);
 
 #endif
