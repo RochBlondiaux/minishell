@@ -50,11 +50,11 @@ char	**parse(char *input)
 	cmds = malloc(sizeof(char *) * get_cmds_count(split));
 	if (!cmds)
 		return (NULL);
-	i = 0;
-	blocs = 0;
-	while (split[i])
+	i = -1;
+	blocs = -1;
+	while (split[++i])
 	{
-		j = i;
+		j = i - 1;
 		len_bloc = 0;
 		while (!is_separator(split[i]) && split[i])
 		{
@@ -62,36 +62,26 @@ char	**parse(char *input)
 			len_bloc ++;
 			i ++;
 		}
-		if (len_bloc > 0)
+		size = -1;
+		cmds[++blocs] = malloc(sizeof(char) * (len_bloc + 1));
+		if (!cmds[blocs])
+			return (NULL);
+		while (++j < i)
 		{
-			size = 0;
-			cmds[blocs] = malloc(sizeof(char) * (len_bloc + 1));
-			if (!cmds[blocs])
-				return (NULL);
-			while (j < i)
-			{
-				size_split = 0;
-				while (split[j][size_split])
-				{
-					cmds[blocs][size] = split[j][size_split];
-					size ++;
-					size_split ++;
-				}
-				cmds[blocs][size] = ' ';
-				size ++;
-				j ++;
-			}
-			cmds[blocs][size] = '\0';
-			blocs ++;
+			size_split = -1;
+			while (split[j][++size_split])
+				cmds[blocs][++size] = split[j][size_split];
+			cmds[blocs][++size] = ' ';
 		}
-		i ++;
+		cmds[blocs][++size] = '\0';
+	if (split[i] != NULL)
+		continue;
+	else
+		break;
 	}
-	cmds[blocs] = NULL;
-	i = 0;
-	while(cmds[i])
-	{
+	cmds[++blocs] = NULL;
+	i = -1;
+	while(cmds[++i])
 		printf("%s\n", cmds[i]);
-		i ++;
-	}
 	return (cmds);
 }
