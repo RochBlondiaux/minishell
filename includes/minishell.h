@@ -89,6 +89,13 @@ void		stop_application(t_app *app);
 void		start_engine(t_app *app);
 
 /**
+ * App utils
+ */
+char		*get_prompt_symbol(t_app *app);
+void		error(t_app *app, int code);
+void		str_error(t_app *app, char *error);
+
+/**
  * Array utils
  */
 size_t		array_length(char **array);
