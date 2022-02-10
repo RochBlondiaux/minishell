@@ -22,9 +22,9 @@ void	start_application_loop(t_app *app)
 		line = readline(get_prompt_symbol(app));
 		app->exit = 0;
 		rv = runtime(app, line);
-		if (rv == -2)
+		if (!line)
 			break ;
-		if (rv == -1)
+		if (!rv || !ft_strlen(line))
 		{
 			free(line);
 			continue ;
