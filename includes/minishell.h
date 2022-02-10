@@ -154,4 +154,7 @@ void		write_in_file(t_app *app, char *filename,
 void		ft_strcat(char *dst, char *src);
 char		*replace_str(char *sentence, char *find, char *replace);
 
+
+char		**parse(char *input);
+
 #endif

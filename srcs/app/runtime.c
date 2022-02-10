@@ -29,7 +29,7 @@ int	runtime(t_app *app, char *input)
 		str_error(app, SYNTAX_ERROR);
 		return (FALSE);
 	}
-//	commands = parse(args);
+	parse(input);
 //	expand(app, commands);
 //	executor(app, commands);
 //	free_commands(commands);*/
