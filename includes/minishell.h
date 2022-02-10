@@ -76,8 +76,16 @@ typedef struct s_app {
 	t_env	*env;
 }	t_app;
 
-/**
- * Lexer
+ /**
+ * Application
  */
+t_app		*load_application(char **env);
+void		start_application(t_app *app);
+void		stop_application(t_app *app);
+
+/**
+ * Engine
+ */
+void		start_engine(t_app *app);
 
 #endif

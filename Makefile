@@ -30,6 +30,8 @@ LEAKS_CMD = valgrind --leak-check=yes
 
 # Name
 SRC_NAME =	main.c \
+			app.c \
+			engine.c \
 			modules/executor.c \
 			modules/expander.c \
 			modules/lexer.c \
