@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   set.c                                             :+:      :+:    :+:    */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,9 +12,16 @@
 
 #include "../../../includes/minishell.h"
 
-char	*get_prompt_symbol(t_app *app)
+void	set_env(t_app	*app, char *name, char *key)
 {
-	if (app->exit != 0)
-		return (ERROR_PROMPT_SYMBOL);
-	return (PROMPT_SYMBOL);
+	t_env	*env;
+
+	env = get_map_element(app->env, name);
+	if (env)
+	{
+		free(env->value);
+		env->value = ft_strdup(name);
+		return ;
+	}
+	add_map_element(&app->env, name, key);
 }

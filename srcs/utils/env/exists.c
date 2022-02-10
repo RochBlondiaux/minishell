@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   exists.c                                          :+:      :+:    :+:    */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,9 +12,7 @@
 
 #include "../../../includes/minishell.h"
 
-char	*get_prompt_symbol(t_app *app)
+char	*env_exists(t_app *app, char *key)
 {
-	if (app->exit != 0)
-		return (ERROR_PROMPT_SYMBOL);
-	return (PROMPT_SYMBOL);
+	return (get_env(app, key) != NULL);
 }

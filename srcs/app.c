@@ -31,7 +31,7 @@ t_app	*load_application(char **env)
 void	start_application(t_app *app)
 {
 	app->running = TRUE;
-	handle_ctrl(app);
+	// handle_ctrl(app);
 	start_engine(app);
 }
 

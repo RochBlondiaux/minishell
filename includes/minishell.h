@@ -106,10 +106,18 @@ char		**add_array_element(char **array, char *element);
 /**
  * Map utils
  */
+t_env		*init_env_map(char **env);
 void		add_map_element(t_env **env, t_env *new);
 void		free_map(t_env **env);
 t_env		*create_map_element(char *entry);
 t_env		*get_map_element(t_env *env, char *name);
 void		remove_map_element(t_app *app, t_env **env, char *key);
+
+/**
+ * Environment utils
+ */
+char		*get_env(t_app *app, char *key);
+char		*env_exists(t_app *app, char *key);
+void		set_env(t_app *app, char *name, char *key);
 
 #endif

@@ -38,6 +38,8 @@ SRC_NAME =	main.c \
 			modules/parser.c \
 			utils/app/prompt.c \
 			utils/app/error.c \
+			utils/env/get.c \
+			utils/env/set.c \
 			utils/array/length.c \
 			utils/array/free.c \
 			utils/array/sub.c \
