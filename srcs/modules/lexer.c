@@ -12,3 +12,110 @@
 
 #include "../../includes/minishell.h"
 
+static void	print_token(t_token tokens)
+{
+	switch(tokens)
+	{
+		case AMPERSAND:
+			printf("AMPERSAND ");
+			break;
+		case AND:
+			printf("AND ");
+			break;
+		case PIPE:
+			printf("PIPE ");
+			break;
+		case OR:
+			printf("OR ");
+			break;
+		case REDIRECTION:
+			printf("REDIRECTION ");
+			break;
+		case LITERAL:
+			printf("LITERAL ");
+			break;
+		default:
+			printf("ERROR\n");
+	}
+}
+
+static int	which_token(char *input, size_t i)
+{
+	if (input[i] == 38 && input[i + 1] != 38 && input[i -1] != 38)
+		return (0);
+	else if (input[i] == 38 && input[i + 1] == 38)
+		return (1);
+	else if (input[i] == 124 && input[i + 1] != 124 && input[i -1] != 124)
+		return (2);
+	else if (input[i] == 124 && input[i + 1] == 124)
+		return (3);
+	else if (input[i] == 60 && input[i + 1] != 60 && input[i -1] != 60)
+		return (4);
+	else if (input[i] == 62 && input[i + 1] != 62 && input[i - 1] != 62)
+		return (4);
+	else if (input[i] == 60 && input[i + 1] == 60)
+		return (4);
+	else if (input[i] == 62 && input[i + 1] == 62)
+		return (4);
+	return (-1);
+}
+
+static t_token	get_token(char *input, size_t i)
+{
+	if (input[i] == 59)
+		return (SEMI_COLON);
+	else if (which_token(input, i) == 0)
+		return (AMPERSAND);
+	else if (which_token(input, i) == 1)
+		return (AND);
+	else if (which_token(input, i) == 2)
+		return (PIPE);
+	else if (which_token(input, i) == 3)
+		return (OR);
+	else if (which_token(input, i) == 4)
+		return (REDIRECTION);
+	return (LITERAL);
+}
+
+static t_token	*tokenize(char *input)
+{
+	t_token	*tokens;
+	size_t	i;
+	size_t	j;
+	size_t	len;
+
+	len = ft_strlen(input);
+	tokens = malloc(sizeof(t_token) * len);
+	if (!tokens)
+	{
+		// TODO : afficher une erreur
+		return (NULL);
+	}
+	i = -1;
+	j = 0;
+	while (input[++i])
+	{
+		tokens[j] = get_token(input, i);
+		print_token(tokens[j]);
+		j ++;
+	}
+	return (tokens);
+}
+
+t_token	*lexer(t_app *app, char *input, int *result)
+{
+	t_token	*tokens;
+
+	if (!input || !app)
+	{
+		*result = -2;
+		return (NULL);
+	}
+	if (ft_strlen(input) == 0)
+	{
+		*result = -1;
+		return (NULL);
+	}
+	tokens = tokenize(input);
+	return (tokens);
+}

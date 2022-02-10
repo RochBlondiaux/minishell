@@ -89,6 +89,11 @@ void		stop_application(t_app *app);
 void		start_engine(t_app *app);
 
 /**
+ * Lexer
+ */
+t_token		*lexer(t_app *app, char *input, int *result);
+
+/**
  * App utils
  */
 char		*get_prompt_symbol(t_app *app);

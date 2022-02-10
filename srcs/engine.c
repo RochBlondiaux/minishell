@@ -14,18 +14,18 @@
 
 static int	runtime(t_app *app, char *input)
 {
-	char		**args;
-	t_command	**commands;
+//	char		**args;
+//	t_command	**commands;
 	int			result;
 
 	result = 0;
-	args = lexer(app, input, &result);
-	if (!args)
+	lexer(app, input, &result);
+	/*if (!args)
 		return (result);
 	commands = parse(args);
 	expand(app, commands);
 	executor(app, commands);
-	free_commands(commands);
+	free_commands(commands);*/
 	return (TRUE);
 }
 

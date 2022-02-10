@@ -77,6 +77,7 @@ obj:
 	@mkdir -p $(OBJ_PATH)/utils
 	@mkdir -p $(OBJ_PATH)/utils/app
 	@mkdir -p $(OBJ_PATH)/utils/array
+	@mkdir -p $(OBJ_PATH)/utils/env
 	@mkdir -p $(OBJ_PATH)/utils/map
 	@echo "$(SUCCESS)Objects folder created successfully$(NOC)"
 
