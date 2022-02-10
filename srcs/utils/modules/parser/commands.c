@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,16 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
-char	**parse(char *input)
+size_t	count_commands(char **args)
 {
+	size_t	index;
+	size_t	count;
 
+	index = -1;
+	count++;
+	while (args[++index])
+	{
+		if (is_separator(args[index]))
+			count++;
+	}
+	return (count);
 }
 
+char	**parse_raw_commands(char *raw)
+{
+	char	**cmds;
+	char	*current;
+	size_t	index;
+	size_t	j;
 
+	cmds = malloc(sizeof(char *) * (count_commands(args) + 1));
+	if (!cmds)
+		return (NULL);
+	index = -1;
 
-/*
- *  > License.md cat README.md || wc -l
- * [> LICENSE.md cat REAME.md] [wc -l] // [][]
- */
+	return (cmds);
+}

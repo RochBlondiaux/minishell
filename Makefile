@@ -46,6 +46,8 @@ SRC_NAME =	main.c \
 			utils/commands/free.c \
 			utils/modules/lexer/token.c \
 			utils/modules/syntaxer/token.c \
+			utils/modules/parser/commands.c \
+			utils/modules/parser/separators.c \
 			utils/string/strcat.c \
 			utils/string/replace.c \
 			utils/env/get.c \
@@ -88,6 +90,7 @@ obj:
 	@mkdir -p $(OBJ_PATH)
 	@mkdir -p $(OBJ_PATH)/app
 	@mkdir -p $(OBJ_PATH)/modules
+	@mkdir -p $(OBJ_PATH)/builtins
 	@mkdir -p $(OBJ_PATH)/utils
 	@mkdir -p $(OBJ_PATH)/utils/io
 	@mkdir -p $(OBJ_PATH)/utils/app

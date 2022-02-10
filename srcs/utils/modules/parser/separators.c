@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   separators.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,16 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
-char	**parse(char *input)
+int	is_separator(char *c)
 {
-
+	return (ft_strcmp_sensitive(c, "&")
+		|| ft_strcmp_sensitive(c, "&&")
+		|| ft_strcmp_sensitive(c, "|")
+		|| ft_strcmp_sensitive(c, "||")
+		|| ft_strcmp_sensitive(c, ";"));
 }
-
-
-
-/*
- *  > License.md cat README.md || wc -l
- * [> LICENSE.md cat REAME.md] [wc -l] // [][]
- */

@@ -70,7 +70,6 @@ typedef struct s_command {
 	int		delimiter;
 	int		appender;
 	int		status;
-	int		(*executor)(t_app *, t_command *);
 }			t_command;
 
 typedef struct s_env {
@@ -83,7 +82,7 @@ typedef struct s_app {
 	int		running;
 	int		exit;
 	t_env	*env;
-}	t_app;
+}			t_app;
 
 /**
  * Application
@@ -99,6 +98,7 @@ void		stop_application(t_app *app);
  */
 t_token		*lexer(t_app *app, char *input, int *result);
 int			syntaxer(char *input, t_token *tokens);
+char		**parse(char *input);
 
 /**
  * Modules utils
@@ -106,6 +106,10 @@ int			syntaxer(char *input, t_token *tokens);
 t_token		get_token(char *input, size_t i);
 t_token		get_real_token(char *a);
 size_t		tokens_length(t_token *tokens);
+int			is_separator(char *c);
+size_t		count_commands(char **args);
+char		**parse_raw_commands(char *raw);
+
 
 /**
  * App utils
