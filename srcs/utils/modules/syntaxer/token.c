@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,4 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
+
+t_token	get_real_token(char *a)
+{
+	if (ft_strcmp_sensitive(a, "&"))
+		return (AMPERSAND);
+	if (ft_strcmp_sensitive(a, "&&"))
+		return (AND);
+	if (ft_strcmp_sensitive(a, "|"))
+		return (PIPE);
+	if (ft_strcmp_sensitive(a, "||"))
+		return (OR);
+	if (ft_strcmp_sensitive(a, ";"))
+		return (SEMI_COLON);
+	if (ft_strcmp_sensitive(a, ">")
+		|| ft_strcmp_sensitive(a, "<")
+		|| ft_strcmp_sensitive(a, ">>")
+		|| ft_strcmp_sensitive(a, "<<"))
+		return (REDIRECTION);
+	return (LITERAL);
+}
+
+size_t	tokens_length(t_token *tokens)
+{
+	size_t	index;
+
+	index = 0;
+	while (tokens[index])
+		index++;
+	return (index);
+}

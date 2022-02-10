@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,28 +14,25 @@
 
 static int	which_token(char *input, size_t i)
 {
-	if (input[i] == 38 && input[i + 1] != 38 && input[i -1] != 38)
+	char	c;
+	char	n;
+
+	c = input[i];
+	n = input[i + 1];
+	if (c == '&' && (!n || n != '&'))
 		return (0);
-	else if (input[i] == 38 && input[i + 1] == 38)
+	if (c == '&' && (!input[i + 2] || input[i + 2] != '&'))
 		return (1);
-	else if (input[i] == 124 && input[i + 1] != 124 && input[i -1] != 124)
+	if (c == '|' && (!n || n != '|'))
 		return (2);
-	else if (input[i] == 124 && input[i + 1] == 124)
+	if (c == '|' && (!input[i + 2] || input[i + 2] != '|'))
 		return (3);
-	else if (input[i] == 60 && input[i + 1] != 60 && input[i -1] != 60)
-		return (4);
-	else if (input[i] == 62 && input[i + 1] != 62 && input[i - 1] != 62)
-		return (4);
-	else if (input[i] == 60 && input[i + 1] == 60)
-		return (4);
-	else if (input[i] == 62 && input[i + 1] == 62)
-		return (4);
 	return (-1);
 }
 
 t_token	get_token(char *input, size_t i)
 {
-	if (input[i] == 59)
+	if (input[i] == ';')
 		return (SEMI_COLON);
 	else if (which_token(input, i) == 0)
 		return (AMPERSAND);

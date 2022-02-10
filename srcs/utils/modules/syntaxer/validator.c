@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   validator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,4 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
+
+int	validate_token(t_token *tokens, t_token token,
+					size_t index, t_token excepted)
+{
+	size_t	i;
+
+	i = -1;
+	while (tokens[++i])
+	{
+		if (tokens[i] == token
+			&& tokens[i + index]
+			&& tokens[i + index] == excepted)
+			return (TRUE);
+	}
+	return (FALSE);
+}

@@ -12,14 +12,12 @@
 
 #include "../../includes/minishell.h"
 
-static int	check_duplicated(t_token *tokens, size_t length)
+static int	check_duplicated(t_token *tokens)
 {
 	size_t	index;
 
-	if (length < 2)
-		return (TRUE);
 	index = -1;
-	while (++index < length - 1)
+	while (tokens[++index])
 	{
 		if (tokens[index] != LITERAL && tokens[index + 1] != LITERAL)
 			return (FALSE);
@@ -39,8 +37,8 @@ static int	args_check(char *input)
 	while (args[++index])
 	{
 		if (args[index + 1]
-			&& (get_token(args[index], 0) != LITERAL
-				&& get_token(args[index + 1], 0) != LITERAL))
+			&& (get_real_token(args[index]) != LITERAL
+				&& get_real_token(args[index + 1]) != LITERAL))
 		{
 			free_array(args);
 			return (FALSE);
@@ -52,16 +50,16 @@ static int	args_check(char *input)
 
 int	syntaxer(char *input, t_token *tokens)
 {
-	size_t	length;
+	int	result;
 
-	length = ft_strlen(input);
+	result = TRUE;
 	if (tokens[0] != LITERAL
-		|| tokens[length - 1] != LITERAL
-		|| !check_duplicated(tokens, length - 1)
+		|| tokens[tokens_length(tokens) - 1] != LITERAL
+		|| !check_duplicated(tokens)
 		|| !args_check(input))
-	{
+		result = FALSE;
+	free(tokens);
+	if (!result)
 		errno = ENOTSUP;
-		return (FALSE);
-	}
-	return (TRUE);
+	return (result);
 }
