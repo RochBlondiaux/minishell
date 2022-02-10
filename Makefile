@@ -30,39 +30,10 @@ LEAKS_CMD = valgrind --leak-check=yes
 
 # Name
 SRC_NAME =	main.c \
-			app.c \
-			engine.c \
-			system/lexer.c \
-			system/parser.c \
-			system/expander.c \
-			system/executor.c \
-			system/syntax.c \
-			builtins/dispatcher.c \
-			builtins/echo.c \
-			builtins/exit.c \
-			builtins/env.c \
-			builtins/cd.c \
-			builtins/export.c \
-			builtins/pwd.c \
-			builtins/unset.c \
-			misc/ctrl_handler.c \
-			misc/delimiter.c \
-			misc/native_cmds.c \
-			utils/native_cmds.c \
-			utils/files.c \
-			utils/types.c \
-			utils/init_commands.c \
-			utils/string.c \
-			utils/tokens.c \
-			utils/commands.c \
-			utils/outputs.c \
-			utils/env.c \
-			utils/map.c \
-			utils/paths.c \
-			utils/app.c \
-			utils/parser.c \
-			utils/arrays.c \
-			utils/quotes.c \
+			modules/executor.c \
+			modules/expander.c \
+			modules/lexer.c \
+			modules/parser.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -85,9 +56,8 @@ all: obj $(FT_LIB) $(NAME)
 obj:
 	@echo "$(INFO)Creating objects folder... $(NOC)"
 	@mkdir -p $(OBJ_PATH)
-	@mkdir -p $(OBJ_PATH)/builtins
-	@mkdir -p $(OBJ_PATH)/system
-	@mkdir -p $(OBJ_PATH)/misc
+	@mkdir -p $(OBJ_PATH)/app
+	@mkdir -p $(OBJ_PATH)/modules
 	@mkdir -p $(OBJ_PATH)/utils
 	@echo "$(SUCCESS)Objects folder created successfully$(NOC)"
 

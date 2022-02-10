@@ -76,4 +76,8 @@ typedef struct s_app {
 	t_env	*env;
 }	t_app;
 
+/**
+ * Lexer
+ */
+
 #endif
