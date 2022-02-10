@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   add.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,16 +12,16 @@
 
 #include "../../../includes/minishell.h"
 
-char	**add_array_element(char **array, char *element)
+t_env	*get_map_element(t_env *env, char *name)
 {
-	size_t	index;
-	char	**a;
+	t_env	*tmp;
 
-	a = malloc(sizeof(char *) * (array_length(array) + 2));
-	index = -1;
-	a[0] = ft_strdup(element);
-	while (array[++index])
-		a[index + 1] = ft_strdup(array[index]);
-	a[index + 1] = NULL;
-	return (a);
+	while (env)
+	{
+		tmp = (env)->next;
+		if (tmp && ft_strcmp_sensitive(tmp->key, key))
+			return (tmp);
+		env = tmp;
+	}
+	return (NULL);
 }

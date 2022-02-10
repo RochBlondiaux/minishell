@@ -59,7 +59,7 @@ typedef struct s_command {
 	char	**args;
 	char	*input_path;
 	char	*output_path;
-	char 	*input;
+	char	*input;
 	char	*output;
 	int		status;
 }			t_command;
@@ -76,7 +76,7 @@ typedef struct s_app {
 	t_env	*env;
 }	t_app;
 
- /**
+/**
  * Application
  */
 t_app		*load_application(char **env);
@@ -89,12 +89,20 @@ void		stop_application(t_app *app);
 void		start_engine(t_app *app);
 
 /**
- * Map utils
+ * Array utils
  */
 size_t		array_length(char **array);
 void		free_array(char **array);
 char		**sub_array(char **array, size_t start, size_t length);
 char		**add_array_element(char **array, char *element);
 
+/**
+ * Map utils
+ */
+void		add_map_element(t_env **env, t_env *new);
+void		free_map(t_env **env);
+t_env		*create_map_element(char *entry);
+t_env		*get_map_element(t_env *env, char *name);
+void		remove_map_element(t_app *app, t_env **env, char *key);
 
 #endif

@@ -40,6 +40,12 @@ SRC_NAME =	main.c \
 			utils/array/free.c \
 			utils/array/sub.c \
 			utils/array/add.c \
+			utils/map/free.c \
+			utils/map/add.c \
+			utils/map/create.c \
+			utils/map/init.c \
+			utils/map/get.c \
+			utils/map/remove.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

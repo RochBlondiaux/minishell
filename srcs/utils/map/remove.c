@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   remove.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,16 +12,36 @@
 
 #include "../../../includes/minishell.h"
 
-char	**add_array_element(char **array, char *element)
+static void	free_target(t_env *tmp)
 {
-	size_t	index;
-	char	**a;
+	free(tmp->key);
+	free(tmp->value);
+	free(tmp);
+}
 
-	a = malloc(sizeof(char *) * (array_length(array) + 2));
-	index = -1;
-	a[0] = ft_strdup(element);
-	while (array[++index])
-		a[index + 1] = ft_strdup(array[index]);
-	a[index + 1] = NULL;
-	return (a);
+void	remove_map_element(t_app *app, t_env **env, char *key)
+{
+	t_env	*tmp;
+	t_env	*prev;
+
+	tmp = *env;
+	prev = NULL;
+	if (!tmp && ft_strcmp_sensitive(tmp->key, key))
+	{
+		*env = tmp->next;
+		free_target(tmp);
+		return ;
+	}
+	while (tmp && !ft_strcmp_sensitive(tmp->key, key))
+	{
+		prev = tmp;
+		tmp = tmp->next;
+	}
+	if (!tmp)
+	{
+		str_error(app, UNSET_ERROR);
+		return ;
+	}
+	prev->next = tmp->next;
+	free_target(tmp);
 }

@@ -12,16 +12,16 @@
 
 #include "../../../includes/minishell.h"
 
-char	**add_array_element(char **array, char *element)
+void	free_map(t_env **env)
 {
-	size_t	index;
-	char	**a;
+	t_env	*tmp;
 
-	a = malloc(sizeof(char *) * (array_length(array) + 2));
-	index = -1;
-	a[0] = ft_strdup(element);
-	while (array[++index])
-		a[index + 1] = ft_strdup(array[index]);
-	a[index + 1] = NULL;
-	return (a);
+	while (*env)
+	{
+		tmp = (*env)->next;
+		free((*env)->key);
+		free((*env)->value);
+		free(*env);
+		*env = tmp;
+	}
 }
