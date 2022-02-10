@@ -53,7 +53,7 @@ int	syntaxer(char *input, t_token *tokens)
 	int	result;
 
 	result = TRUE;
-	if (tokens[0] != LITERAL
+	if ((tokens[0] != LITERAL && tokens[0] != REDIRECTION)
 		|| tokens[tokens_length(tokens) - 1] != LITERAL
 		|| !check_duplicated(tokens)
 		|| !args_check(input))
