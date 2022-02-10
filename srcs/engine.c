@@ -37,7 +37,6 @@ void	start_engine(t_app *app)
 	while (app->running)
 	{
 		line = readline(get_prompt_symbol(app));
-		app->error = FALSE;
 		rv = runtime(app, line);
 		if (rv == -2)
 			break ;
