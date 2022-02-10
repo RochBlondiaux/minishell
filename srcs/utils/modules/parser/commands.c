@@ -12,16 +12,16 @@
 
 #include "../../../../includes/minishell.h"
 
-size_t	count_commands(char **args)
+size_t	count_commands(char *args)
 {
 	size_t	index;
 	size_t	count;
 
 	index = -1;
-	count++;
+	count = 0;
 	while (args[++index])
 	{
-		if (is_separator(args[index]))
+		if (is_separator(&args[index]))
 			count++;
 	}
 	return (count);
@@ -30,14 +30,23 @@ size_t	count_commands(char **args)
 char	**parse_raw_commands(char *raw)
 {
 	char	**cmds;
-	char	*current;
 	size_t	index;
 	size_t	j;
 
-	cmds = malloc(sizeof(char *) * (count_commands(args) + 1));
+	cmds = malloc(sizeof(char *) * (count_commands(raw) + 1));
 	if (!cmds)
 		return (NULL);
 	index = -1;
-
+	j = -1;
+	while (raw[++index])
+	{
+		if (!strchr_separator(&raw[index]))
+			index ++;
+		cmds[++j] = ft_substr(raw, index, strchr_separator(&raw[index]));
+		index += strchr_separator(&raw[index]);
+		cmds[j] = ft_strtrim(cmds[j], " ");
+		printf("%s\n", cmds[j]);
+	}
+	cmds[++j] = NULL;
 	return (cmds);
 }
