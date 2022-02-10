@@ -18,8 +18,6 @@ int	runtime(t_app *app, char *input)
 	t_token		*tokens;
 	int			result;
 //	t_command	**commands;
-	t_token		*tokens;
-	int			result;
 
 	result = 0;
 	tokens = lexer(app, input, &result);

@@ -42,6 +42,7 @@ SRC_NAME =	main.c \
 			modules/parser.c \
 			utils/app/prompt.c \
 			utils/app/error.c \
+			utils/modules/lexer/token.c \
 			utils/string/strcat.c \
 			utils/string/replace.c \
 			utils/env/get.c \
@@ -85,6 +86,8 @@ obj:
 	@mkdir -p $(OBJ_PATH)/app
 	@mkdir -p $(OBJ_PATH)/modules
 	@mkdir -p $(OBJ_PATH)/utils
+	@mkdir -p $(OBJ_PATH)/utils/modules
+	@mkdir -p $(OBJ_PATH)/utils/modules/lexer
 	@mkdir -p $(OBJ_PATH)/utils/io
 	@mkdir -p $(OBJ_PATH)/utils/app
 	@mkdir -p $(OBJ_PATH)/utils/string

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,69 +12,22 @@
 
 #include "../../includes/minishell.h"
 
-static void	print_token(t_token tokens)
+void	is_in_quotes(int *quote, char c)
 {
-	switch(tokens)
+	if (c == '"' && *quote != 2)
 	{
-		case AMPERSAND:
-			printf("AMPERSAND ");
-			break;
-		case AND:
-			printf("AND ");
-			break;
-		case PIPE:
-			printf("PIPE ");
-			break;
-		case OR:
-			printf("OR ");
-			break;
-		case REDIRECTION:
-			printf("REDIRECTION ");
-			break;
-		case LITERAL:
-			printf("LITERAL ");
-			break;
-		default:
-			printf("ERROR\n");
+		if (*quote == 1)
+			*quote = 0;
+		else
+			*quote = 1;
 	}
-}
-
-static int	which_token(char *input, size_t i)
-{
-	if (input[i] == 38 && input[i + 1] != 38 && input[i -1] != 38)
-		return (0);
-	else if (input[i] == 38 && input[i + 1] == 38)
-		return (1);
-	else if (input[i] == 124 && input[i + 1] != 124 && input[i -1] != 124)
-		return (2);
-	else if (input[i] == 124 && input[i + 1] == 124)
-		return (3);
-	else if (input[i] == 60 && input[i + 1] != 60 && input[i -1] != 60)
-		return (4);
-	else if (input[i] == 62 && input[i + 1] != 62 && input[i - 1] != 62)
-		return (4);
-	else if (input[i] == 60 && input[i + 1] == 60)
-		return (4);
-	else if (input[i] == 62 && input[i + 1] == 62)
-		return (4);
-	return (-1);
-}
-
-t_token	get_token(char *input, size_t i)
-{
-	if (input[i] == 59)
-		return (SEMI_COLON);
-	else if (which_token(input, i) == 0)
-		return (AMPERSAND);
-	else if (which_token(input, i) == 1)
-		return (AND);
-	else if (which_token(input, i) == 2)
-		return (PIPE);
-	else if (which_token(input, i) == 3)
-		return (OR);
-	else if (which_token(input, i) == 4)
-		return (REDIRECTION);
-	return (LITERAL);
+	else if (c == '\'' && *quote != 1)
+	{
+		if (*quote == 2)
+			*quote = 0;
+		else
+			*quote = 2;
+	}
 }
 
 static t_token	*tokenize(char *input)
@@ -83,46 +36,25 @@ static t_token	*tokenize(char *input)
 	size_t	i;
 	size_t	j;
 	size_t	len;
+	int		quote;
 
+	quote = 0;
 	len = ft_strlen(input);
 	tokens = malloc(sizeof(t_token) * len);
 	if (!tokens)
-	{
-		// TODO : afficher une erreur
 		return (NULL);
-	}
 	i = -1;
 	j = -1;
 	while (input[++i])
 	{
-/*		if (input[i] == 34)
-		{
-			tokens[++j] = LITERAL;
-			while(input[i] != 34 && input[i])
-			{
-				i ++;
-				tokens[++j] = LITERAL;
-			}
-			if (input[i] == 34)
-				tokens[++j] = LITERAL;
-		}
-		else if (input[i] == 39)
-		{
-			tokens[++j] = LITERAL;
-			while(input[i] != 39 && input[i])
-			{
-				i ++;
-				tokens[++j] = LITERAL;
-			}
-			if (input[i] == 39)
-				tokens[++j] = LITERAL;
-		}*/
+		is_in_quotes(&quote, input[i]);
 		tokens[++j] = get_token(input, i);
+		if (quote != 0)
+			tokens[j] = LITERAL;
 		if (tokens[j] == OR || tokens[j] == AND
 			|| (input[i] == 60 && input[i + 1] == 60)
 			|| (input[i] == 62 && input[i + 1] == 62))
 			i ++;
-		print_token(tokens[j]);
 	}
 	return (tokens);
 }
@@ -143,23 +75,4 @@ t_token	*lexer(t_app *app, char *input, int *result)
 	}
 	tokens = tokenize(input);
 	return (tokens);
-}
-
-int is_in_quotes(int *quote, char c)
-{
-	if (c == '"' && *quote != 2)
-	{
-		if (*quote == 1)
-			*quote = 0;
-		else
-			*quote = 1;
-	}
-	else if (c == '\'' && *quote != 1)
-	{
-		if (*quote == 2)
-			*quote = 0;
-		else
-			*quote = 2;
-	}
-	return (!quote != 0);
 }

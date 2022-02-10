@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   syntaxer.h                                         :+:      :+:    :+:   */
+/*   syntaxer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -36,7 +36,7 @@ static int	args_check(char *input)
 	if (!args)
 		return (FALSE);
 	index = -1;
-	while(args[++index])
+	while (args[++index])
 	{
 		if (args[index + 1]
 			&& (get_token(args[index], 0) != LITERAL
