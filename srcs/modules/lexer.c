@@ -12,6 +12,33 @@
 
 #include "../../includes/minishell.h"
 
+static void	print_token(t_token tokens)
+{
+	switch(tokens)
+	{
+		case AMPERSAND:
+			printf("AMPERSAND ");
+			break;
+		case AND:
+			printf("AND ");
+			break;
+		case PIPE:
+			printf("PIPE ");
+			break;
+		case OR:
+			printf("OR ");
+			break;
+		case REDIRECTION:
+			printf("REDIRECTION ");
+			break;
+		case LITERAL:
+			printf("LITERAL ");
+			break;
+		default:
+			printf("ERROR\n");
+	}
+}
+
 static int	which_token(char *input, size_t i)
 {
 	if (input[i] == 38 && input[i + 1] != 38 && input[i -1] != 38)
@@ -65,15 +92,37 @@ static t_token	*tokenize(char *input)
 		return (NULL);
 	}
 	i = -1;
-	j = 0;
+	j = -1;
 	while (input[++i])
 	{
-		tokens[j] = get_token(input, i);
+/*		if (input[i] == 34)
+		{
+			tokens[++j] = LITERAL;
+			while(input[i] != 34 && input[i])
+			{
+				i ++;
+				tokens[++j] = LITERAL;
+			}
+			if (input[i] == 34)
+				tokens[++j] = LITERAL;
+		}
+		else if (input[i] == 39)
+		{
+			tokens[++j] = LITERAL;
+			while(input[i] != 39 && input[i])
+			{
+				i ++;
+				tokens[++j] = LITERAL;
+			}
+			if (input[i] == 39)
+				tokens[++j] = LITERAL;
+		}*/
+		tokens[++j] = get_token(input, i);
 		if (tokens[j] == OR || tokens[j] == AND
 			|| (input[i] == 60 && input[i + 1] == 60)
 			|| (input[i] == 62 && input[i + 1] == 62))
 			i ++;
-		j ++;
+		print_token(tokens[j]);
 	}
 	return (tokens);
 }

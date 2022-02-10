@@ -16,7 +16,7 @@ int	runtime(t_app *app, char *input)
 {
 //	char		**args;
 //	t_command	**commands;
-	t_tokens	*tokens;
+	t_token		*tokens;
 	int			result;
 
 	result = 0;
