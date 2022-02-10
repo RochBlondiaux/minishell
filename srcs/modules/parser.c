@@ -16,7 +16,6 @@ char	**parse(char *input)
 {
 	char	**commands;
 
-	commands = NULL;
 	commands = parse_raw_commands(input);
 	return (commands);
 }

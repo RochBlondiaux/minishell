@@ -27,7 +27,7 @@ size_t	count_commands(char *args)
 	return (count);
 }
 
-char	**parse_raw_commands(char *raw)
+char	 **parse_raw_commands(char *raw)
 {
 	char	**cmds;
 	size_t	index;
@@ -40,12 +40,11 @@ char	**parse_raw_commands(char *raw)
 	j = -1;
 	while (raw[++index])
 	{
-		if (!strchr_separator(&raw[index]))
-			index ++;
-		cmds[++j] = ft_substr(raw, index, strchr_separator(&raw[index]));
+		if (strchr_separator(&raw[index]) == 0)
+			continue ;
+		cmds[++j] = ft_substr(raw, index,  strchr_separator(&raw[index]));
 		index += strchr_separator(&raw[index]);
 		cmds[j] = ft_strtrim(cmds[j], " ");
-		printf("%s\n", cmds[j]);
 	}
 	cmds[++j] = NULL;
 	return (cmds);

@@ -48,7 +48,7 @@ int	get_end(char const *s1, char const *set)
 	return (i);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char *s1, char const *set)
 {
 	char	*new;
 	int		start;
@@ -63,5 +63,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	new = ft_substr(s1, start, end - start);
 	if (!new)
 		return (NULL);
+	free(s1);
 	return (new);
 }
