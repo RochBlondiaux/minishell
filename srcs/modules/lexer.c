@@ -69,9 +69,9 @@ static t_token	*tokenize(char *input)
 	while (input[++i])
 	{
 		tokens[j] = get_token(input, i);
-		if (tokens[j] == OR || tokens[j] == AND ||
-			(input[i] == 60 && input[i + 1] == 60) ||
-				(input[i] == 62 && input[i + 1] == 62))
+		if (tokens[j] == OR || tokens[j] == AND
+			|| (input[i] == 60 && input[i + 1] == 60)
+			|| (input[i] == 62 && input[i + 1] == 62))
 			i ++;
 		j ++;
 	}

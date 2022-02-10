@@ -80,6 +80,8 @@ typedef struct s_app {
  * Application
  */
 t_app		*load_application(char **env);
+void		start_application_loop(t_app *app);
+int			runtime(t_app *app, char *input);
 void		start_application(t_app *app);
 void		stop_application(t_app *app);
 
