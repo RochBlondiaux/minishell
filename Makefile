@@ -35,7 +35,11 @@ SRC_NAME =	main.c \
 			modules/executor.c \
 			modules/expander.c \
 			modules/lexer.c \
-			modules/parser.c
+			modules/parser.c \
+			utils/array/length.c \
+			utils/array/free.c \
+			utils/array/sub.c \
+			utils/array/add.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -61,6 +65,8 @@ obj:
 	@mkdir -p $(OBJ_PATH)/app
 	@mkdir -p $(OBJ_PATH)/modules
 	@mkdir -p $(OBJ_PATH)/utils
+	@mkdir -p $(OBJ_PATH)/utils/array
+	@mkdir -p $(OBJ_PATH)/utils/map
 	@echo "$(SUCCESS)Objects folder created successfully$(NOC)"
 
 $(OBJ_PATH)%.o:$(SRC_PATH)%.c

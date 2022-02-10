@@ -88,4 +88,13 @@ void		stop_application(t_app *app);
  */
 void		start_engine(t_app *app);
 
+/**
+ * Map utils
+ */
+size_t		array_length(char **array);
+void		free_array(char **array);
+char		**sub_array(char **array, size_t start, size_t length);
+char		**add_array_element(char **array, char *element);
+
+
 #endif

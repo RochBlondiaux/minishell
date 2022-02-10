@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,5 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
+char	**add_array_element(char **array, char *element)
+{
+	size_t	index;
+	char	**a;
+
+	a = malloc(sizeof(char *) * (array_length(array) + 2));
+	index = -1;
+	a[0] = ft_strdup(element);
+	while (array[++index])
+		a[index + 1] = ft_strdup(array[index]);
+	a[index + 1] = NULL;
+	return (a);
+}
