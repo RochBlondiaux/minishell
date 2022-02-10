@@ -134,5 +134,13 @@ int			exists(char *path);
 char		*parent(char *path);
 char		*path(char *raw);
 char		*read_file(t_app *app, char *path);
+void		write_in_file(t_app *app, char *filename,
+				char *content, int append);
+
+/**
+ * String utils
+ */
+void		ft_strcat(char *dst, char *src);
+char		*replace_str(char *sentence, char *find, char *replace);
 
 #endif
