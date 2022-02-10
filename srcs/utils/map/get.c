@@ -19,7 +19,7 @@ t_env	*get_map_element(t_env *env, char *name)
 	while (env)
 	{
 		tmp = (env)->next;
-		if (tmp && ft_strcmp_sensitive(tmp->key, key))
+		if (tmp && ft_strcmp_sensitive(tmp->key, name))
 			return (tmp);
 		env = tmp;
 	}
