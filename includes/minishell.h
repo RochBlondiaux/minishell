@@ -44,6 +44,12 @@
 /**
  * Structures
  */
+typedef enum s_quote {
+	DOUBLE,
+	SIMPLE,
+	NONE
+}	t_quote;
+
 typedef enum s_token {
 	AMPERSAND,
 	PIPE,
@@ -86,14 +92,15 @@ void		start_application(t_app *app);
 void		stop_application(t_app *app);
 
 /**
- * Engine
- */
-void		start_engine(t_app *app);
-
-/**
- * Lexer
+ * Modules
  */
 t_token		*lexer(t_app *app, char *input, int *result);
+int			syntaxer(char *input, t_token *tokens);
+
+/**
+ * Modules utils
+ */
+t_token		get_token(char *input, size_t i);
 
 /**
  * App utils

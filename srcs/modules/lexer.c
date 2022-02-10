@@ -60,7 +60,7 @@ static int	which_token(char *input, size_t i)
 	return (-1);
 }
 
-static t_token	get_token(char *input, size_t i)
+t_token	get_token(char *input, size_t i)
 {
 	if (input[i] == 59)
 		return (SEMI_COLON);
@@ -143,4 +143,23 @@ t_token	*lexer(t_app *app, char *input, int *result)
 	}
 	tokens = tokenize(input);
 	return (tokens);
+}
+
+int is_in_quotes(int *quote, char c)
+{
+	if (c == '"' && *quote != 2)
+	{
+		if (*quote == 1)
+			*quote = 0;
+		else
+			*quote = 1;
+	}
+	else if (c == '\'' && *quote != 1)
+	{
+		if (*quote == 2)
+			*quote = 0;
+		else
+			*quote = 2;
+	}
+	return (!quote != 0);
 }

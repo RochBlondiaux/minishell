@@ -14,7 +14,9 @@
 
 int	runtime(t_app *app, char *input)
 {
-//	char		**args;
+	//char		**args;
+	t_token		*tokens;
+	int			result;
 //	t_command	**commands;
 	t_token		*tokens;
 	int			result;
@@ -22,7 +24,13 @@ int	runtime(t_app *app, char *input)
 	result = 0;
 	tokens = lexer(app, input, &result);
 	if (!tokens)
-		return (result);
+		return (FALSE);
+	result = syntaxer(input, tokens);
+	if (!result)
+	{
+		str_error(app, SYNTAX_ERROR);
+		return (FALSE);
+	}
 //	commands = parse(args);
 //	expand(app, commands);
 //	executor(app, commands);

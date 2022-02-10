@@ -36,6 +36,7 @@ SRC_NAME =	main.c \
 			app/start.c \
 			app/stop.c \
 			modules/executor.c \
+			modules/syntaxer.c \
 			modules/expander.c \
 			modules/lexer.c \
 			modules/parser.c \

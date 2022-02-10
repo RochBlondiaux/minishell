@@ -20,6 +20,7 @@ void	start_application_loop(t_app *app)
 	while (app->running)
 	{
 		line = readline(get_prompt_symbol(app));
+		app->exit = 0;
 		rv = runtime(app, line);
 		if (rv == -2)
 			break ;
