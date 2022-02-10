@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set.c                                             :+:      :+:    :+:    */
+/*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,19 +12,45 @@
 
 #include "../../../includes/minishell.h"
 
-void	set_env(t_app	*app, char *name, char *key)
+static char	*ft_read(int fd)
 {
-	t_env	*env;
+	char	*buffer;
+	int		red;
 
-	env = get_map_element(app->env, name);
-	if (env)
+	buffer = malloc(READ_BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
+	red = read(fd, buffer, READ_BUFFER_SIZE);
+	if (red <= 0)
 	{
-		free(env->value);
-		env->value = ft_strdup(name);
-		return ;
+		free (buffer);
+		return (NULL);
 	}
-	env = malloc(sizeof(t_env));
-	env->key = ft_strdup(name);
-	env->value = ft_strdup(key);
-	add_map_element(&app->env, env);
+	buffer[red] = '\0';
+	return (buffer);
+}
+
+char	*read_file(t_app *app, char *path)
+{
+	int		fd;
+	char	*content;
+	char	*tmp;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+	{
+		error(app, EBADF);
+		return (NULL);
+	}
+	tmp = ft_read(fd);
+	content = NULL;
+	while (tmp)
+	{
+		if (!content)
+			content = tmp;
+		else
+			content = ft_strjoin_properly(content, tmp);
+		tmp = ft_read(fd);
+	}
+	return (content);
 }

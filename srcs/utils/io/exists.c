@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set.c                                             :+:      :+:    :+:    */
+/*   exists.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,19 +12,15 @@
 
 #include "../../../includes/minishell.h"
 
-void	set_env(t_app	*app, char *name, char *key)
+int	exists(char *path)
 {
-	t_env	*env;
+	DIR		*dir;
 
-	env = get_map_element(app->env, name);
-	if (env)
-	{
-		free(env->value);
-		env->value = ft_strdup(name);
-		return ;
-	}
-	env = malloc(sizeof(t_env));
-	env->key = ft_strdup(name);
-	env->value = ft_strdup(key);
-	add_map_element(&app->env, env);
+	if (!path)
+		return (FALSE);
+	dir = opendir(path);
+	if (!dir)
+		return (FALSE);
+	closedir(dir);
+	return (TRUE);
 }

@@ -44,6 +44,10 @@ SRC_NAME =	main.c \
 			utils/array/free.c \
 			utils/array/sub.c \
 			utils/array/add.c \
+			utils/io/env.c \
+			utils/io/exists.c \
+			utils/io/paths.c \
+			utils/io/read.c \
 			utils/map/free.c \
 			utils/map/add.c \
 			utils/map/create.c \
@@ -75,6 +79,7 @@ obj:
 	@mkdir -p $(OBJ_PATH)/app
 	@mkdir -p $(OBJ_PATH)/modules
 	@mkdir -p $(OBJ_PATH)/utils
+	@mkdir -p $(OBJ_PATH)/utils/io
 	@mkdir -p $(OBJ_PATH)/utils/app
 	@mkdir -p $(OBJ_PATH)/utils/array
 	@mkdir -p $(OBJ_PATH)/utils/env

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set.c                                             :+:      :+:    :+:    */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,19 +12,16 @@
 
 #include "../../../includes/minishell.h"
 
-void	set_env(t_app	*app, char *name, char *key)
+char	*working_directory(void)
 {
-	t_env	*env;
+	char	cwd[1024];
 
-	env = get_map_element(app->env, name);
-	if (env)
-	{
-		free(env->value);
-		env->value = ft_strdup(name);
-		return ;
-	}
-	env = malloc(sizeof(t_env));
-	env->key = ft_strdup(name);
-	env->value = ft_strdup(key);
-	add_map_element(&app->env, env);
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		return (ft_strdup(cwd));
+	return (NULL);
+}
+
+char	*home_directory(t_app *app)
+{
+	return (get_env(app, "HOME"));
 }

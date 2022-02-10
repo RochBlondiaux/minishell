@@ -125,4 +125,14 @@ char		*get_env(t_app *app, char *key);
 char		*env_exists(t_app *app, char *key);
 void		set_env(t_app *app, char *name, char *key);
 
+/**
+ * IO Utils
+ */
+char		*working_directory(void);
+char		*home_directory(t_app *app);
+int			exists(char *path);
+char		*parent(char *path);
+char		*path(char *raw);
+char		*read_file(t_app *app, char *path);
+
 #endif
