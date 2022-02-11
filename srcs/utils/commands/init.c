@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   runtime.c                                          :+:      :+:    :+:   */
+/*   create.c                                          :+:      :+:    :+:    */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,43 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-static void print_cmds(t_command **cmds)
+t_command	*init_command(void)
 {
-	size_t	i;
+	t_command	*cmd;
 
-	i = -1;
-	while (cmds[++i])
-	{
-		printf("========[ %s ]========\n", cmds[i]->name);
-		size_t j = -1;
-		while (cmds[i]->args[++j])
-			printf("#%zu: %s\n", j, cmds[i]->args[j]);
-		printf("\n");
-	}
-}
-
-int	runtime(t_app *app, char *input)
-{
-	t_token		*tokens;
-	int			result;
-	t_command	**commands;
-
-	result = 0;
-	tokens = lexer(app, input, &result);
-	if (!tokens)
-		return (FALSE);
-	result = syntaxer(input, tokens);
-	if (!result)
-	{
-		str_error(app, SYNTAX_ERROR);
-		return (FALSE);
-	}
-	commands = parse(input);
-	print_cmds(commands);
-	//	expand(app, commands);
-	//	executor(app, commands);
-	free_command_map(commands);
-	return (TRUE);
+	cmd = malloc(sizeof(t_command));
+	if (!cmd)
+		return (NULL);
+	cmd->name = ft_strdup("");
+	cmd->input = ft_strdup("");
+	cmd->output = ft_strdup("");
+	cmd->input_path = ft_strdup("");
+	cmd->output_path = ft_strdup("");
+	cmd->delimiter = FALSE;
+	cmd->appender = FALSE;
+	cmd->status = 0;
+	return (cmd);
 }

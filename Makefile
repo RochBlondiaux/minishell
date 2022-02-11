@@ -44,8 +44,10 @@ SRC_NAME =	main.c \
 			utils/app/error.c \
 			utils/commands/create.c \
 			utils/commands/free.c \
+			utils/commands/init.c \
 			utils/modules/lexer/token.c \
 			utils/modules/syntaxer/token.c \
+			utils/modules/parser/redirections.c \
 			utils/modules/parser/commands.c \
 			utils/modules/parser/separators.c \
 			utils/string/strcat.c \

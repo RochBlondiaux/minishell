@@ -12,15 +12,34 @@
 
 #include "../../includes/minishell.h"
 
-char	**parse(char *input)
-{
-	char	**commands;
 
-	commands = parse_raw_commands(input);
-	int i = -1;
-	while(commands[++i])
-	{
-		printf("Cmd #%d: %s\n", i, commands[i]);
-	}
-	return (commands);
+static t_command	*parse_command(char *raw)
+{
+	t_command	*cmd;
+
+	cmd = init_command();
+	if (!cmd)
+		return (NULL);
+	parse_redirections(cmd, raw);
+	return (cmd);
+}
+
+t_command	**parse(char *input)
+{
+	t_command	**cmds;
+	char		**raw_cmds;
+	size_t		index;
+
+	index = -1;
+	raw_cmds = parse_raw_commands(input);
+	if (!raw_cmds)
+		return (NULL);
+	cmds = malloc(sizeof (t_command *) * (array_length(raw_cmds) + 1));
+	if (!cmds)
+		return (NULL);
+	while (raw_cmds[++index])
+		cmds[index] = parse_command(raw_cmds[index]);
+	cmds[++index] = NULL;
+	free_array(raw_cmds);
+	return (cmds);
 }

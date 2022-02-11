@@ -34,7 +34,6 @@ char	**parse_raw_commands(char *raw)
 	size_t	j;
 
 	cmds = malloc(sizeof(char *) * (count_commands(raw) + 1));
-	printf("Commands: %zu\n", count_commands(raw));
 	if (!cmds)
 		return (NULL);
 	index = -1;

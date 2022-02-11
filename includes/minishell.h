@@ -44,6 +44,14 @@
 /**
  * Structures
  */
+typedef enum s_redirection {
+	INPUT,
+	OUTPUT,
+	DELIMITER,
+	APPENDER,
+	NO
+}	t_redirection;
+
 typedef enum s_quote {
 	DOUBLE,
 	SIMPLE,
@@ -98,7 +106,7 @@ void		stop_application(t_app *app);
  */
 t_token		*lexer(t_app *app, char *input, int *result);
 int			syntaxer(char *input, t_token *tokens);
-char		**parse(char *input);
+t_command	**parse(char *input);
 
 /**
  * Modules utils
@@ -109,7 +117,7 @@ size_t		tokens_length(t_token *tokens);
 int			is_separator(char *c, size_t index);
 size_t		count_commands(char *args);
 char		**parse_raw_commands(char *raw);
-
+void		parse_redirections(t_command *command, char *raw);
 
 /**
  * App utils
@@ -168,7 +176,6 @@ int			strchr_separator(char *s);
 t_command	*create_command(char **args);
 void		free_command(t_command *cmd);
 void		free_command_map(t_command **map);
-
-char		**parse(char *input);
+t_command	*init_command(void);
 
 #endif
