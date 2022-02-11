@@ -17,12 +17,10 @@ char	**parse(char *input)
 	char	**commands;
 
 	commands = parse_raw_commands(input);
+	int i = -1;
+	while(commands[++i])
+	{
+		printf("Cmd #%d: %s\n", i, commands[i]);
+	}
 	return (commands);
 }
-
-
-
-/*
- *  > License.md cat README.md || wc -l
- * [> LICENSE.md cat REAME.md] [wc -l] // [][]
- */

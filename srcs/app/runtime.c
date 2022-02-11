@@ -29,9 +29,8 @@ int	runtime(t_app *app, char *input)
 		str_error(app, SYNTAX_ERROR);
 		return (FALSE);
 	}
-	char **a =
-	parse(input);
-free_array(a);
+	char **a =parse(input);
+	free_array(a);
 	//	expand(app, commands);
 //	executor(app, commands);
 //	free_commands(commands);*/

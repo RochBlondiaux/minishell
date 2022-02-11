@@ -106,7 +106,7 @@ char		**parse(char *input);
 t_token		get_token(char *input, size_t i);
 t_token		get_real_token(char *a);
 size_t		tokens_length(t_token *tokens);
-int			is_separator(char *c);
+int			is_separator(char *c, size_t index);
 size_t		count_commands(char *args);
 char		**parse_raw_commands(char *raw);
 

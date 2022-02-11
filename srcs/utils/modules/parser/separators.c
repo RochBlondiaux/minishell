@@ -12,11 +12,11 @@
 
 #include "../../../../includes/minishell.h"
 
-int	is_separator(char *c)
+int	is_separator(char *c, size_t index)
 {
-	return (ft_strcmp_sensitive(c, "&")
-		|| ft_strcmp_sensitive(c, "&&")
-		|| ft_strcmp_sensitive(c, "|")
-		|| ft_strcmp_sensitive(c, "||")
-		|| ft_strcmp_sensitive(c, ";"));
+	return (c[index] && (c[index] == '&'
+			|| c[index] == '|'
+			|| c[index] == ';'
+			|| (c[index] == '|' && c[index + 1] && c[index + 1] == '|')
+			|| (c[index] == '&' && c[index + 1] && c[index + 1] == '&')));
 }
