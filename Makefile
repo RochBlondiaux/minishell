@@ -53,6 +53,7 @@ SRC_NAME =	main.c \
 			utils/modules/parser/quotes.c \
 			utils/string/strcat.c \
 			utils/string/replace.c \
+			utils/string/reset.c \
 			utils/string/strchr_separator.c \
 			utils/env/get.c \
 			utils/env/set.c \

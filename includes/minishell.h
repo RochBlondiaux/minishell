@@ -171,6 +171,7 @@ void		ft_strcat(char *dst, char *src);
 char		*replace_str(char *sentence, char *find, char *replace);
 int			strchr_separator(char *s);
 void		is_in_quotes(int *quote, char c);
+void		reset_str(char **original, char *replacement);
 
 /**
  * Commands utils

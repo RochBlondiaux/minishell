@@ -21,8 +21,8 @@ static t_command	*parse_command(char **raw)
 		return (NULL);
 	*raw = parse_redirections(cmd, *raw);
 	free(cmd->name);
-	cmd->name = ft_strdup("HI");
 	cmd->args = parse_quotes(*raw);
+	cmd->name = ft_strdup(cmd->args[0]);
 	// parse_arguments(cmd, raw);
 	return (cmd);
 }
