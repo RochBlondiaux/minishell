@@ -117,7 +117,8 @@ size_t		tokens_length(t_token *tokens);
 int			is_separator(char *c, size_t index);
 size_t		count_commands(char *args);
 char		**parse_raw_commands(char *raw);
-void		parse_redirections(t_command *command, char *raw);
+char		*parse_redirections(t_command *command, char *raw);
+char		**parse_quotes(char *raw);
 
 /**
  * App utils
@@ -169,6 +170,7 @@ void		write_in_file(t_app *app, char *filename,
 void		ft_strcat(char *dst, char *src);
 char		*replace_str(char *sentence, char *find, char *replace);
 int			strchr_separator(char *s);
+void		is_in_quotes(int *quote, char c);
 
 /**
  * Commands utils

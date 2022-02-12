@@ -50,6 +50,7 @@ SRC_NAME =	main.c \
 			utils/modules/parser/redirections.c \
 			utils/modules/parser/commands.c \
 			utils/modules/parser/separators.c \
+			utils/modules/parser/quotes.c \
 			utils/string/strcat.c \
 			utils/string/replace.c \
 			utils/string/strchr_separator.c \

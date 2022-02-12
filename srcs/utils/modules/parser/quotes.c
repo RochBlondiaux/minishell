@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,39 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
-static t_command	*parse_command(char **raw)
+char	**parse_quotes(char *raw)
 {
-	t_command	*cmd;
+	char	**args;
 
-	cmd = init_command();
-	if (!cmd)
-		return (NULL);
-	*raw = parse_redirections(cmd, *raw);
-	free(cmd->name);
-	cmd->name = ft_strdup("HI");
-	cmd->args = parse_quotes(*raw);
-	// parse_arguments(cmd, raw);
-	return (cmd);
-}
-
-t_command	**parse(char *input)
-{
-	t_command	**cmds;
-	char		**raw_cmds;
-	size_t		index;
-
-	index = -1;
-	raw_cmds = parse_raw_commands(input);
-	if (!raw_cmds)
-		return (NULL);
-	cmds = malloc(sizeof (t_command *) * (array_length(raw_cmds) + 1));
-	if (!cmds)
-		return (NULL);
-	while (raw_cmds[++index])
-		cmds[index] = parse_command(&raw_cmds[index]);
-	cmds[++index] = NULL;
-	free_array(raw_cmds);
-	return (cmds);
+	args = ft_split(raw, ' ');
+	printf("Raw: %s\n", raw);
+	int i = 0;
+	while (args[i])
+	{
+		printf("a: %s\n", args[i]);
+		i++;
+	}
+	return (args);
 }

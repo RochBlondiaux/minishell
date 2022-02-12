@@ -28,41 +28,56 @@ static t_redirection	get_type(char *a, size_t index)
 	return (NO);
 }
 
-static void	set_redirection(t_command *cmd, char **raw, t_redirection redir, size_t index)
+static char	*set_redirection(t_command *cmd, char *raw, t_redirection redir, size_t index)
 {
 	char	*path;
+	size_t	end;
+	char	*tmp;
 
-	if (*raw[index] == ' ')
+	while (raw[index] == ' ')
 		index++;
-	path = ft_substr(*raw, index, index + ft_strchr(&*raw[index], ' '));
-	// TODO : REMOVE redirection from raw
+	end = ft_strchr(&(raw[index]), ' ');
+	path = ft_substr(raw, index, end);
+	if (redir == APPENDER || redir == DELIMITER)
+		tmp = ft_substr(raw, 0, index - 3);
+	else
+		tmp =  ft_substr(raw, 0, index - 2);
+	if (end == 0)
+		end = ft_strlen(raw);
+	tmp = ft_strjoin_properly(tmp, ft_substr(raw, index + end, ft_strlen(raw) - (index + end)));
+	free(raw);
 	if (redir == INPUT || redir == DELIMITER)
 	{
 		free(cmd->input_path);
 		cmd->input_path = path;
-		return ;
+		return (tmp);
 	}
 	free(cmd->output_path);
 	cmd->output_path = path;
+	return (tmp);
 }
 
-void	parse_redirections(t_command *command, char *raw)
+char	*parse_redirections(t_command *command, char *raw)
 {
 	size_t			i;
 	t_redirection	redir;
+	int				quotes;
 
 	i = -1;
-	(void) command;
+	quotes = 0;
 	while (raw[++i])
 	{
+		is_in_quotes(&quotes, raw[i]);
+		if (quotes != 0)
+			continue ;
 		redir = get_type(raw, i);
 		if (redir != NO)
 		{
 			if (redir == APPENDER || redir == DELIMITER)
 				i++;
 			i++;
-			set_redirection(command, &raw, redir, i);
-			printf("Raw : %s\n", raw);
+			raw = set_redirection(command, raw, redir, i);
 		}
 	}
+	return (raw);
 }
