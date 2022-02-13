@@ -37,15 +37,13 @@ char	**parse_raw_commands(char *raw)
 	if (!cmds)
 		return (NULL);
 	index = -1;
-	j = -1;
+	j = 0;
 	while (raw[++index])
 	{
-		if (strchr_separator(&raw[index]) == 0)
-			continue ;
-		cmds[++j] = ft_substr(raw, index, strchr_separator(&raw[index]));
-		cmds[j] = ft_strtrim(cmds[j], " ");
+		cmds[j] = ft_substr(raw, index, strchr_separator(&raw[index]));
 		index += strchr_separator(&raw[index]);
+		j++;
 	}
-	cmds[++j] = NULL;
+	cmds[j] = NULL;
 	return (cmds);
 }

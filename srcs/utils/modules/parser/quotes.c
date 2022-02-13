@@ -64,7 +64,7 @@ static void	fill_args(char *raw, char **new)
 				q = raw[i];
 		}
 	}
-	if (start < ft_strlen(raw))
+	if (start <= ft_strlen(raw))
 		new[n++] = ft_substr(raw, start, ft_strlen(raw) - start);
 	new[n++] = NULL;
 }

@@ -16,13 +16,13 @@ int	strchr_separator(char *s)
 {
 	int	i;
 
-	i = -1;
 	if (!s)
-		return (i);
+		return (-1);
+	i = -1;
 	while (s[++i])
 	{
 		if (s[i] == '|' || s[i] == '&' || s[i] == ';')
 			return (i);
 	}
-	return (i);
+	return (ft_strlen(s));
 }

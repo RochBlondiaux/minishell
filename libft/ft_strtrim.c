@@ -59,7 +59,10 @@ char	*ft_strtrim(char *s1, char const *set)
 	start = get_start(s1, set);
 	end = get_end(s1, set);
 	if (end < start)
+	{
+		free(s1);
 		return (ft_strdup(""));
+	}
 	new = ft_substr(s1, start, end - start);
 	if (!new)
 		return (NULL);
