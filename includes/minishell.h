@@ -78,6 +78,8 @@ typedef struct s_command {
 	int		delimiter;
 	int		appender;
 	int		status;
+	t_token	next_token;
+	t_token	previous_token;
 }			t_command;
 
 typedef struct s_env {
@@ -134,6 +136,7 @@ size_t		array_length(char **array);
 void		free_array(char **array);
 char		**sub_array(char **array, size_t start, size_t length);
 char		**add_array_element(char **array, char *element);
+char		**empty_array(void);
 
 /**
  * Map utils

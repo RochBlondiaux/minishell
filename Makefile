@@ -61,6 +61,7 @@ SRC_NAME =	main.c \
 			utils/array/free.c \
 			utils/array/sub.c \
 			utils/array/add.c \
+			utils/array/empty.c \
 			utils/io/env.c \
 			utils/io/exists.c \
 			utils/io/paths.c \

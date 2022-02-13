@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sub.c                                              :+:      :+:    :+:   */
+/*   empty.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,19 +12,13 @@
 
 #include "../../../includes/minishell.h"
 
-char	**sub_array(char **array, size_t start, size_t length)
+char	**empty_array(void)
 {
-	char	**new;
-	size_t	index;
+	char	**a;
 
-	if (start >= length || length > array_length(array))
-		return (empty_array());
-	index = start - 1;
-	new = malloc(sizeof (char *) * (length - start + 1));
-	if (!new)
+	a = malloc(sizeof(char *) * 1);
+	if (!a)
 		return (NULL);
-	while (array[++index] && index < length)
-		new[index - start] = ft_strdup(array[index]);
-	new[++index - start] = NULL;
-	return (new);
+	a[0] = NULL;
+	return (a);
 }

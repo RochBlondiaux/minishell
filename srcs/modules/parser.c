@@ -15,14 +15,19 @@
 static t_command	*parse_command(char **raw)
 {
 	t_command	*cmd;
+	char		**args;
 
 	cmd = init_command();
 	if (!cmd)
 		return (NULL);
 	*raw = parse_redirections(cmd, *raw);
+	args = parse_quotes(*raw);
+	if (!args)
+		return (NULL);
 	free(cmd->name);
-	cmd->args = parse_quotes(*raw);
-	cmd->name = ft_strdup(cmd->args[0]);
+	cmd->name = ft_strdup(args[0]);
+	cmd->args = sub_array(args, 1, array_length(args));
+	free_array(args);
 	// parse_arguments(cmd, raw);
 	return (cmd);
 }
