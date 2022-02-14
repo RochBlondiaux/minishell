@@ -23,6 +23,6 @@ char	*ft_strdup(const char *s)
 	i = -1;
 	while (s[++i])
 		cpy[i] = s[i];
-	cpy[++i] = '\0';
+	cpy[i] = '\0';
 	return (cpy);
 }
