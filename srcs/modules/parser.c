@@ -26,7 +26,11 @@ static t_command	*parse_command(char **raw)
 		return (NULL);
 	free(cmd->name);
 	cmd->name = ft_strdup(args[0]);
-	cmd->args = sub_array(args, 1, array_length(args));
+	if (array_length(args) > 1)
+	{
+		free_array(cmd->args);
+		cmd->args = sub_array(args, 1, array_length(args));
+	}
 	free_array(args);
 	// parse_arguments(cmd, raw);
 	return (cmd);

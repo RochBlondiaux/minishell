@@ -183,7 +183,7 @@ static char	*check_for_quotes(char *arg)
 	{
 		split = ft_split(arg, 39);
 		free(arg);
-		arg = split[0];
+		arg = ft_strdup(split[0]);
 		free(split);
 	}
 	else
