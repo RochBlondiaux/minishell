@@ -38,6 +38,8 @@ static char	*set_redirection(t_command *cmd, char *raw,
 	while (raw[index] == ' ')
 		index++;
 	end = ft_strchr(&(raw[index]), ' ');
+	if (end == 0)
+		end = ft_strlen(raw) - index;
 	path = ft_substr(raw, index, end);
 	if (redir == APPENDER || redir == DELIMITER)
 		tmp = ft_substr(raw, 0, index - 3);
@@ -51,7 +53,6 @@ static char	*set_redirection(t_command *cmd, char *raw,
 	if (redir == INPUT || redir == DELIMITER)
 	{
 		reset_str(&cmd->input_path, path);
-		printf("Input: %s\n", cmd->input_path);
 		return (tmp);
 	}
 	reset_str(&cmd->output_path, path);
