@@ -123,6 +123,7 @@ char		**parse_raw_commands(char *raw);
 char		*parse_redirections(t_command *command, char *raw);
 char		**parse_quotes(char *raw);
 void		expand_env_vars(t_app *app, t_command *cmd);
+void		expand_input(t_app *app, t_command *cmd);
 
 /**
  * App utils

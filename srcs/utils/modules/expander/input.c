@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,16 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
-void	expand(t_app *app, t_command **commands)
+void	expand_input(t_app *app, t_command *cmd)
 {
-	size_t	i;
+	char	*content;
 
-	i = -1;
-	while (commands[++i])
-	{
-		expand_env_vars(app, commands[i]);
-		expand_input(app, commands[i]);
-	}
+	if (!cmd->input_path
+		|| !cmd->input_path[0])
+		return ;
+	content = read_file(app, cmd->input_path);
+	if (!content)
+		return ;
+	reset_str(&cmd->input, content);
 }
