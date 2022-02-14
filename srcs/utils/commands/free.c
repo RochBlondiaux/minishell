@@ -28,7 +28,10 @@ void	free_command_map(t_command **map)
 	size_t	index;
 
 	index = -1;
-	while (map[++index])
-		free_command(map[index]);
+	if (!map[2])
+		free_command(map[0]);
+	else
+		while (map[++index])
+			free_command(map[index]);
 	free(map);
 }
