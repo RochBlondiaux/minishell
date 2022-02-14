@@ -95,6 +95,7 @@ char	**parse_quotes(char *raw)
 	free_array(args);
 	return (new);
 }*/
+
 static int	find_other_quote(char *arg, unsigned char c)
 {
 	size_t	i;
@@ -119,13 +120,15 @@ static char	*delete_test(char *arg, int c)
 
 	i = -1;
 	j = 0;
-	new = malloc(sizeof(char) * (ft_strlen(arg) - 1));
+	new = malloc(sizeof(char) * (ft_strlen(arg) - 2));
 	while(arg[++i])
 	{
 		if (arg[i] == c)
 			continue;
-		new[j++] = arg[i];
+		new[j] = arg[i];
+		j ++;
 	}
+	new[j] = '\0';
 	free(arg);
 	return (new);
 }
