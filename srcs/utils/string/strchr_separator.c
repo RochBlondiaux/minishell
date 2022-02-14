@@ -24,5 +24,5 @@ int	strchr_separator(char *s)
 		if (s[i] == '|' || s[i] == '&' || s[i] == ';')
 			return (i);
 	}
-	return (ft_strlen(s));
+	return (i);
 }

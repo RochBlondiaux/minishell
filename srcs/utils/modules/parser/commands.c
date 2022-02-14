@@ -36,9 +36,9 @@ char	**parse_raw_commands(char *raw)
 	cmds = malloc(sizeof(char *) * (count_commands(raw) + 1));
 	if (!cmds)
 		return (NULL);
-	index = -1;
+	index = 0;
 	j = 0;
-	while (raw[++index])
+	while (j < count_commands(raw))
 	{
 		cmds[j] = ft_substr(raw, index, strchr_separator(&raw[index]));
 		index += strchr_separator(&raw[index]);
