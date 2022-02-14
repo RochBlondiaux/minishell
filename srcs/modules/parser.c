@@ -21,7 +21,7 @@ static t_command	*parse_command(char **raw)
 	if (!cmd)
 		return (NULL);
 	*raw = parse_redirections(cmd, *raw);
-	args = ft_split((*raw), ' ');
+	args = parse_quotes(*raw);
 	if (!args)
 		return (NULL);
 	free(cmd->name);
