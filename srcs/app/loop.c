@@ -21,6 +21,7 @@ void	start_application_loop(t_app *app)
 	{
 		line = readline(get_prompt_symbol(app));
 		app->exit = 0;
+		handle_mode(app, line, &line);
 		rv = runtime(app, line);
 		if (!line)
 			break ;

@@ -34,7 +34,7 @@ static char	*get_env_string(char *src)
 		return (NULL);
 	index++;
 	while (src[index] && (ft_isalpha(src[index]) || (src[index] == '?'
-			&& (!src[index + 1] || !ft_isalpha(src[index + 1])))))
+				&& (!src[index + 1] || !ft_isalpha(src[index + 1])))))
 		index++;
 	return (ft_substr(src, ft_strchr(src, '$'), index));
 }

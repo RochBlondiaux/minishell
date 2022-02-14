@@ -19,6 +19,6 @@ char	**empty_array(void)
 	a = malloc(sizeof(char *) * 1);
 	if (!a)
 		return (NULL);
- 	a[0] = NULL;
+	a[0] = NULL;
 	return (a);
 }

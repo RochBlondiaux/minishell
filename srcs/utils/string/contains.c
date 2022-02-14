@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   replace.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,17 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-void	expand_input(t_app *app, t_command *cmd)
+size_t	ft_contains(char *s, char c)
 {
-	char	*content;
+	size_t	j;
+	size_t	l;
 
-	if (!cmd->input_path
-		|| !cmd->input_path[0])
-		return ;
-	content = read_file(app, cmd->input_path);
-	if (!content)
-		return ;
-	reset_str(&cmd->input, content);
+	j = -1;
+	l = 0;
+	while (s[++j])
+	{
+		if (s[j] == c)
+			l++;
+	}
+	return (l);
 }

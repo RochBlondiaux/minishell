@@ -32,6 +32,7 @@ LEAKS_CMD = valgrind --leak-check=yes
 SRC_NAME =	main.c \
 			app/load.c \
 			app/loop.c \
+			app/mode.c \
 			app/runtime.c \
 			app/start.c \
 			app/stop.c \
@@ -56,6 +57,7 @@ SRC_NAME =	main.c \
 			utils/string/strcat.c \
 			utils/string/replace.c \
 			utils/string/reset.c \
+			utils/string/contains.c \
 			utils/string/strchr_separator.c \
 			utils/env/get.c \
 			utils/env/set.c \

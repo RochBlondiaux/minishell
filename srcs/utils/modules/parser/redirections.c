@@ -28,6 +28,13 @@ static t_redirection	get_type(char *a, size_t index)
 	return (NO);
 }
 
+static char	*set_tmp(t_redirection redir, char *raw, int index)
+{
+	if (redir == APPENDER || redir == DELIMITER)
+		return (ft_substr(raw, 0, index - 3));
+	return (ft_substr(raw, 0, index - 2));
+}
+
 static char	*set_redirection(t_command *cmd, char *raw,
 							t_redirection redir, size_t index)
 {
@@ -41,10 +48,7 @@ static char	*set_redirection(t_command *cmd, char *raw,
 	if (end == 0)
 		end = ft_strlen(raw) - index;
 	path = ft_substr(raw, index, end);
-	if (redir == APPENDER || redir == DELIMITER)
-		tmp = ft_substr(raw, 0, index - 3);
-	else
-		tmp = ft_substr(raw, 0, index - 2);
+	tmp = set_tmp(redir, raw, index);
 	if (end == 0)
 		end = ft_strlen(raw);
 	tmp = ft_strjoin_properly(tmp, ft_substr(raw, index + end,

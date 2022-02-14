@@ -44,6 +44,12 @@
 /**
  * Structures
  */
+typedef enum s_prompt_mode {
+	NORMAL,
+	QUOTE,
+	D_QUOTE,
+}		t_prompt_mode;
+
 typedef enum s_redirection {
 	INPUT,
 	OUTPUT,
@@ -89,10 +95,11 @@ typedef struct s_env {
 }					t_env;
 
 typedef struct s_app {
-	int		running;
-	int		exit;
-	t_env	*env;
-}			t_app;
+	int				running;
+	int				exit;
+	t_prompt_mode	mode;
+	t_env			*env;
+}					t_app;
 
 /**
  * Application
@@ -102,6 +109,7 @@ void		start_application_loop(t_app *app);
 int			runtime(t_app *app, char *input);
 void		start_application(t_app *app);
 void		stop_application(t_app *app);
+void		handle_mode(t_app *app, char *input, char **ret);
 
 /**
  * Modules
@@ -178,6 +186,7 @@ char		*replace_str(char *sentence, char *find, char *replace);
 int			strchr_separator(char *s);
 void		is_in_quotes(int *quote, char c);
 void		reset_str(char **original, char *replacement);
+size_t		ft_contains(char *s, char c);
 
 /**
  * Commands utils

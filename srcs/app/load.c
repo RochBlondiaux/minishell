@@ -23,6 +23,7 @@ t_app	*load_application(char **env)
 		exit(EXIT_FAILURE);
 	}
 	app->env = init_env_map(env);
+	app->mode = NORMAL;
 	app->exit = 0;
 	return (app);
 }

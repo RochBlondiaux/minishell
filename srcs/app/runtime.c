@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static void print_cmds(t_command **cmds)
+static void	print_cmds(t_command **cmds)
 {
 	size_t	i;
 
