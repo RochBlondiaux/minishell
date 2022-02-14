@@ -109,6 +109,7 @@ void		stop_application(t_app *app);
 t_token		*lexer(t_app *app, char *input, int *result);
 int			syntaxer(char *input, t_token *tokens);
 t_command	**parse(char *input);
+void		expand(t_app *app, t_command **commands);
 
 /**
  * Modules utils
@@ -121,6 +122,7 @@ size_t		count_commands(char *args);
 char		**parse_raw_commands(char *raw);
 char		*parse_redirections(t_command *command, char *raw);
 char		**parse_quotes(char *raw);
+void		expand_env_vars(t_app *app, t_command *cmd);
 
 /**
  * App utils

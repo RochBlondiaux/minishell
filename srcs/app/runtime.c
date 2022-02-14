@@ -44,8 +44,8 @@ int	runtime(t_app *app, char *input)
 		return (FALSE);
 	}
 	commands = parse(input);
+	expand(app, commands);
 	print_cmds(commands);
-	//	expand(app, commands);
 	//	executor(app, commands);
 	free_command_map(commands);
 	return (TRUE);

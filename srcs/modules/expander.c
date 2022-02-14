@@ -11,3 +11,14 @@
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	expand(t_app *app, t_command **commands)
+{
+	size_t	i;
+
+	i = -1;
+	while (commands[++i])
+	{
+		expand_env_vars(app, commands[i]);
+	}
+}

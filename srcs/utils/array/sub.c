@@ -25,6 +25,6 @@ char	**sub_array(char **array, size_t start, size_t length)
 		return (NULL);
 	while (array[++index] && index < length)
 		new[index - start] = ft_strdup(array[index]);
-	new[++index - start] = NULL;
+	new[index - start] = NULL;
 	return (new);
 }

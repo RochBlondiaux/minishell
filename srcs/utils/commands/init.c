@@ -19,7 +19,6 @@ t_command	*init_command(void)
 	cmd = malloc(sizeof(t_command));
 	if (!cmd)
 		return (NULL);
-	cmd->args = empty_array();
 	cmd->name = ft_strdup("");
 	cmd->input = ft_strdup("");
 	cmd->output = ft_strdup("");
