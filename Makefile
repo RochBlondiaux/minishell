@@ -46,11 +46,13 @@ SRC_NAME =	main.c \
 			utils/commands/create.c \
 			utils/commands/free.c \
 			utils/commands/init.c \
+			utils/commands/length.c \
 			utils/modules/lexer/token.c \
 			utils/modules/expander/env.c \
 			utils/modules/expander/input.c \
 			utils/modules/syntaxer/token.c \
 			utils/modules/parser/redirections.c \
+			utils/modules/parser/tokens.c \
 			utils/modules/parser/commands.c \
 			utils/modules/parser/separators.c \
 			utils/modules/parser/quotes.c \

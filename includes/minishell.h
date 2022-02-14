@@ -132,6 +132,7 @@ char		*parse_redirections(t_command *command, char *raw);
 char		**parse_quotes(char *raw);
 void		expand_env_vars(t_app *app, t_command *cmd);
 void		expand_input(t_app *app, t_command *cmd);
+void		parse_cmd_tokens(t_command **cmds, char *raw);
 
 /**
  * App utils
@@ -195,5 +196,7 @@ t_command	*create_command(char **args);
 void		free_command(t_command *cmd);
 void		free_command_map(t_command **map);
 t_command	*init_command(void);
+size_t		commands_length(t_command **args);
+
 
 #endif

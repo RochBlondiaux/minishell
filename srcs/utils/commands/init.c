@@ -26,6 +26,8 @@ t_command	*init_command(void)
 	cmd->output_path = ft_strdup("");
 	cmd->delimiter = FALSE;
 	cmd->appender = FALSE;
+	cmd->previous_token = LITERAL;
+	cmd->next_token = LITERAL;
 	cmd->status = 0;
 	return (cmd);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                            :+:      :+:    :+:    */
+/*   length.c                                          :+:      :+:    :+:    */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,23 +12,12 @@
 
 #include "../../../includes/minishell.h"
 
-void	free_command(t_command *cmd)
+size_t	commands_length(t_command **args)
 {
-	free(cmd->input_path);
-	free(cmd->output_path);
-	free(cmd->input);
-	free(cmd->output);
-	free(cmd->name);
-	free_array(cmd->args);
-	free(cmd);
-}
+	size_t	i;
 
-void	free_command_map(t_command **map)
-{
-	size_t	index;
-
-	index = -1;
-	while (map[++index])
-		free_command(map[index]);
-	free(map);
+	i = -1;
+	while (args[++i])
+		;
+	return (i);
 }

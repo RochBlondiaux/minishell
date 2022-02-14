@@ -12,43 +12,62 @@
 
 #include "../../../../includes/minishell.h"
 
-size_t	count_commands(char *input)
+static char *pri(t_token token)
 {
-	size_t	index;
-	size_t	count;
-
-	index = -1;
-	count = 1;
-	while (input[++index])
+	if (!token) return "ERROR";
+	switch (token)
 	{
-		if (is_separator(input, index))
-			count++;
+		case LITERAL:
+			return "NONE";
+		case REDIRECTION:
+			return "REDIR";
+		case OR:
+			return "OR";
+		case SEMI_COLON:
+			return "SEMI COLON";
+		case PIPE:
+			return "PIPE";
+		case AND:
+			return "AND";
+		case AMPERSAND:
+			return "AMPERSAND";
+		default:
+			return "?";
 	}
-	return (count);
 }
 
-char	**parse_raw_commands(char *raw)
+static void print_tokens(t_command **commands)
 {
-	char	**cmds;
-	size_t	index;
-	size_t	j;
-	size_t	s;
-
-	cmds = malloc(sizeof(char *) * (count_commands(raw) + 1));
-	if (!cmds)
-		return (NULL);
-	index = 0;
-	j = 0;
-	while (j < count_commands(raw))
+	int i = -1;
+	while (commands[++i])
 	{
-		while (is_separator(raw, index))
-			index ++;
-		s = strchr_separator(&raw[index]);
-		cmds[j++] = ft_substr(raw, index, s);
-		index += s;
-		if (index >= ft_strlen(raw))
-			break ;
+		printf("===== [%s] =====\n", commands[i]->name);
+		printf("Last: %s\n", pri(commands[i]->previous_token));
+		printf("Next: %s\n\n", pri(commands[i]->next_token));
 	}
-	cmds[j] = NULL;
-	return (cmds);
+}
+
+void parse_cmd_tokens(t_command **cmds, char *raw)
+{
+	size_t	i;
+	size_t	j;
+	t_token	c;
+
+	i = -1;
+	j = 0;
+	while (raw[++i] && cmds[j])
+	{
+		if (is_separator(raw, i))
+		{
+			c = get_token(raw, i);
+			cmds[j]->next_token = c;
+			if (cmds[j + 1])
+				cmds[j + 1]->previous_token = c;
+			j++;
+			if (c == OR || c == AND)
+				i += 2;
+			continue ;
+		}
+	}
+	print_tokens(cmds);
 }

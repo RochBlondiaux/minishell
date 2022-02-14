@@ -21,7 +21,7 @@ static t_command	*parse_command(char **raw)
 	if (!cmd)
 		return (NULL);
 	*raw = parse_redirections(cmd, *raw);
-	args = parse_quotes(*raw);
+	args = ft_split((*raw), ' ');
 	if (!args)
 		return (NULL);
 	free(cmd->name);
@@ -46,7 +46,8 @@ t_command	**parse(char *input)
 		return (NULL);
 	while (raw_cmds[++index])
 		cmds[index] = parse_command(&raw_cmds[index]);
-	cmds[++index] = NULL;
+	cmds[index + 1] = NULL;
 	free_array(raw_cmds);
+	parse_cmd_tokens(cmds, input);
 	return (cmds);
 }
