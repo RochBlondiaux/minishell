@@ -12,19 +12,19 @@
 
 #include "../../../includes/minishell.h"
 
-void	set_env(t_app	*app, char *name, char *key)
+void	set_env(t_app	*app, char *key, char *value)
 {
 	t_env	*env;
 
-	env = get_map_element(app->env, name);
+	env = get_map_element(app->env, key);
 	if (env)
 	{
 		free(env->value);
-		env->value = ft_strdup(name);
+		env->value = ft_strdup(value);
 		return ;
 	}
 	env = malloc(sizeof(t_env));
-	env->key = ft_strdup(name);
-	env->value = ft_strdup(key);
+	env->key = ft_strdup(key);
+	env->value = ft_strdup(value);
 	add_map_element(&app->env, env);
 }

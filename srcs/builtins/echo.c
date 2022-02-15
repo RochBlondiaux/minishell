@@ -35,4 +35,7 @@ void	builtin_echo(t_command *cmd)
 			printf("%s%s%%%s", BOLD, "\033[3;107;30m", RESET);
 		printf("\n");
 	}
+	else
+		printf("\n");
+	cmd->status = 0;
 }

@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	builtin_env(t_app *app)
+void	builtin_env(t_app *app, t_command *cmd)
 {
 	t_env	*tmp;
 
@@ -27,4 +27,5 @@ void	builtin_env(t_app *app)
 		printf("%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
+	cmd->status = 0;
 }

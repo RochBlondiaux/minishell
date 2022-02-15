@@ -63,3 +63,8 @@ char	*path(char *raw)
 	}
 	return (tmp);
 }
+
+int	is_relative(char *path)
+{
+	return (path && path[0] && path[0] != '/');
+}

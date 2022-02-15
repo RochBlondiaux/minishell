@@ -99,6 +99,7 @@ typedef struct s_env {
 typedef struct s_app {
 	int				running;
 	int				exit;
+	int				last_exit;
 	t_prompt_mode	mode;
 	t_env			*env;
 }					t_app;
@@ -143,11 +144,11 @@ void		parse_cmd_tokens(t_command **cmds, char *raw);
 void		dispatch_builtins(t_app *app, t_command *cmd);
 void		builtin_echo(t_command *cmd);
 void		builtin_cd(t_app *app, t_command *cmd);
-void		builtin_pwd(t_app *app);
-void		builtin_exit(t_app *app);
+void		builtin_pwd(t_app *app, t_command *cmd);
+void		builtin_exit(t_app *app, t_command *cmd);
 void		builtin_export(t_app *app, t_command *cmd);
 void		builtin_unset(t_app *app, t_command *cmd);
-void		builtin_env(t_app *app);
+void		builtin_env(t_app *app, t_command *cmd);
 
 /**
  * App utils
@@ -193,6 +194,7 @@ char		*path(char *raw);
 char		*read_file(t_app *app, char *path);
 void		write_in_file(t_app *app, char *filename,
 				char *content, int append);
+int			is_relative(char *path);
 
 /**
  * String utils

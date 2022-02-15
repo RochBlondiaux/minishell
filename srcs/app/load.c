@@ -25,5 +25,6 @@ t_app	*load_application(char **env)
 	app->env = init_env_map(env);
 	app->mode = NORMAL;
 	app->exit = 0;
+	app->last_exit = 0;
 	return (app);
 }

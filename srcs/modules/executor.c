@@ -40,5 +40,8 @@ void	executor(t_app *app, t_command **cmds)
 	i = -1;
 	init_commands(cmds);
 	while (cmds[++i])
+	{
 		execute_command(app, cmds[i]);
+		app->last_exit = cmds[i]->status;
+	}
 }

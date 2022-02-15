@@ -12,7 +12,8 @@
 
 #include "../../includes/minishell.h"
 
-void	builtin_exit(t_app *app)
+void	builtin_exit(t_app *app, t_command *cmd)
 {
 	app->running = FALSE;
+	cmd->status = 0;
 }

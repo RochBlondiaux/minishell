@@ -15,8 +15,9 @@
 void	error(t_app *app, char *name, char *error)
 {
 	ft_putstr_fd(name, 2);
-	ft_putchar_fd(':', 2);
+	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(error, 2);
+	ft_putstr_fd("\n", 2);
 	app->exit = 1;
 }
 

@@ -59,7 +59,7 @@ void	expand_env_vars(t_app *app, t_command *cmd)
 		else
 		{
 			if (v[1] == '?')
-				v = replace_str(cmd->args[index], v, ft_itoa(app->exit));
+				v = replace_str(cmd->args[index], v, ft_itoa(app->last_exit));
 			else
 				v = replace_str(cmd->args[index], v, ft_strdup(""));
 		}
