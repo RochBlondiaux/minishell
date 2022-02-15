@@ -33,6 +33,8 @@
 # include "colors.h"
 # include "settings.h"
 # include "messages.h"
+# include "enums.h"
+# include "structures.h"
 # include "../libft/libft.h"
 
 /**
@@ -40,71 +42,6 @@
  */
 # define TRUE 1
 # define FALSE 0
-
-/**
- * Structures
- */
-typedef enum s_prompt_mode {
-	NORMAL,
-	QUOTE,
-	D_QUOTE,
-}		t_prompt_mode;
-
-typedef enum s_redirection {
-	INPUT,
-	OUTPUT,
-	DELIMITER,
-	APPENDER,
-	NO
-}	t_redirection;
-
-typedef enum s_quote {
-	DOUBLE,
-	SIMPLE,
-	NONE
-}	t_quote;
-
-typedef enum s_token {
-	AMPERSAND,
-	PIPE,
-	AND,
-	OR,
-	REDIRECTION,
-	LITERAL,
-	SEMI_COLON,
-}	t_token;
-
-typedef struct s_command {
-	char				*name;
-	char				**args;
-	char				*input_path;
-	char				*output_path;
-	char				*input;
-	char				*output;
-	int					delimiter;
-	int					appender;
-	int					status;
-	t_token				next_token;
-	t_token				previous_token;
-	struct s_command	*previous_cmd;
-	struct s_command	*next_cmd;
-	pid_t				pid;
-	int					p_status;
-}						t_command;
-
-typedef struct s_env {
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}					t_env;
-
-typedef struct s_app {
-	int				running;
-	int				exit;
-	int				last_exit;
-	t_prompt_mode	mode;
-	t_env			*env;
-}					t_app;
 
 /**
  * Application
@@ -141,7 +78,7 @@ void		expand_input(t_app *app, t_command *cmd);
 void		parse_cmd_tokens(t_command **cmds, char *raw);
 char		*get_executable(t_app *app, char *input);
 int			fork_cmd(t_app *app, t_command *cmd);
-void		clear_fork(t_app *app, t_command *cmd);
+void		clear_fork(t_command *cmd);
 char		**get_executable_args(t_command *cmd);
 
 /**

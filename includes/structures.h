@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fork.c                                             :+:      :+:    :+:   */
+/*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,26 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../includes/minishell.h"
+#ifndef STRUCTURES_H
+# define STRUCTURES_H
 
-int	fork_cmd(t_app *app, t_command *cmd)
-{
-	cmd->pid = fork();
-	cmd->p_status = 0;
-	if (cmd->pid == -1)
-	{
-		error(app, cmd->name, FORK_ERROR);
-		return (FALSE);
-	}
-	return (TRUE);
-}
+typedef struct s_command {
+	char				*name;
+	char				**args;
+	char				*input_path;
+	char				*output_path;
+	char				*input;
+	char				*output;
+	int					delimiter;
+	int					appender;
+	int					status;
+	t_token				next_token;
+	t_token				previous_token;
+	struct s_command	*previous_cmd;
+	struct s_command	*next_cmd;
+	pid_t				pid;
+	int					p_status;
+}						t_command;
 
-void	clear_fork(t_command *cmd)
-{
-	signal(SIGINT, SIG_IGN);
-	waitpid(cmd->pid, &cmd->p_status, 0);
-	if (WIFEXITED(cmd->p_status))
-		cmd->p_status = WEXITSTATUS(cmd->p_status);
-	if (WIFSIGNALED(cmd->p_status))
-		cmd->p_status = WCOREDUMP(cmd->p_status);
-}
+typedef struct s_env {
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
+
+typedef struct s_app {
+	int				running;
+	int				exit;
+	int				last_exit;
+	t_prompt_mode	mode;
+	t_env			*env;
+}					t_app;
+
+#endif

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fork.c                                             :+:      :+:    :+:   */
+/*   enums.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,26 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../includes/minishell.h"
+#ifndef ENUMS_H
+# define ENUMS_H
 
-int	fork_cmd(t_app *app, t_command *cmd)
-{
-	cmd->pid = fork();
-	cmd->p_status = 0;
-	if (cmd->pid == -1)
-	{
-		error(app, cmd->name, FORK_ERROR);
-		return (FALSE);
-	}
-	return (TRUE);
-}
+typedef enum s_prompt_mode {
+	NORMAL,
+	QUOTE,
+	D_QUOTE,
+}		t_prompt_mode;
 
-void	clear_fork(t_command *cmd)
-{
-	signal(SIGINT, SIG_IGN);
-	waitpid(cmd->pid, &cmd->p_status, 0);
-	if (WIFEXITED(cmd->p_status))
-		cmd->p_status = WEXITSTATUS(cmd->p_status);
-	if (WIFSIGNALED(cmd->p_status))
-		cmd->p_status = WCOREDUMP(cmd->p_status);
-}
+typedef enum s_redirection {
+	INPUT,
+	OUTPUT,
+	DELIMITER,
+	APPENDER,
+	NO
+}	t_redirection;
+
+typedef enum s_quote {
+	DOUBLE,
+	SIMPLE,
+	NONE
+}	t_quote;
+
+typedef enum s_token {
+	AMPERSAND,
+	PIPE,
+	AND,
+	OR,
+	REDIRECTION,
+	LITERAL,
+	SEMI_COLON,
+}	t_token;
+
+#endif

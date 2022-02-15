@@ -41,10 +41,10 @@ static int	execute_native_command(t_app *app, t_command *cmd)
 	}
 	if (cmd->pid == 0)
 	{
-		execv(cmd->name, get_executable_args(cmd));
+		execve(executable, get_executable_args(cmd), NULL);
+		exit(1);
 	}
-	else
-		clear_fork(app, cmd);
+	clear_fork(cmd);
 	free(executable);
 	return (TRUE);
 }
