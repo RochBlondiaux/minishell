@@ -12,11 +12,15 @@
 
 #include "../../includes/minishell.h"
 
-static void set_path(t_app *app, char *a)
+static int set_path(t_app *app, char *a)
 {
+	int	ret;
+
 	set_env(app, "OLDPWD", get_env(app, "PWD"));
 	set_env(app, "PWD", a);
+	ret = chdir(a);
 	free(a);
+	return (ret == FALSE);
 }
 
 static char	*get_old_path(t_app *app)
@@ -26,7 +30,7 @@ static char	*get_old_path(t_app *app)
 	old = get_env(app, "OLDPWD");
 	if (!old)
 	{
-		error(app, "cd", "OLDPWD not set");
+		error(app, "cd", OLDPWD_UNDEFINED);
 		return (NULL);
 	}
 	return (ft_strdup(old));
@@ -61,7 +65,7 @@ void	builtin_cd(t_app *app, t_command *cmd)
 
 	if (array_length(cmd->args) > 1)
 	{
-		error(app, "cd", "Too many arguments");
+		error(app, "cd", TOO_MANY_ARGUMENTS);
 		cmd->status = 1;
 		return ;
 	}
@@ -71,6 +75,11 @@ void	builtin_cd(t_app *app, t_command *cmd)
 		cmd->status = 1;
 		return ;
 	}
-	set_path(app, path);
+	if (!set_path(app, path))
+	{
+		str_error(app, "cd");
+		cmd->status = 1;
+		return ;
+	}
 	cmd->status = 0;
 }

@@ -14,15 +14,17 @@
 
 void	error(t_app *app, char *name, char *error)
 {
+	ft_putstr_fd("\033[0;31m", 2);
 	ft_putstr_fd(name, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(error, 2);
 	ft_putstr_fd("\n", 2);
+	ft_putstr_fd("\033[0m", 2);
 	app->exit = 1;
 }
 
-void	str_error(t_app *app, char *error)
+void	str_error(t_app *app, char *err)
 {
-	perror(error);
+	error(app, err, strerror(errno));
 	app->exit = 1;
 }

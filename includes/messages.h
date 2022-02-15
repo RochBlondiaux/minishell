@@ -14,12 +14,13 @@
 # define MESSAGES_H
 
 # define APP_INITIALIZATION_FAILED "Application initialization failed!"
-# define COMMAND_NOT_FOUND "\033[0;31mCommand not found!\033[0m"
-# define OCCURRED_ERROR "\033[0;31mAn error occurred!\033[0m"
+# define COMMAND_NOT_FOUND "Command not found!"
+# define OCCURRED_ERROR "An error occurred!"
 # define EXIT_MESSAGE "Goodbye buddy!"
 # define TOO_MANY_ARGUMENTS "Too many arguments!"
-# define UNINITIALIZED "cd: OLDPWD not set"
 # define SYNTAX_ERROR "Syntax error"
 # define UNSET_ERROR "unset: invalid parameter name"
+# define OLDPWD_UNDEFINED "OLDPWD not set"
+# define NOT_ENOUGH_ARGS "Not enough arguments"
 
 #endif

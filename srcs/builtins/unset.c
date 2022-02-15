@@ -14,6 +14,15 @@
 
 void	builtin_unset(t_app *app, t_command *cmd)
 {
-	(void) app;
-	(void) cmd;
+	size_t	i;
+
+	if (array_length(cmd->args) < 1)
+	{
+		error(app, "unset", NOT_ENOUGH_ARGS);
+		return ;
+	}
+	i = -1;
+	while (cmd->args[++i])
+		remove_map_element(app, &app->env, cmd->args[i]);
+	cmd->status = 0;
 }
