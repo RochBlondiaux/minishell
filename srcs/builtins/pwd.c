@@ -12,8 +12,13 @@
 
 #include "../../includes/minishell.h"
 
-void	builtin_pwd(t_app *app, t_command *cmd)
+void	builtin_pwd(t_app *app)
 {
-	(void) app;
-	(void) cmd;
+	char	*path;
+
+	path = get_env(app, "PWD");
+	if (path)
+		printf("%s\n", path);
+	else
+		error(app, "pwd", "PWD not defined.");
 }

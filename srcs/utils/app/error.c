@@ -12,9 +12,11 @@
 
 #include "../../../includes/minishell.h"
 
-void	error(t_app *app, int code)
+void	error(t_app *app, char *name, char *error)
 {
-	perror(strerror(code));
+	ft_putstr_fd(name, 2);
+	ft_putchar_fd(':', 2);
+	ft_putstr_fd(error, 2);
 	app->exit = 1;
 }
 

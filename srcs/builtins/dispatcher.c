@@ -19,7 +19,7 @@ void	dispatch_builtins(t_app *app, t_command *cmd)
 	else if (ft_strcmp(cmd->name, "echo"))
 		builtin_echo(cmd);
 	else if (ft_strcmp(cmd->name, "pwd"))
-		builtin_pwd(app, cmd);
+		builtin_pwd(app);
 	else if (ft_strcmp(cmd->name, "exit"))
 		builtin_exit(app);
 	else if (ft_strcmp(cmd->name, "unset"))

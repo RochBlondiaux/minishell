@@ -26,7 +26,7 @@ void	write_in_file(t_app *app, char *filename, char *content, int append)
 				| S_IRGRP | S_IWGRP | S_IWUSR);
 	if (fd < 0)
 	{
-		error(app, errno);
+		str_error(app, filename);
 		return ;
 	}
 	ft_putstr_fd(output, fd);

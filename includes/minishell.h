@@ -143,7 +143,7 @@ void		parse_cmd_tokens(t_command **cmds, char *raw);
 void		dispatch_builtins(t_app *app, t_command *cmd);
 void		builtin_echo(t_command *cmd);
 void		builtin_cd(t_app *app, t_command *cmd);
-void		builtin_pwd(t_app *app, t_command *cmd);
+void		builtin_pwd(t_app *app);
 void		builtin_exit(t_app *app);
 void		builtin_export(t_app *app, t_command *cmd);
 void		builtin_unset(t_app *app, t_command *cmd);
@@ -153,7 +153,7 @@ void		builtin_env(t_app *app, t_command *cmd);
  * App utils
  */
 char		*get_prompt_symbol(t_app *app);
-void		error(t_app *app, int code);
+void		error(t_app *app, char *name, char *error);
 void		str_error(t_app *app, char *error);
 
 /**
