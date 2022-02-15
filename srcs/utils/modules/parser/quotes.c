@@ -79,7 +79,7 @@ static char	*sup_quote(char *arg)
 		if (arg[i] == '"' || arg[i] == '\'')
 		{
 			quote = arg[i];
-			break;
+			break ;
 		}
 	}
 	if (quote == -1)

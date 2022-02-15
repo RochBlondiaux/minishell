@@ -75,18 +75,20 @@ typedef enum s_token {
 }	t_token;
 
 typedef struct s_command {
-	char	*name;
-	char	**args;
-	char	*input_path;
-	char	*output_path;
-	char	*input;
-	char	*output;
-	int		delimiter;
-	int		appender;
-	int		status;
-	t_token	next_token;
-	t_token	previous_token;
-}			t_command;
+	char				*name;
+	char				**args;
+	char				*input_path;
+	char				*output_path;
+	char				*input;
+	char				*output;
+	int					delimiter;
+	int					appender;
+	int					status;
+	t_token				next_token;
+	t_token				previous_token;
+	struct s_command	*previous_cmd;
+	struct s_command	*next_cmd;
+}						t_command;
 
 typedef struct s_env {
 	char			*key;
@@ -118,6 +120,7 @@ t_token		*lexer(t_app *app, char *input, int *result);
 int			syntaxer(char *input, t_token *tokens);
 t_command	**parse(char *input);
 void		expand(t_app *app, t_command **commands);
+void		executor(t_app *app, t_command **cmds);
 
 /**
  * Modules utils
@@ -133,6 +136,18 @@ char		**parse_quotes(char *raw);
 void		expand_env_vars(t_app *app, t_command *cmd);
 void		expand_input(t_app *app, t_command *cmd);
 void		parse_cmd_tokens(t_command **cmds, char *raw);
+
+/**
+ * Builtins
+ */
+void		dispatch_builtins(t_app *app, t_command *cmd);
+void		builtin_echo(t_command *cmd);
+void		builtin_cd(t_app *app, t_command *cmd);
+void		builtin_pwd(t_app *app, t_command *cmd);
+void		builtin_exit(t_app *app);
+void		builtin_export(t_app *app, t_command *cmd);
+void		builtin_unset(t_app *app, t_command *cmd);
+void		builtin_env(t_app *app, t_command *cmd);
 
 /**
  * App utils
@@ -198,5 +213,9 @@ void		free_command_map(t_command **map);
 t_command	*init_command(void);
 size_t		commands_length(t_command **args);
 
+/**
+ * Builtins utils
+ */
+int			is_builtin(t_command *cmd);
 
 #endif

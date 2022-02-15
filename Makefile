@@ -41,6 +41,14 @@ SRC_NAME =	main.c \
 			modules/expander.c \
 			modules/lexer.c \
 			modules/parser.c \
+			builtins/dispatcher.c \
+			builtins/cd.c \
+			builtins/echo.c \
+			builtins/pwd.c \
+			builtins/exit.c \
+			builtins/unset.c \
+			builtins/export.c \
+			builtins/env.c \
 			utils/app/prompt.c \
 			utils/app/error.c \
 			utils/commands/create.c \
@@ -56,6 +64,7 @@ SRC_NAME =	main.c \
 			utils/modules/parser/commands.c \
 			utils/modules/parser/separators.c \
 			utils/modules/parser/quotes.c \
+			utils/builtins/is.c \
 			utils/string/strcat.c \
 			utils/string/replace.c \
 			utils/string/reset.c \
@@ -111,6 +120,7 @@ obj:
 	@mkdir -p $(OBJ_PATH)/utils/env
 	@mkdir -p $(OBJ_PATH)/utils/map
 	@mkdir -p $(OBJ_PATH)/utils/commands
+	@mkdir -p $(OBJ_PATH)/utils/builtins
 	@mkdir -p $(OBJ_PATH)/utils/modules
 	@mkdir -p $(OBJ_PATH)/utils/modules/lexer
 	@mkdir -p $(OBJ_PATH)/utils/modules/syntaxer

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   runtime.c                                          :+:      :+:    :+:   */
+/*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,25 +12,20 @@
 
 #include "../../includes/minishell.h"
 
-int	runtime(t_app *app, char *input)
+void	dispatch_builtins(t_app *app, t_command *cmd)
 {
-	t_token		*tokens;
-	int			result;
-	t_command	**commands;
-
-	result = 0;
-	tokens = lexer(app, input, &result);
-	if (!tokens)
-		return (FALSE);
-	result = syntaxer(input, tokens);
-	if (!result)
-	{
-		str_error(app, SYNTAX_ERROR);
-		return (FALSE);
-	}
-	commands = parse(input);
-	expand(app, commands);
-	executor(app, commands);
-	free_command_map(commands);
-	return (TRUE);
+	if (ft_strcmp(cmd->name, "cd"))
+		builtin_cd(app, cmd);
+	else if (ft_strcmp(cmd->name, "echo"))
+		builtin_echo(cmd);
+	else if (ft_strcmp(cmd->name, "pwd"))
+		builtin_pwd(app, cmd);
+	else if (ft_strcmp(cmd->name, "exit"))
+		builtin_exit(app);
+	else if (ft_strcmp(cmd->name, "unset"))
+		builtin_unset(app, cmd);
+	else if (ft_strcmp(cmd->name, "export"))
+		builtin_export(app, cmd);
+	else if (ft_strcmp(cmd->name, "env"))
+		builtin_env(app, cmd);
 }

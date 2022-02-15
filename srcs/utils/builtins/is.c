@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   runtime.c                                          :+:      :+:    :+:   */
+/*   is.c 	                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,27 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-int	runtime(t_app *app, char *input)
+static int	cm(t_command *cmd, char *name)
 {
-	t_token		*tokens;
-	int			result;
-	t_command	**commands;
+	return (ft_strcmp(cmd->name, name));
+}
 
-	result = 0;
-	tokens = lexer(app, input, &result);
-	if (!tokens)
-		return (FALSE);
-	result = syntaxer(input, tokens);
-	if (!result)
-	{
-		str_error(app, SYNTAX_ERROR);
-		return (FALSE);
-	}
-	commands = parse(input);
-	expand(app, commands);
-	executor(app, commands);
-	free_command_map(commands);
-	return (TRUE);
+int	is_builtin(t_command *cmd)
+{
+	return (cm(cmd, "echo")
+		|| cm(cmd, "cd")
+		|| cm(cmd, "pwd")
+		|| cm(cmd, "export")
+		|| cm(cmd, "unset")
+		|| cm(cmd, "env")
+		|| cm(cmd, "exit"));
 }

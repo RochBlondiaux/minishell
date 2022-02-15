@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   runtime.c                                          :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,25 +12,8 @@
 
 #include "../../includes/minishell.h"
 
-int	runtime(t_app *app, char *input)
+void	builtin_unset(t_app *app, t_command *cmd)
 {
-	t_token		*tokens;
-	int			result;
-	t_command	**commands;
-
-	result = 0;
-	tokens = lexer(app, input, &result);
-	if (!tokens)
-		return (FALSE);
-	result = syntaxer(input, tokens);
-	if (!result)
-	{
-		str_error(app, SYNTAX_ERROR);
-		return (FALSE);
-	}
-	commands = parse(input);
-	expand(app, commands);
-	executor(app, commands);
-	free_command_map(commands);
-	return (TRUE);
+	(void) app;
+	(void) cmd;
 }

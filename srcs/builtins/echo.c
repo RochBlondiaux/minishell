@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   runtime.c                                          :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,25 +12,27 @@
 
 #include "../../includes/minishell.h"
 
-int	runtime(t_app *app, char *input)
+void	builtin_echo(t_command *cmd)
 {
-	t_token		*tokens;
-	int			result;
-	t_command	**commands;
+	int		mode;
+	size_t	i;
 
-	result = 0;
-	tokens = lexer(app, input, &result);
-	if (!tokens)
-		return (FALSE);
-	result = syntaxer(input, tokens);
-	if (!result)
+	i = 0;
+	mode = 0;
+	while (ft_strcmp_sensitive(cmd->args[i++], "-n"))
+		mode = 1;
+	i -= 2;
+	while (cmd->args[++i])
 	{
-		str_error(app, SYNTAX_ERROR);
-		return (FALSE);
+		if (i == array_length(cmd->args) - 1)
+			printf("%s", cmd->args[i]);
+		else
+			printf("%s ", cmd->args[i]);
 	}
-	commands = parse(input);
-	expand(app, commands);
-	executor(app, commands);
-	free_command_map(commands);
-	return (TRUE);
+	if (array_length(cmd->args) > 0)
+	{
+		if (mode)
+			printf("%s%s%%%s", BOLD, "\033[3;107;30m", RESET);
+		printf("\n");
+	}
 }

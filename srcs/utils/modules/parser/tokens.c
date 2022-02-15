@@ -12,44 +12,7 @@
 
 #include "../../../../includes/minishell.h"
 
-static char *pri(t_token token)
-{
-	if (!token) return "ERROR";
-	switch (token)
-	{
-		case LITERAL:
-			return "NONE";
-		case REDIRECTION:
-			return "REDIR";
-		case OR:
-			return "OR";
-		case SEMI_COLON:
-			return "SEMI COLON";
-		case PIPE:
-			return "PIPE";
-		case AND:
-			return "AND";
-		case AMPERSAND:
-			return "AMPERSAND";
-		default:
-			return "?";
-	}
-}
-
-static void print_tokens(t_command **commands)
-{
-	int i = -1;
-	while (commands[++i])
-	{
-		if (!commands[i])
-			return ;
-		printf("===== [%s] =====\n", commands[i]->name);
-		printf("Last: %s\n", pri(commands[i]->previous_token));
-		printf("Next: %s\n\n", pri(commands[i]->next_token));
-	}
-}
-
-void parse_cmd_tokens(t_command **cmds, char *raw)
+void	parse_cmd_tokens(t_command **cmds, char *raw)
 {
 	size_t	i;
 	size_t	j;
@@ -71,5 +34,4 @@ void parse_cmd_tokens(t_command **cmds, char *raw)
 			continue ;
 		}
 	}
-	print_tokens(cmds);
 }

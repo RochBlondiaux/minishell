@@ -44,6 +44,8 @@ char	**parse_raw_commands(char *raw)
 			continue ;
 		cmds[j++] = ft_substr(raw, i, strchr_separator(&raw[i]));
 		i += strchr_separator(&raw[i]);
+		if (i >= ft_strlen(raw))
+			break ;
 	}
 	cmds[j] = NULL;
 	return (cmds);
