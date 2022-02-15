@@ -16,15 +16,40 @@ size_t	count_commands(char *input)
 {
 	size_t	index;
 	size_t	count;
+	int		q;
 
 	index = -1;
 	count = 1;
+	q = 0;
 	while (input[++index])
 	{
-		if (is_separator(input, index))
+		if (input[index] == q)
+			q = 0;
+		if ((input[index] == '"' || input[index] == '\'') && q == 0)
+			q = input[index];
+		if (is_separator(input, index) && q == 0)
 			count++;
 	}
 	return (count);
+}
+
+static int	strchr_sep(char *s, int q)
+{
+	size_t	i;
+
+	if (!s)
+		return (-1);
+	i = -1;
+	while (s[++i])
+	{
+		if (s[i] == q)
+			q = 0;
+		if ((s[i] == '"' || s[i] == '\'') && q == 0)
+			q = s[i];
+		if ((s[i] == '|' || s[i] == '&' || s[i] == ';') && q == 0)
+			return (i);
+	}
+	return (i);
 }
 
 char	**parse_raw_commands(char *raw)
@@ -32,18 +57,18 @@ char	**parse_raw_commands(char *raw)
 	char	**cmds;
 	size_t	i;
 	size_t	j;
+	int		q;
 
 	cmds = malloc(sizeof(char *) * (count_commands(raw) + 1));
 	if (!cmds)
 		return (NULL);
 	i = -1;
 	j = 0;
+	q = 0;
 	while (raw[++i] && j < count_commands(raw))
 	{
-		if (is_separator(raw, i))
-			continue ;
-		cmds[j++] = ft_substr(raw, i, strchr_separator(&raw[i]));
-		i += strchr_separator(&raw[i]);
+		cmds[j++] = ft_substr(raw, i, strchr_sep(&raw[i], q));
+		i += strchr_sep(&raw[i], q);
 		if (i >= ft_strlen(raw))
 			break ;
 	}
