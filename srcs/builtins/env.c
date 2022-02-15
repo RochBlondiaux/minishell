@@ -12,8 +12,19 @@
 
 #include "../../includes/minishell.h"
 
-void	builtin_env(t_app *app, t_command *cmd)
+void	builtin_env(t_app *app)
 {
-	(void) app;
-	(void) cmd;
+	t_env	*tmp;
+
+	tmp = app->env;
+	if (!app->env)
+	{
+		error(app, "env", "Unable to fetch env variables.");
+		return ;
+	}
+	while (tmp)
+	{
+		printf("%s=%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
+	}
 }

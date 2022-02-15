@@ -147,7 +147,7 @@ void		builtin_pwd(t_app *app);
 void		builtin_exit(t_app *app);
 void		builtin_export(t_app *app, t_command *cmd);
 void		builtin_unset(t_app *app, t_command *cmd);
-void		builtin_env(t_app *app, t_command *cmd);
+void		builtin_env(t_app *app);
 
 /**
  * App utils

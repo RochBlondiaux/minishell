@@ -27,5 +27,5 @@ void	dispatch_builtins(t_app *app, t_command *cmd)
 	else if (ft_strcmp(cmd->name, "export"))
 		builtin_export(app, cmd);
 	else if (ft_strcmp(cmd->name, "env"))
-		builtin_env(app, cmd);
+		builtin_env(app);
 }
