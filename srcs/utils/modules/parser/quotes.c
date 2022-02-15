@@ -95,6 +95,7 @@ static char	*sup_quote(char *arg)
 		}
 		dest[++j] = '\0';
 	}
+	free(arg);
 	return (dest);
 }
 
@@ -147,12 +148,12 @@ static void	fill(char **args, char **raw)
 			while (quote != 0 && raw[i] && raw[i + 1])
 			{
 				if (!args[j])
-					args[j] = ft_strdup(ft_strjoin(raw[i], ft_strdup(" ")));
+					args[j] = ft_strjoin_properly(ft_strdup(raw[i]), ft_strdup(" "));
 				else
-					args[j] = ft_strjoin(args[j], ft_strjoin(raw[i], ft_strdup(" ")));
+					args[j] = ft_strjoin_properly(args[j], ft_strjoin_properly(ft_strdup(raw[i]), ft_strdup(" ")));
 				if (get_quote_in_here(raw[i + 1]) != -1)
 				{
-					args[j] = ft_strjoin(args[j], ft_strjoin(raw[i + 1], ft_strdup(" ")));
+					args[j] = ft_strjoin_properly(args[j], ft_strjoin_properly(ft_strdup(raw[i + 1]), ft_strdup(" ")));
 					args[j] = sup_quote(args[j]);
 					quote = 0;
 				}
