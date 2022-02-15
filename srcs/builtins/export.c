@@ -14,6 +14,17 @@
 
 void	builtin_export(t_app *app, t_command *cmd)
 {
-	(void) app;
-	(void) cmd;
+	t_env	*new;
+
+	if (array_length(cmd->args) == 0)
+	{
+		print_sorted_map(app->env);
+		cmd->status = 0;
+		return ;
+	}
+	new = create_map_element(cmd->args[0]);
+	set_env(app, new->key, new->value);
+	free(new->key);
+	free(new->value);
+	free(new);
 }

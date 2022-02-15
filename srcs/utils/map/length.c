@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create.c                                           :+:      :+:    :+:   */
+/*   length.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,23 +12,15 @@
 
 #include "../../../includes/minishell.h"
 
-t_env	*create_map_element(char *entry)
+size_t	map_length(t_env *env)
 {
-	char	**e;
-	t_env	*env;
+	size_t	i;
 
-	if (ft_strchr(entry, '=') <= 0)
-		return (NULL);
-	env = malloc(sizeof(t_env));
-	if (!env)
-		return (NULL);
-	e = ft_split(entry, '=');
-	env->key = ft_strdup(e[0]);
-	if (array_length(e) >= 2)
-		env->value = ft_strdup(e[1]);
-	else
-		env->value = ft_strdup("");
-	env->next = NULL;
-	free_array(e);
-	return (env);
+	i = 0;
+	while (env)
+	{
+		i++;
+		env = env->next;
+	}
+	return (i);
 }

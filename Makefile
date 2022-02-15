@@ -81,6 +81,8 @@ SRC_NAME =	main.c \
 			utils/io/exists.c \
 			utils/io/paths.c \
 			utils/io/read.c \
+			utils/map/sort.c \
+			utils/map/length.c \
 			utils/map/free.c \
 			utils/map/add.c \
 			utils/map/create.c \

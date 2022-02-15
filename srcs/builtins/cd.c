@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static int set_path(t_app *app, char *a)
+static int	set_path(t_app *app, char *a)
 {
 	int	ret;
 

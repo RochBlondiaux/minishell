@@ -175,6 +175,8 @@ void		free_map(t_env **env);
 t_env		*create_map_element(char *entry);
 t_env		*get_map_element(t_env *env, char *name);
 void		remove_map_element(t_app *app, t_env **env, char *key);
+void		print_sorted_map(t_env *env);
+size_t		map_length(t_env *env);
 
 /**
  * Environment utils
