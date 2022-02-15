@@ -61,7 +61,6 @@ static int	nb_quotes(char *s, int quote)
 		if (s[j] == quote)
 			i ++;
 	}
-	printf("%d", i);
 	return (i);
 }
 
@@ -147,7 +146,10 @@ static void	fill(char **args, char **raw)
 			quote = raw[i][get_quote_in_here(raw[i])];
 			while (quote != 0 && raw[i] && raw[i + 1])
 			{
-				args[j] = ft_strjoin(args[j], ft_strjoin(raw[i], ft_strdup(" ")));
+				if (!args[j])
+					args[j] = ft_strdup(ft_strjoin(raw[i], ft_strdup(" ")));
+				else
+					args[j] = ft_strjoin(args[j], ft_strjoin(raw[i], ft_strdup(" ")));
 				if (get_quote_in_here(raw[i + 1]) != -1)
 				{
 					args[j] = ft_strjoin(args[j], ft_strjoin(raw[i + 1], ft_strdup(" ")));
