@@ -26,6 +26,5 @@ t_app	*load_application(char **env)
 	app->mode = NORMAL;
 	app->exit = 0;
 	app->last_exit = 0;
-	disable_signal(app);
 	return (app);
 }

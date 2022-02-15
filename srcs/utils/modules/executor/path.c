@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                         :+:      :+:    :+:    */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,39 +10,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
-static t_app	*g_app;
-
-void	ctrl_c_handler(int sig)
+static char	*get_accurate_path(char *path, char *name)
 {
-	t_app	*app;
+	char	*final;
+	char	*tmp;
 
-	app = g_app;
-	if (sig == SIGINT && app)
+	if (access(name, X_OK) == FALSE)
+		return (ft_strdup(name));
+	if (path[ft_strlen(path) - 1] != '/')
+		tmp = ft_strjoin(path, "/");
+	else
+		tmp = ft_strdup(path);
+	final = ft_strjoin(tmp, name);
+	free(tmp);
+	return (final);
+}
+
+char	*get_executable(t_app *app, char *input)
+{
+	char	**paths;
+	int		i;
+	char	*path;
+	char	*tmp;
+
+	i = 0;
+	paths = ft_split(get_env(app, "PATH"), ':');
+	path = NULL;
+	while (paths[i])
 	{
-		app->last_exit = 130;
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		tmp = get_accurate_path(paths[i], input);
+		if (tmp && !path && access(tmp, X_OK) == FALSE)
+			path = ft_strdup(tmp);
+		free(tmp);
+		free(paths[i]);
+		i++;
 	}
-}
-
-void	disable_signal(t_app *app)
-{
-	g_app = app;
-	signal(SIGINT, ctrl_c_handler);
-	signal(SIGTERM, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
-}
-
-void	enable_signal(t_app *app)
-{
-	g_app = app;
-	signal(SIGINT, SIG_DFL);
-	signal(SIGTERM, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-	signal(SIGTSTP, SIG_DFL);
+	free(paths);
+	return (path);
 }

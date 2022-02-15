@@ -27,10 +27,39 @@ static void	init_commands(t_command **cmds)
 	}
 }
 
+static int	execute_native_command(t_app *app, t_command *cmd)
+{
+	char	*executable;
+
+	executable = get_executable(app, cmd->name);
+	if (!executable)
+		return (FALSE);
+	if (!fork_cmd(app, cmd))
+	{
+		free(executable);
+		return (FALSE);
+	}
+	if (cmd->pid == 0)
+	{
+		execv(cmd->name, get_executable_args(cmd));
+	}
+	else
+		clear_fork(app, cmd);
+	free(executable);
+	return (TRUE);
+}
+
 static void	execute_command(t_app *app, t_command *cmd)
 {
 	if (is_builtin(cmd))
+	{
 		dispatch_builtins(app, cmd);
+		return ;
+	}
+	if (execute_native_command(app, cmd))
+		return ;
+	cmd->status = 127;
+	error(app, cmd->name, COMMAND_NOT_FOUND);
 }
 
 void	executor(t_app *app, t_command **cmds)

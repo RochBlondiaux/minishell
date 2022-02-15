@@ -56,6 +56,10 @@ SRC_NAME =	main.c \
 			utils/commands/free.c \
 			utils/commands/init.c \
 			utils/commands/length.c \
+			utils/modules/executor/fork.c \
+			utils/modules/executor/path.c \
+			utils/modules/executor/args.c \
+			utils/modules/executor/pipe.c \
 			utils/modules/lexer/token.c \
 			utils/modules/expander/env.c \
 			utils/modules/expander/input.c \

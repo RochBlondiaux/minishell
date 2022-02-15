@@ -15,6 +15,6 @@
 void	start_application(t_app *app)
 {
 	app->running = TRUE;
-	// handle_ctrl(app);
+	disable_signal(app);
 	start_application_loop(app);
 }

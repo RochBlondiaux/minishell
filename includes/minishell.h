@@ -88,6 +88,8 @@ typedef struct s_command {
 	t_token				previous_token;
 	struct s_command	*previous_cmd;
 	struct s_command	*next_cmd;
+	pid_t				pid;
+	int					p_status;
 }						t_command;
 
 typedef struct s_env {
@@ -137,6 +139,10 @@ char		**parse_quotes(char *raw);
 void		expand_env_vars(t_app *app, t_command *cmd);
 void		expand_input(t_app *app, t_command *cmd);
 void		parse_cmd_tokens(t_command **cmds, char *raw);
+char		*get_executable(t_app *app, char *input);
+int			fork_cmd(t_app *app, t_command *cmd);
+void		clear_fork(t_app *app, t_command *cmd);
+char		**get_executable_args(t_command *cmd);
 
 /**
  * Builtins
