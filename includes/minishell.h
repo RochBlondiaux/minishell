@@ -156,6 +156,8 @@ void		builtin_env(t_app *app, t_command *cmd);
 char		*get_prompt_symbol(t_app *app);
 void		error(t_app *app, char *name, char *error);
 void		str_error(t_app *app, char *error);
+void		disable_signal(t_app *app);
+void		enable_signal(t_app *app);
 
 /**
  * Array utils

@@ -51,6 +51,7 @@ SRC_NAME =	main.c \
 			builtins/env.c \
 			utils/app/prompt.c \
 			utils/app/error.c \
+			utils/app/signals.c \
 			utils/commands/create.c \
 			utils/commands/free.c \
 			utils/commands/init.c \

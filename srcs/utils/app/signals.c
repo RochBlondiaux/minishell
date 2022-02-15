@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load.c 	                                        :+:      :+:    :+:   */
+/*   signals.c                                         :+:      :+:    :+:    */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,22 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-t_app	*load_application(char **env)
+static t_app	*g_app;
+
+void	ctrl_c_handler(int sig)
 {
 	t_app	*app;
 
-	app = malloc(sizeof(t_app));
-	if (!app)
+	app = g_app;
+	if (sig == SIGINT && app)
 	{
-		str_error(app, APP_INITIALIZATION_FAILED);
-		exit(EXIT_FAILURE);
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
-	app->env = init_env_map(env);
-	app->mode = NORMAL;
-	app->exit = 0;
-	app->last_exit = 0;
-	disable_signal(app);
-	return (app);
+}
+
+void	disable_signal(t_app *app)
+{
+	g_app = app;
+	signal(SIGINT, ctrl_c_handler);
+	signal(SIGTERM, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+}
+
+void	enable_signal(t_app *app)
+{
+	g_app = app;
+	signal(SIGINT, SIG_DFL);
+	signal(SIGTERM, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGTSTP, SIG_DFL);
 }
