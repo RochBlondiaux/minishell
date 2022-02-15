@@ -33,18 +33,20 @@ size_t	count_commands(char *input)
 	return (count);
 }
 
-static int	strchr_sep(char *s, int q)
+static int	strchr_sep(char *s)
 {
 	size_t	i;
+	int		q;
 
 	if (!s)
 		return (-1);
 	i = -1;
+	q = 0;
 	while (s[++i])
 	{
 		if (s[i] == q)
 			q = 0;
-		if ((s[i] == '"' || s[i] == '\'') && q == 0)
+		else if ((s[i] == '"' || s[i] == '\'') && q == 0)
 			q = s[i];
 		if ((s[i] == '|' || s[i] == '&' || s[i] == ';') && q == 0)
 			return (i);
@@ -57,18 +59,16 @@ char	**parse_raw_commands(char *raw)
 	char	**cmds;
 	size_t	i;
 	size_t	j;
-	int		q;
 
 	cmds = malloc(sizeof(char *) * (count_commands(raw) + 1));
 	if (!cmds)
 		return (NULL);
 	i = -1;
 	j = 0;
-	q = 0;
 	while (raw[++i] && j < count_commands(raw))
 	{
-		cmds[j++] = ft_substr(raw, i, strchr_sep(&raw[i], q));
-		i += strchr_sep(&raw[i], q);
+		cmds[j++] = ft_substr(raw, i, strchr_sep(&raw[i]));
+		i += strchr_sep(&raw[i]);
 		if (i >= ft_strlen(raw))
 			break ;
 	}
