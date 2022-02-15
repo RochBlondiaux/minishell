@@ -30,24 +30,20 @@ size_t	count_commands(char *input)
 char	**parse_raw_commands(char *raw)
 {
 	char	**cmds;
-	size_t	index;
+	size_t	i;
 	size_t	j;
-	size_t	s;
 
 	cmds = malloc(sizeof(char *) * (count_commands(raw) + 1));
 	if (!cmds)
 		return (NULL);
-	index = 0;
+	i = -1;
 	j = 0;
-	while (j < count_commands(raw))
+	while (raw[++i] && j < count_commands(raw))
 	{
-		while (is_separator(raw, index))
-			index ++;
-		s = strchr_separator(&raw[index]);
-		cmds[j++] = ft_substr(raw, index, s);
-		index += s;
-		if (index >= ft_strlen(raw))
-			break ;
+		if (is_separator(raw, i))
+			continue ;
+		cmds[j++] = ft_substr(raw, i, strchr_separator(&raw[i]));
+		i += strchr_separator(&raw[i]);
 	}
 	cmds[j] = NULL;
 	return (cmds);

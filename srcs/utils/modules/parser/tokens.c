@@ -41,6 +41,8 @@ static void print_tokens(t_command **commands)
 	int i = -1;
 	while (commands[++i])
 	{
+		if (!commands[i])
+			return ;
 		printf("===== [%s] =====\n", commands[i]->name);
 		printf("Last: %s\n", pri(commands[i]->previous_token));
 		printf("Next: %s\n\n", pri(commands[i]->next_token));

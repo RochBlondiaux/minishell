@@ -17,6 +17,8 @@ char	**sub_array(char **array, size_t start, size_t length)
 	char	**new;
 	size_t	index;
 
+	if (!array || !array[0])
+		return (array);
 	if (start >= length || length > array_length(array))
 		return (empty_array());
 	index = start - 1;
