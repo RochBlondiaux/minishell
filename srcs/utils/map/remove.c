@@ -19,7 +19,7 @@ static void	free_target(t_env *tmp)
 	free(tmp);
 }
 
-void	remove_map_element(t_app *app, t_env **env, char *key, t_command *cmd)
+int	remove_map_element(t_app *app, t_env **env, char *key)
 {
 	t_env	*tmp;
 	t_env	*prev;
@@ -30,7 +30,7 @@ void	remove_map_element(t_app *app, t_env **env, char *key, t_command *cmd)
 	{
 		*env = tmp->next;
 		free_target(tmp);
-		return ;
+		return (1);
 	}
 	while (tmp && !ft_strcmp_sensitive(tmp->key, key))
 	{
@@ -40,10 +40,9 @@ void	remove_map_element(t_app *app, t_env **env, char *key, t_command *cmd)
 	if (!tmp)
 	{
 		error(app, UNSET_ERROR, "");
-		cmd->status = 1;
-		return ;
+		return (1);
 	}
 	prev->next = tmp->next;
-	cmd->status = 0;
 	free_target(tmp);
+	return (0);
 }
