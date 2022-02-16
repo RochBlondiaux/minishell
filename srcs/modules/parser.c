@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static t_command	*parse_command(char *raw)
+static t_command	*parse_command(char **raw)
 {
 	t_command	*cmd;
 	char		**args;
@@ -20,11 +20,8 @@ static t_command	*parse_command(char *raw)
 	cmd = init_command();
 	if (!cmd)
 		return (NULL);
-	raw = parse_redirections(cmd, raw);
-	args = parse_quotes(raw);
-	int i = -1;
-	while (args[++i])
-		printf("Args: %s\n", args[i]);
+	reset_str(raw, parse_redirections(cmd, *raw));
+	args = parse_quotes(*raw);
 	if (!args)
 		return (NULL);
 	reset_str(&cmd->name, ft_strdup(args[0]));
@@ -47,7 +44,7 @@ t_command	**parse(char *input)
 	if (!cmds)
 		return (NULL);
 	while (raw_cmds[++index])
-		cmds[index] = parse_command(raw_cmds[index]);
+		cmds[index] = parse_command(&raw_cmds[index]);
 	cmds[index] = NULL;
 	free_array(raw_cmds);
 	parse_cmd_tokens(cmds, input);

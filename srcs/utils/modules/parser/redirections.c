@@ -43,7 +43,6 @@ static char	*remove_redirection(t_command *cmd, char *raw, size_t i)
 	reset_str(&cmd->input_path, ft_substr(raw, i,  end));
 	tmp = ft_strjoin_properly(ft_substr(raw, 0, start),
 							  ft_substr(raw, i + end,  ft_strlen(raw)));
-	free(raw);
 	return (tmp);
 }
 
