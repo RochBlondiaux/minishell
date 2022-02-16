@@ -41,7 +41,6 @@ static int	execute_native_command(t_app *app, t_command *cmd, t_pipe *pipe)
 		return (FALSE);
 	}
 	execute_native(app, cmd, executable, pipe);
-	clear_fork(cmd);
 	free(executable);
 	return (TRUE);
 }
@@ -54,7 +53,10 @@ static void	execute_command(t_app *app, t_command *cmd, t_pipe *pipe)
 		return ;
 	}
 	if (execute_native_command(app, cmd, pipe))
+	{
+		cmd->status = cmd->p_status;
 		return ;
+	}
 	cmd->status = 127;
 	error(app, cmd->name, COMMAND_NOT_FOUND);
 }
@@ -73,6 +75,7 @@ void	executor(t_app *app, t_command **cmds)
 			return ;
 		execute_command(app, cmds[i], pipe);
 		app->last_exit = cmds[i]->status;
+		app->exit = app->last_exit != 0;
 	}
 	free(pipe);
 	pipe = NULL;

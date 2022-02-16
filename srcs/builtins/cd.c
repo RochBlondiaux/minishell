@@ -71,7 +71,6 @@ static char	*get_path(t_app *app, char *input)
 		split = ft_split(i, '/');
 		if (!split)
 		{
-			printf("test");
 			temp = ft_strjoin_properly(working_directory(), ft_strdup("/"));
 			i = ft_strjoin_properly(temp, i);
 		}

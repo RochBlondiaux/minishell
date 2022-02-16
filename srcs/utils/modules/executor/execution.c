@@ -12,6 +12,15 @@
 
 #include "../../../../includes/minishell.h"
 
+static void update_status(t_command *cmd)
+{
+	if (WIFEXITED(cmd->p_status))
+		cmd->p_status = WEXITSTATUS(cmd->p_status);
+	if (!WIFSIGNALED(cmd->p_status))
+		return ;
+	cmd->p_status = WTERMSIG(cmd->p_status);
+}
+
 void	execute_native(t_app *app, t_command *cmd, char *e, t_pipe *pipe)
 {
 	(void) app;
@@ -24,13 +33,13 @@ void	execute_native(t_app *app, t_command *cmd, char *e, t_pipe *pipe)
 			dup2(pipe->out, STDOUT_FILENO);
 		execve(e, get_executable_args(cmd), NULL);
 		close(pipe->in);
-		exit(1);
 	}
 	else {
 		// TODO: fix this code (working for "cat < LICENSE.md" but not for "cat < LICENSE.md | wc -l")
 		// if (cmd->input[0])
 		//	ft_putstr_fd(cmd->input, pipe->out);
-		wait(NULL);
+		waitpid(cmd->pid, &cmd->p_status, WUNTRACED | WCONTINUED);
+		update_status(cmd);
 		close(pipe->out);
 		pipe->backup = pipe->in;
 	}

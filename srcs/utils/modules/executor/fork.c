@@ -23,13 +23,3 @@ int	fork_cmd(t_app *app, t_command *cmd)
 	}
 	return (TRUE);
 }
-
-void	clear_fork(t_command *cmd)
-{
-	signal(SIGINT, SIG_IGN);
-	waitpid(cmd->pid, &cmd->p_status, 0);
-	if (WIFEXITED(cmd->p_status))
-		cmd->p_status = WEXITSTATUS(cmd->p_status);
-	if (WIFSIGNALED(cmd->p_status))
-		cmd->p_status = WCOREDUMP(cmd->p_status);
-}
