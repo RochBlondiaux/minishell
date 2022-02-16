@@ -22,10 +22,12 @@ static t_command	*parse_command(char *raw)
 		return (NULL);
 	raw = parse_redirections(cmd, raw);
 	args = parse_quotes(raw);
+	int i = -1;
+	while (args[++i])
+		printf("Args: %s\n", args[i]);
 	if (!args)
 		return (NULL);
-	free(cmd->name);
-	cmd->name = ft_strdup(args[0]);
+	reset_str(&cmd->name, ft_strdup(args[0]));
 	cmd->args = sub_array(args, 1, array_length(args));
 	free_array(args);
 	return (cmd);

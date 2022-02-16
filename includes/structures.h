@@ -13,6 +13,12 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
+typedef	struct	s_pipe {
+	int	in;
+	int	out;
+	int	backup;
+}	t_pipe;
+
 typedef struct s_command {
 	char				*name;
 	char				**args;

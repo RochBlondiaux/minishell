@@ -25,9 +25,10 @@ static void	init_commands(t_command **cmds)
 		if (cmds[i + 1])
 			cmds[i]->next_cmd = cmds[i + 1];
 	}
+	cmds[i - 1]->next_cmd = NULL;
 }
 
-static int	execute_native_command(t_app *app, t_command *cmd, int *fd)
+static int	execute_native_command(t_app *app, t_command *cmd, t_pipe *pipe)
 {
 	char	*executable;
 
@@ -39,31 +40,21 @@ static int	execute_native_command(t_app *app, t_command *cmd, int *fd)
 		free(executable);
 		return (FALSE);
 	}
-
-	execute_native(app, cmd, fd, executable);
+	execute_native(app, cmd, executable, pipe);
 	clear_fork(cmd);
 	free(executable);
 	return (TRUE);
 }
 
-static void	execute_command(t_app *app, t_command *cmd)
+static void	execute_command(t_app *app, t_command *cmd, t_pipe *pipe)
 {
-	int		*fd;
-
-	fd = init_pipeline(app, cmd);
-	if (!fd)
-		return ;
-	else if (is_builtin(cmd))
+	if (is_builtin(cmd))
 	{
 		dispatch_builtins(app, cmd);
 		return ;
 	}
-	else if (execute_native_command(app, cmd, fd))
-	{
-		free(fd);
+	if (execute_native_command(app, cmd, pipe))
 		return ;
-	}
-	free(fd);
 	cmd->status = 127;
 	error(app, cmd->name, COMMAND_NOT_FOUND);
 }
@@ -71,12 +62,17 @@ static void	execute_command(t_app *app, t_command *cmd)
 void	executor(t_app *app, t_command **cmds)
 {
 	int	i;
+	t_pipe	*pipe;
 
 	i = -1;
 	init_commands(cmds);
 	while (cmds[++i])
 	{
-		execute_command(app, cmds[i]);
+		init_pipeline(app, &pipe);
+		if (!pipe)
+			return ;
+		execute_command(app, cmds[i], pipe);
 		app->last_exit = cmds[i]->status;
 	}
+	free(pipe);
 }

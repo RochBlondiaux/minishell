@@ -28,38 +28,22 @@ static t_redirection	get_type(char *a, size_t index)
 	return (NO);
 }
 
-static char	*set_tmp(t_redirection redir, char *raw, int index)
+static char	*remove_redirection(t_command *cmd, char *raw, size_t i)
 {
-	if (redir == APPENDER || redir == DELIMITER)
-		return (ft_substr(raw, 0, index - 3));
-	return (ft_substr(raw, 0, index - 2));
-}
-
-static char	*set_redirection(t_command *cmd, char *raw,
-							t_redirection redir, size_t index)
-{
-	char	*path;
-	size_t	end;
+	size_t	start;
+	int		end;
 	char	*tmp;
 
-	while (raw[index] == ' ')
-		index++;
-	end = ft_strchr(&(raw[index]), ' ');
-	if (end == 0)
-		end = ft_strlen(raw) - index;
-	path = ft_substr(raw, index, end);
-	tmp = set_tmp(redir, raw, index);
+	start = i;
+	while (get_type(raw, i) != NO || raw[i] == ' ')
+		i++;
+	end = ft_strchr(&raw[i],  ' ');
 	if (end == 0)
 		end = ft_strlen(raw);
-	tmp = ft_strjoin_properly(tmp, ft_substr(raw, index + end,
-				ft_strlen(raw) - (index + end)));
+	reset_str(&cmd->input_path, ft_substr(raw, i,  end));
+	tmp = ft_strjoin_properly(ft_substr(raw, 0, start),
+							  ft_substr(raw, i + end,  ft_strlen(raw)));
 	free(raw);
-	if (redir == INPUT || redir == DELIMITER)
-	{
-		reset_str(&cmd->input_path, path);
-		return (tmp);
-	}
-	reset_str(&cmd->output_path, path);
 	return (tmp);
 }
 
@@ -78,12 +62,7 @@ char	*parse_redirections(t_command *command, char *raw)
 			continue ;
 		redir = get_type(raw, i);
 		if (redir != NO)
-		{
-			if (redir == APPENDER || redir == DELIMITER)
-				i++;
-			i++;
-			raw = set_redirection(command, raw, redir, i);
-		}
+			return (remove_redirection(command, raw, i));
 	}
 	return (raw);
 }

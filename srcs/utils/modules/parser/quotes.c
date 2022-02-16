@@ -148,12 +148,12 @@ static void	fill(char **args, char **raw)
 			while (quote != 0 && raw[i] && raw[i + 1])
 			{
 				if (!args[j])
-					args[j] = ft_strjoin_properly(ft_strdup(raw[i]), ft_strdup(" "));
+					args[j] = ft_strjoin(raw[i], " ");
 				else
-					args[j] = ft_strjoin_properly(args[j], ft_strjoin_properly(ft_strdup(raw[i]), ft_strdup(" ")));
+					args[j] = ft_strjoin_properly(args[j], ft_strjoin(raw[i], " "));
 				if (get_quote_in_here(raw[i + 1]) != -1)
 				{
-					args[j] = ft_strjoin_properly(args[j], ft_strjoin_properly(ft_strdup(raw[i + 1]), ft_strdup(" ")));
+					args[j] = ft_strjoin_properly(args[j], ft_strjoin(raw[i + 1], " "));
 					args[j] = sup_quote(args[j]);
 					quote = 0;
 				}
@@ -172,7 +172,10 @@ char	**parse_quotes(char *raw)
 	split = ft_split(raw, ' ');
 	args = malloc(sizeof(char *) * (get_args_count(split) + 1));
 	if (!args)
+	{
+		free_array(split);
 		return (NULL);
+	}
 	fill(args, split);
 	free_array(split);
 	return (args);

@@ -12,23 +12,35 @@
 
 #include "../../../../includes/minishell.h"
 
-int	*init_pipeline(t_app *app, t_command *cmd)
+static t_pipe	*create_pipeline(void)
 {
-	int	*fd;
+	t_pipe	*p;
 
-	fd = malloc(sizeof(int) * 2);
-	if (!fd)
-	{
-		cmd->status = 1;
+	p = malloc(sizeof(t_pipe));
+	if (!p)
 		return (NULL);
-	}
-	if (pipe(fd) == -1)
-	{
-		cmd->status = 1;
-		error(app, "-minishell", PIPE_ERROR);
-		return (NULL);
-	}
-	return (fd);
+	p->backup = 0;
+	p->in = 0;
+	p->out = 0;
+	return (p);
 }
 
+static void	update_pipeline(t_app *app, t_pipe *p)
+{
+	int		fd[2];
 
+	if (pipe(fd) == -1)
+	{
+		error(app, "-minishell", PIPE_ERROR);
+		return ;
+	}
+	p->in = fd[0];
+	p->out = fd[1];
+}
+
+void	init_pipeline(t_app *app, t_pipe **pipe)
+{
+	if (!*pipe)
+		*pipe = create_pipeline();
+	update_pipeline(app, *pipe);
+}
