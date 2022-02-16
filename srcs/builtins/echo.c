@@ -32,6 +32,12 @@ void	builtin_echo(t_command *cmd)
 
 	i = 0;
 	mode = 0;
+	if (!cmd->args[0])
+	{
+		printf("\n");
+		cmd->status = 0;
+		return ;
+	}
 	while (!is_del_nl(cmd->args[i++]))
 		mode = 1;
 	i -= 2;
