@@ -75,4 +75,5 @@ void	executor(t_app *app, t_command **cmds)
 		app->last_exit = cmds[i]->status;
 	}
 	free(pipe);
+	pipe = NULL;
 }
