@@ -23,5 +23,6 @@
 # define NOT_ENOUGH_ARGS "Not enough arguments"
 # define PERMISSION_DENIED "Permission denied"
 # define FORK_ERROR "Fork error"
+# define PIPE_ERROR "PIPE error"
 
 #endif

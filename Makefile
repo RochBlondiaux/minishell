@@ -59,6 +59,7 @@ SRC_NAME =	main.c \
 			utils/modules/executor/fork.c \
 			utils/modules/executor/path.c \
 			utils/modules/executor/args.c \
+			utils/modules/executor/execution.c \
 			utils/modules/executor/pipe.c \
 			utils/modules/lexer/token.c \
 			utils/modules/expander/env.c \
@@ -86,6 +87,7 @@ SRC_NAME =	main.c \
 			utils/io/exists.c \
 			utils/io/paths.c \
 			utils/io/read.c \
+			utils/io/write.c \
 			utils/map/sort.c \
 			utils/map/length.c \
 			utils/map/free.c \

@@ -29,6 +29,6 @@ void	write_in_file(t_app *app, char *filename, char *content, int append)
 		str_error(app, filename);
 		return ;
 	}
-	ft_putstr_fd(output, fd);
+	ft_putstr_fd(content, fd);
 	close(fd);
 }
