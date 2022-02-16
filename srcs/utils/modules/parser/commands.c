@@ -33,7 +33,7 @@ size_t	count_commands(char *input)
 	return (count);
 }
 
-static int	strchr_sep(char *s)
+static int	strchr_sep(char *s, int m)
 {
 	size_t	i;
 	int		q;
@@ -49,7 +49,11 @@ static int	strchr_sep(char *s)
 		else if ((s[i] == '"' || s[i] == '\'') && q == 0)
 			q = s[i];
 		if ((s[i] == '|' || s[i] == '&' || s[i] == ';') && q == 0)
+		{
+			if (m && s[i + 1] && (s[i + 1] == '|' || s[i + 1] == '&'))
+				return (i + 1);
 			return (i);
+		}
 	}
 	return (i);
 }
@@ -67,10 +71,10 @@ char	**parse_raw_commands(char *raw)
 	j = 0;
 	while (raw[++i] && j < count_commands(raw))
 	{
-		cmds[j++] = ft_substr(raw, i, strchr_sep(&raw[i]));
-		i += strchr_sep(&raw[i]);
-		if (i >= ft_strlen(raw))
-			break ;
+		cmds[j++] = ft_substr(raw, i, strchr_sep(&raw[i], 0));
+		i += strchr_sep(&raw[i], 1);
+		if (raw[i + 1] && (raw[i + 1] == '|' || raw[i + 1] == '&'))
+			i++;
 	}
 	cmds[j] = NULL;
 	return (cmds);
