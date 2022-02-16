@@ -53,12 +53,12 @@ static void	execute_command(t_app *app, t_command *cmd)
 	fd = init_pipeline(app, cmd);
 	if (!fd)
 		return ;
-	if (is_builtin(cmd))
+	else if (is_builtin(cmd))
 	{
 		dispatch_builtins(app, cmd);
 		return ;
 	}
-	if (execute_native_command(app, cmd, fd))
+	else if (execute_native_command(app, cmd, fd))
 	{
 		free(fd);
 		return ;

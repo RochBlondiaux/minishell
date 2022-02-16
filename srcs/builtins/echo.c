@@ -12,6 +12,19 @@
 
 #include "../../includes/minishell.h"
 
+static int	is_del_nl(char *param)
+{
+	size_t	i;
+
+	i = 0;
+	if (param[0] != '-')
+		return (-1);
+	while (param[++i])
+		if (param[i] != 'n')
+			return (-1);
+	return (0);
+}
+
 void	builtin_echo(t_command *cmd)
 {
 	int		mode;
@@ -19,7 +32,7 @@ void	builtin_echo(t_command *cmd)
 
 	i = 0;
 	mode = 0;
-	while (ft_strcmp_sensitive(cmd->args[i++], "-n"))
+	while (!is_del_nl(cmd->args[i++]))
 		mode = 1;
 	i -= 2;
 	while (cmd->args[++i])

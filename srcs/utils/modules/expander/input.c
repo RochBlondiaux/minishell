@@ -18,7 +18,7 @@ void	expand_input(t_app *app, t_command *cmd)
 
 	if (!cmd->input_path
 		|| !cmd->input_path[0])
-		return ;
+		return;
 	content = read_file(app, cmd->input_path);
 	if (!content)
 		return ;

@@ -17,6 +17,8 @@ size_t	array_length(char **array)
 	size_t	i;
 
 	i = 0;
+	if (!array[i] || !array[i][0])
+		return (i);
 	while (array[i])
 		i++;
 	return (i);
