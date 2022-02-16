@@ -20,7 +20,7 @@ static t_command	*parse_command(char **raw)
 	cmd = init_command();
 	if (!cmd)
 		return (NULL);
-	reset_str(raw, parse_redirections(cmd, *raw));
+	reset_str(raw, parse_redirections(cmd, ft_strdup(*raw)));
 	args = parse_quotes(*raw);
 	if (!args)
 		return (NULL);

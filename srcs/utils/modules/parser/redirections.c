@@ -28,7 +28,7 @@ static t_redirection	get_type(char *a, size_t index)
 	return (NO);
 }
 
-static char	*remove_redirection(t_command *cmd, char *raw, size_t i)
+static char	*remove_redirection(t_command *cmd, char *raw, size_t i, t_redirection r)
 {
 	size_t	start;
 	int		end;
@@ -40,9 +40,13 @@ static char	*remove_redirection(t_command *cmd, char *raw, size_t i)
 	end = ft_strchr(&raw[i],  ' ');
 	if (end == 0)
 		end = ft_strlen(raw);
-	reset_str(&cmd->input_path, ft_substr(raw, i,  end));
+	if (r == DELIMITER || r == INPUT)
+		reset_str(&cmd->input_path, ft_substr(raw, i,  end));
+	else
+		reset_str(&cmd->output_path, ft_substr(raw, i,  end));
 	tmp = ft_strjoin_properly(ft_substr(raw, 0, start),
 							  ft_substr(raw, i + end,  ft_strlen(raw)));
+	free(raw);
 	return (tmp);
 }
 
@@ -61,7 +65,7 @@ char	*parse_redirections(t_command *command, char *raw)
 			continue ;
 		redir = get_type(raw, i);
 		if (redir != NO)
-			return (remove_redirection(command, raw, i));
+			return (remove_redirection(command, raw, i, redir));
 	}
 	return (raw);
 }
