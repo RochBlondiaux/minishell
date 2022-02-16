@@ -23,6 +23,5 @@ void	builtin_unset(t_app *app, t_command *cmd)
 	}
 	i = -1;
 	while (cmd->args[++i])
-		remove_map_element(app, &app->env, cmd->args[i]);
-	cmd->status = 0;
+		remove_map_element(app, &app->env, cmd->args[i], cmd);
 }

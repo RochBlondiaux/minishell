@@ -90,7 +90,7 @@ static char	*get_path(t_app *app, char *input)
 					free (temp);
 				}
 				else
-						i = path(split[j]);
+						i = ft_strjoin(working_directory(), ft_strjoin("/", split[j]));
 			}
 			free_array(split);
 		}

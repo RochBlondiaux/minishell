@@ -19,7 +19,7 @@ static void	free_target(t_env *tmp)
 	free(tmp);
 }
 
-void	remove_map_element(t_app *app, t_env **env, char *key)
+void	remove_map_element(t_app *app, t_env **env, char *key, t_command *cmd)
 {
 	t_env	*tmp;
 	t_env	*prev;
@@ -39,9 +39,11 @@ void	remove_map_element(t_app *app, t_env **env, char *key)
 	}
 	if (!tmp)
 	{
-		str_error(app, UNSET_ERROR);
+		error(app, UNSET_ERROR, "");
+		cmd->status = 1;
 		return ;
 	}
 	prev->next = tmp->next;
+	cmd->status = 0;
 	free_target(tmp);
 }
