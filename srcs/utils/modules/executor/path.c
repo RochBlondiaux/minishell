@@ -17,7 +17,7 @@ static char	*get_accurate_path(char *path, char *name)
 	char	*final;
 	char	*tmp;
 
-	if (access(name, X_OK) == FALSE)
+	if (access(name, F_OK) == FALSE)
 		return (ft_strdup(name));
 	if (path[ft_strlen(path) - 1] != '/')
 		tmp = ft_strjoin(path, "/");
@@ -28,7 +28,7 @@ static char	*get_accurate_path(char *path, char *name)
 	return (final);
 }
 
-char	*get_executable(t_app *app, char *input)
+char	*get_executable(t_app *app, t_command *cmd, char *input)
 {
 	char	**paths;
 	int		i;
@@ -41,12 +41,24 @@ char	*get_executable(t_app *app, char *input)
 	while (paths[i])
 	{
 		tmp = get_accurate_path(paths[i], input);
-		if (tmp && !path && access(tmp, X_OK) == FALSE)
+		if (tmp && !path && access(tmp, F_OK) == FALSE)
 			path = ft_strdup(tmp);
 		free(tmp);
 		free(paths[i]);
 		i++;
 	}
 	free(paths);
-	return (path);
+	if(path && access(path, X_OK | F_OK) == FALSE)
+		return (path);
+	if (path[0] && path[1] && path[0] == '.' && path[1] == '/')
+	{
+		cmd->status = 126;
+		error(app, input, "FUCK OFF!");
+	}
+	else
+	{
+		cmd->status = 127;
+		error(app, input, "PAS UN EXECUTABLER!");
+	}
+	return (ft_strdup(""));
 }

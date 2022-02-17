@@ -32,9 +32,11 @@ static int	execute_native_command(t_app *app, t_command *cmd, t_pipe *pipe)
 {
 	char	*executable;
 
-	executable = get_executable(app, cmd->name);
+	executable = get_executable(app, cmd, cmd->name);
 	if (!executable)
 		return (FALSE);
+	if (!executable[0])
+		return (-1);
 	if (!fork_cmd(app, cmd))
 	{
 		free(executable);
@@ -47,13 +49,18 @@ static int	execute_native_command(t_app *app, t_command *cmd, t_pipe *pipe)
 
 static void	execute_command(t_app *app, t_command *cmd, t_pipe *pipe)
 {
+	int	r;
+
 	if (is_builtin(cmd))
 	{
 		dispatch_builtins(app, cmd);
 		return ;
 	}
-	if (execute_native_command(app, cmd, pipe))
+	r = execute_native_command(app, cmd, pipe);
+	if (r != FALSE)
 	{
+		if (r == -1)
+			return;
 		cmd->status = cmd->p_status;
 		return ;
 	}
