@@ -83,6 +83,8 @@ void	executor(t_app *app, t_command **cmds)
 		return ;
 	while (cmds[++i])
 	{
+		if (cmds[i]->name && !cmds[i]->name[0])
+			continue ;
 		execute_command(app, cmds[i], pipe);
 		app->last_exit = cmds[i]->status;
 		app->exit = app->last_exit != 0;

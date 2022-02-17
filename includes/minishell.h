@@ -83,6 +83,7 @@ t_pipe		*init_pipeline(t_app *app);
 void		update_pipeline(t_app *app, t_pipe *p);
 void		execute_native(t_app *app, t_command *cmd, char *e, t_pipe *pipe);
 void		expand_output(t_app *app, t_command *cmd);
+int			contains_redirection(char *raw);
 
 /**
  * Builtins

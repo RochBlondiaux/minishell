@@ -67,9 +67,8 @@ char	*get_executable(t_app *app, t_command *cmd, char *input)
 			}
 		}
 		free(tmp);
-		free(paths[i]);
 		i++;
 	}
-	free(paths);
+	free_array(paths);
 	return (path);
 }

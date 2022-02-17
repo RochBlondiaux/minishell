@@ -50,6 +50,22 @@ static char	*remove_redirection(t_command *cmd, char *raw, size_t i, t_redirecti
 	return (tmp);
 }
 
+int	contains_redirection(char *raw)
+{
+	size_t	i;
+	int		q;
+
+	i = -1;
+	q = 0;
+	while (raw[++i])
+	{
+		is_in_quotes(&q, raw[i]);
+		if (q == 0 && get_type(raw, i) != NO)
+			return (TRUE);
+	}
+	return (FALSE);
+}
+
 char	*parse_redirections(t_command *command, char *raw)
 {
 	size_t			i;

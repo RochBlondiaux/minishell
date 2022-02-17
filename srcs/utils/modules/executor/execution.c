@@ -23,8 +23,8 @@ static void update_status(t_command *cmd)
 
 void	execute_native(t_app *app, t_command *cmd, char *e, t_pipe *pipe)
 {
-	(void) app;
 	if (cmd->pid == 0) {
+		enable_signal(app);
 		dup2(pipe->backup, 0);
 		if (cmd->next_token == PIPE && cmd->next_cmd)
 			dup2(pipe->out, STDOUT_FILENO);
@@ -41,7 +41,9 @@ void	execute_native(t_app *app, t_command *cmd, char *e, t_pipe *pipe)
 		exit(1);
 	}
 	else {
+		signal(SIGINT, SIG_IGN);
 		waitpid(cmd->pid, &cmd->p_status, 0);
+		disable_signal(app);
 		close(pipe->out);
 		update_status(cmd);
 		pipe->backup = pipe->in;
