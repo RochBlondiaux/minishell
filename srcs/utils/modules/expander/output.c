@@ -12,12 +12,19 @@
 
 #include "../../../../includes/minishell.h"
 
-void	expand_input(t_app *app, t_command *cmd)
+void	expand_output(t_app *app, t_command *cmd)
 {
-	if (!cmd->input_path
-		|| !cmd->input_path[0])
+	if (!cmd->output_path
+		|| !cmd->output_path[0])
 		return;
-	cmd->input_fd = open(cmd->input_path, O_RDONLY);
-	if (cmd->input_fd <= 0)
+	if (cmd->appender)
+		cmd->output_fd = open(cmd->output_path,
+				  O_CREAT | O_RDWR | O_APPEND, S_IRUSR
+				  | S_IRGRP | S_IWGRP | S_IWUSR);
+	else
+		cmd->output_fd = open(cmd->output_path,
+				  O_CREAT | O_RDWR | O_TRUNC, S_IRUSR
+				  | S_IRGRP | S_IWGRP | S_IWUSR);
+	if (cmd->output_fd <= 0)
 		str_error(app, cmd->name);
 }

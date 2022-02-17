@@ -64,6 +64,7 @@ SRC_NAME =	main.c \
 			utils/modules/lexer/token.c \
 			utils/modules/expander/env.c \
 			utils/modules/expander/input.c \
+			utils/modules/expander/output.c \
 			utils/modules/syntaxer/token.c \
 			utils/modules/parser/redirections.c \
 			utils/modules/parser/tokens.c \

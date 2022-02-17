@@ -35,6 +35,8 @@ void	execute_native(t_app *app, t_command *cmd, char *e, t_pipe *pipe)
 			close(cmd->input_fd);
 		}
 		close(pipe->out);
+		if (cmd->output_fd > 0)
+			dup2(cmd->output_fd, STDOUT_FILENO);
 		execve(e, get_executable_args(cmd), NULL);
 		exit(1);
 	}

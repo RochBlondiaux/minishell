@@ -21,5 +21,6 @@ void	expand(t_app *app, t_command **commands)
 	{
 		expand_env_vars(app, commands[i]);
 		expand_input(app, commands[i]);
+		expand_output(app, commands[i]);
 	}
 }
