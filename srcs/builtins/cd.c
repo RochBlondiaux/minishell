@@ -57,7 +57,11 @@ static char	*get_path(t_app *app, char *input)
 	size_t	j;
 
 	if (!input)
+	{
+		if (!home_directory(app)[0])
+			return (working_directory());
 		return (home_directory(app));
+	}
 	i = ft_strdup(input);
 	if (ft_strcmp(i, "-"))
 	{

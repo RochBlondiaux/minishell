@@ -30,12 +30,14 @@ static char	*get_accurate_path(char *path, char *name)
 
 char	*get_executable(t_app *app, t_command *cmd, char *input)
 {
-	char	**paths;
-	int		i;
-	char	*path;
-	char	*tmp;
+	char		**paths;
+	int			i;
+	char		*path;
+	char		*tmp;
 
 	i = 0;
+	if (get_env(app, "PATH") == NULL)
+		return (ft_strdup(""));
 	paths = ft_split(get_env(app, "PATH"), ':');
 	path = NULL;
 	while (paths[i])
@@ -43,22 +45,31 @@ char	*get_executable(t_app *app, t_command *cmd, char *input)
 		tmp = get_accurate_path(paths[i], input);
 		if (tmp && !path && access(tmp, F_OK) == FALSE)
 			path = ft_strdup(tmp);
+		else
+		{
+			if (access(tmp, F_OK | X_OK) == 0)
+			{
+				if (input[0] == '.' && input[1] == '/')
+				{
+					cmd->status = 126;
+					errno = 13;
+					str_error(app, cmd->name);
+				}
+				else
+				{
+					cmd->status = 127;
+					error(app, cmd->name, COMMAND_NOT_FOUND);
+				}
+				free(tmp);
+				free(path);
+				free_array(paths);
+				return (ft_strdup(""));
+			}
+		}
 		free(tmp);
 		free(paths[i]);
 		i++;
 	}
 	free(paths);
-	if(path && access(path, X_OK | F_OK) == FALSE)
-		return (path);
-	if (path[0] && path[1] && path[0] == '.' && path[1] == '/')
-	{
-		cmd->status = 126;
-		error(app, input, "FUCK OFF!");
-	}
-	else
-	{
-		cmd->status = 127;
-		error(app, input, "PAS UN EXECUTABLER!");
-	}
-	return (ft_strdup(""));
+	return (path);
 }

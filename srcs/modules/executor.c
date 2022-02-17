@@ -36,7 +36,10 @@ static int	execute_native_command(t_app *app, t_command *cmd, t_pipe *pipe)
 	if (!executable)
 		return (FALSE);
 	if (!executable[0])
+	{
+		free(executable);
 		return (-1);
+	}
 	if (!fork_cmd(app, cmd))
 	{
 		free(executable);
@@ -49,18 +52,18 @@ static int	execute_native_command(t_app *app, t_command *cmd, t_pipe *pipe)
 
 static void	execute_command(t_app *app, t_command *cmd, t_pipe *pipe)
 {
-	int	r;
+	int	ret;
 
 	if (is_builtin(cmd))
 	{
 		dispatch_builtins(app, cmd);
 		return ;
 	}
-	r = execute_native_command(app, cmd, pipe);
-	if (r != FALSE)
+	ret = execute_native_command(app, cmd, pipe);
+	if (ret != FALSE)
 	{
-		if (r == -1)
-			return;
+		if (ret == -1)
+			return ;
 		cmd->status = cmd->p_status;
 		return ;
 	}
