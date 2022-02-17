@@ -20,8 +20,8 @@ t_command	*init_command(void)
 	if (!cmd)
 		return (NULL);
 	cmd->name = ft_strdup("");
-	cmd->input = ft_strdup("");
-	cmd->output = ft_strdup("");
+	cmd->input_fd = -1;
+	cmd->output_fd = -1;
 	cmd->input_path = ft_strdup("");
 	cmd->output_path = ft_strdup("");
 	cmd->delimiter = FALSE;

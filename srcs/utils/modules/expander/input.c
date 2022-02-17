@@ -14,13 +14,10 @@
 
 void	expand_input(t_app *app, t_command *cmd)
 {
-	char	*content;
-
 	if (!cmd->input_path
 		|| !cmd->input_path[0])
 		return;
-	content = read_file(app, cmd->input_path);
-	if (!content)
-		return ;
-	reset_str(&cmd->input, content);
+	cmd->input_fd = open(cmd->input_path, O_RDONLY | O_ASYNC);
+	if (cmd->input_fd <= 0)
+		str_error(app, cmd->name);
 }

@@ -16,8 +16,6 @@ void	free_command(t_command *cmd)
 {
 	free(cmd->input_path);
 	free(cmd->output_path);
-	free(cmd->input);
-	free(cmd->output);
 	free(cmd->name);
 	free_array(cmd->args);
 	free(cmd);

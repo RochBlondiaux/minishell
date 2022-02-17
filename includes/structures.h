@@ -24,8 +24,8 @@ typedef struct s_command {
 	char				**args;
 	char				*input_path;
 	char				*output_path;
-	char				*input;
-	char				*output;
+	int					input_fd;
+	int					output_fd;
 	int					delimiter;
 	int					appender;
 	int					status;
