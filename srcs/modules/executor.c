@@ -68,15 +68,15 @@ void	executor(t_app *app, t_command **cmds)
 
 	i = -1;
 	init_commands(cmds);
+	pipe = init_pipeline(app);
+	if (!pipe)
+		return ;
 	while (cmds[++i])
 	{
-		init_pipeline(app, &pipe);
-		if (!pipe)
-			return ;
 		execute_command(app, cmds[i], pipe);
 		app->last_exit = cmds[i]->status;
 		app->exit = app->last_exit != 0;
+		update_pipeline(app, pipe);
 	}
 	free(pipe);
-	pipe = NULL;
 }

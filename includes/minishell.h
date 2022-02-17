@@ -79,7 +79,8 @@ void		parse_cmd_tokens(t_command **cmds, char *raw);
 char		*get_executable(t_app *app, char *input);
 int			fork_cmd(t_app *app, t_command *cmd);
 char		**get_executable_args(t_command *cmd);
-void		init_pipeline(t_app *app, t_pipe **pipe);
+t_pipe		*init_pipeline(t_app *app);
+void		update_pipeline(t_app *app, t_pipe *p);
 void		execute_native(t_app *app, t_command *cmd, char *e, t_pipe *pipe);
 
 /**

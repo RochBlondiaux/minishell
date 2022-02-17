@@ -18,7 +18,6 @@ int	main(int ac, char **av, char **env)
 
 	(void) ac;
 	(void) av;
-	// hey
 	app = load_application(env);
 	start_application(app);
 	stop_application(app);
