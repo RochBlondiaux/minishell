@@ -32,7 +32,7 @@ void	builtin_echo(t_command *cmd)
 
 	i = 0;
 	mode = 0;
-	if (!cmd->args[0] || (cmd->args[0][0] == '$'))
+	if (!cmd->args[0] || cmd->args[0][0] == '$')
 	{
 		printf("\n");
 		cmd->status = 0;

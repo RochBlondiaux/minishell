@@ -133,6 +133,9 @@ size_t		map_length(t_env *env);
 char		*get_env(t_app *app, char *key);
 char		*env_exists(t_app *app, char *key);
 void		set_env(t_app *app, char *name, char *key);
+int			check_new_env(t_app *app, char *var);
+int			print_right_output(t_app *app, t_command *cmd);
+void		free_env(t_env *env);
 
 /**
  * IO Utils

@@ -79,6 +79,8 @@ SRC_NAME =	main.c \
 			utils/string/strchr_separator.c \
 			utils/env/get.c \
 			utils/env/set.c \
+			utils/env/checks.c \
+			utils/env/free.c \
 			utils/array/length.c \
 			utils/array/free.c \
 			utils/array/sub.c \
