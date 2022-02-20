@@ -55,7 +55,7 @@ char	*get_executable(t_app *app, t_command *cmd, char *input)
 					errno = 13;
 					str_error(app, cmd->name);
 				}
-				else
+				else if (input[0] != '$')
 				{
 					cmd->status = 127;
 					error(app, cmd->name, COMMAND_NOT_FOUND);

@@ -12,6 +12,25 @@
 
 #include "../../../includes/minishell.h"
 
+static char	*give_env_value(char **entry)
+{
+	char	*dest;
+	size_t	i;
+
+	i = 1;
+	while (entry[i])
+	{
+		if (i == 1)
+			dest = ft_strdup(entry[i]);
+		else
+			dest = ft_strjoin_properly(dest, ft_strdup(entry[i]));
+		if (entry[i + 1])
+			dest = ft_strjoin_properly(dest, ft_strdup("="));
+		i ++;
+	}
+	return (dest);
+}
+
 t_env	*create_map_element(char *entry)
 {
 	char	**e;
@@ -25,7 +44,7 @@ t_env	*create_map_element(char *entry)
 	e = ft_split(entry, '=');
 	env->key = ft_strdup(e[0]);
 	if (array_length(e) >= 2)
-		env->value = ft_strdup(e[1]);
+		env->value = give_env_value(e);
 	else
 		env->value = ft_strdup("");
 	env->next = NULL;
