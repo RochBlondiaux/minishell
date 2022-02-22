@@ -21,12 +21,16 @@ int	expand_output(t_app *app, t_command *cmd)
 		cmd->output_fd = open(cmd->output_path,
 				  O_CREAT | O_RDWR | O_APPEND, S_IRUSR
 				  | S_IRGRP | S_IWGRP | S_IWUSR);
-	else
+	else if (cmd->output_path[0] == '$')
 	{
 		error(app, "ambiguous redirection", "");
 		app->last_exit = 1;
 		return (1);
 	}
+	else
+		cmd->output_fd = open(cmd->output_path,
+				  O_CREAT | O_RDWR | O_APPEND, S_IRUSR
+				  | S_IRGRP | S_IWGRP | S_IWUSR);
 	if (cmd->output_fd <= 0)
 		str_error(app, cmd->name);
 	return (0);
