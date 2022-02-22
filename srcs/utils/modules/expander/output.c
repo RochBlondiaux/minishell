@@ -25,9 +25,6 @@ int	expand_output(t_app *app, t_command *cmd)
 	{
 		error(app, "ambiguous redirection", "");
 		app->last_exit = 1;
-		cmd->output_fd = open(cmd->output_path,
-				  O_CREAT | O_RDWR | O_TRUNC, S_IRUSR
-				  | S_IRGRP | S_IWGRP | S_IWUSR);
 		return (1);
 	}
 	if (cmd->output_fd <= 0)
