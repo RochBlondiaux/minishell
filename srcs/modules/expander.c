@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	expand(t_app *app, t_command **commands)
+int	expand(t_app *app, t_command **commands)
 {
 	size_t	i;
 
@@ -21,6 +21,8 @@ void	expand(t_app *app, t_command **commands)
 	{
 		expand_env_vars(app, commands[i]);
 		expand_input(app, commands[i]);
-		expand_output(app, commands[i]);
+		if (!expand_output(app, commands[i]))
+			return (1);
 	}
+	return (0);
 }

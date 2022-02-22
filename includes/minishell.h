@@ -59,7 +59,7 @@ void		handle_mode(t_app *app, char *input, char **ret);
 t_token		*lexer(t_app *app, char *input, int *result);
 int			syntaxer(char *input, t_token *tokens);
 t_command	**parse(char *input);
-void		expand(t_app *app, t_command **commands);
+int			expand(t_app *app, t_command **commands);
 void		executor(t_app *app, t_command **cmds);
 
 /**
@@ -82,7 +82,7 @@ char		**get_executable_args(t_command *cmd);
 t_pipe		*init_pipeline(t_app *app);
 void		update_pipeline(t_app *app, t_pipe *p);
 void		execute_native(t_app *app, t_command *cmd, char *e, t_pipe *pipe);
-void		expand_output(t_app *app, t_command *cmd);
+int			expand_output(t_app *app, t_command *cmd);
 int			contains_redirection(char *raw);
 
 /**

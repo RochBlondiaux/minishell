@@ -12,19 +12,25 @@
 
 #include "../../../../includes/minishell.h"
 
-void	expand_output(t_app *app, t_command *cmd)
+int	expand_output(t_app *app, t_command *cmd)
 {
 	if (!cmd->output_path
 		|| !cmd->output_path[0])
-		return;
+		return (0);
 	if (cmd->appender)
 		cmd->output_fd = open(cmd->output_path,
 				  O_CREAT | O_RDWR | O_APPEND, S_IRUSR
 				  | S_IRGRP | S_IWGRP | S_IWUSR);
 	else
+	{
+		error(app, "ambiguous redirection", "");
+		app->last_exit = 1;
 		cmd->output_fd = open(cmd->output_path,
 				  O_CREAT | O_RDWR | O_TRUNC, S_IRUSR
 				  | S_IRGRP | S_IWGRP | S_IWUSR);
+		return (1);
+	}
 	if (cmd->output_fd <= 0)
 		str_error(app, cmd->name);
+	return (0);
 }
