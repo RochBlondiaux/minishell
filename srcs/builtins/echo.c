@@ -43,8 +43,8 @@ void	builtin_echo(t_command *cmd)
 	i -= 2;
 	while (cmd->args[++i])
 	{
-		if (cmd->args[i][0] == '$' && cmd->args[i][1] != '$'
-			&& cmd->args[i][1] != '?')
+		if (cmd->args[i][0] == '$' && cmd->args[i][1]
+			&& cmd->args[i][1] != '?' && cmd->args[i][1] != '$')
 			continue ;
 		if (i == array_length(cmd->args) - 1)
 			printf("%s", cmd->args[i]);

@@ -17,11 +17,7 @@ int	expand_output(t_app *app, t_command *cmd)
 	if (!cmd->output_path
 		|| !cmd->output_path[0])
 		return (0);
-	if (cmd->appender)
-		cmd->output_fd = open(cmd->output_path,
-				  O_CREAT | O_RDWR | O_APPEND, S_IRUSR
-				  | S_IRGRP | S_IWGRP | S_IWUSR);
-	else if (cmd->output_path[0] == '$')
+	if (cmd->output_path[0] == '$')
 	{
 		error(app, "ambiguous redirection", "");
 		app->last_exit = 1;

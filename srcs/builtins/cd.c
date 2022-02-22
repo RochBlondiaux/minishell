@@ -69,6 +69,7 @@ static char	*get_path(t_app *app, char *input)
 		i = get_old_path(app);
 		if (!i)
 			return (NULL);
+		printf("%s\n", i);
 	}
 	else
 	{
@@ -79,11 +80,13 @@ static char	*get_path(t_app *app, char *input)
 			i = ft_strjoin_properly(temp, i);
 		}
 		j = -1;
-		if (is_relative(i))
+		if (path(i))
 		{
 			while (split[++j])
 			{
-				if (ft_strcmp(split[j], ".."))
+				if (ft_strcmp(split[j], "."))
+					i = working_directory() ;
+				else if (ft_strcmp(split[j], ".."))
 				{
 					if (j == 0)
 						temp = working_directory();
@@ -96,6 +99,38 @@ static char	*get_path(t_app *app, char *input)
 						i = ft_strjoin(working_directory(), ft_strjoin("/", split[j]));
 			}
 			free_array(split);
+		}
+		else
+		{
+			if (get_env(app, "CDPATH"))
+			{
+				while (split[++j])
+				{
+					if (ft_strcmp(split[j], "."))
+						i = working_directory() ;
+					else if (ft_strcmp(split[j], ".."))
+					{
+						if (j == 0)
+							temp = working_directory();
+						else
+							temp = ft_strdup(i);
+						i = ft_substr(temp, 0, ft_strlen_lastrepo(temp));
+						free (temp);
+					}
+					else
+					{
+						if (j == 0)
+							i = ft_strjoin(get_env(app, "CDPATH"), split[j]);
+						else
+						{
+							temp = ft_strjoin(i, "/");
+							i = ft_strjoin_properly(temp, ft_strdup(split[j]));
+						}
+					}
+				}
+				free_array(split);
+				printf("%s\n", i);
+			}
 		}
 	}
 	return (i);
