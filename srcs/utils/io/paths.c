@@ -48,7 +48,7 @@ char	*path(char *raw)
 
 	if (!raw)
 		return (NULL);
-	else if (raw[ft_strlen(raw) - 1] != '/')
+	if (raw[ft_strlen(raw) - 1] != '/')
 		temp = ft_strjoin(raw, "/");
 	else
 		temp = ft_strdup(raw);

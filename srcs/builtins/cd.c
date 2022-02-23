@@ -62,10 +62,8 @@ static char	*get_path(t_app *app, char *input)
 			return (working_directory());
 		return (home_directory(app));
 	}
-	i = ft_strdup(input);
-	if (ft_strcmp(i, "-"))
+	if (ft_strcmp(input, "-"))
 	{
-		free(i);
 		i = get_old_path(app);
 		if (!i)
 			return (NULL);
@@ -73,64 +71,81 @@ static char	*get_path(t_app *app, char *input)
 	}
 	else
 	{
-		split = ft_split(i, '/');
+		split = ft_split(input, '/');
 		if (!split)
 		{
 			temp = ft_strjoin_properly(working_directory(), ft_strdup("/"));
-			i = ft_strjoin_properly(temp, i);
+			i = ft_strjoin_properly(temp, ft_strdup(input));
 		}
+		i = path(input);
 		j = -1;
-		if (path(i))
+		if (i)
 		{
 			while (split[++j])
 			{
 				if (ft_strcmp(split[j], "."))
-					i = working_directory() ;
+				{
+					free(i);
+					i = working_directory();
+				}
 				else if (ft_strcmp(split[j], ".."))
 				{
 					if (j == 0)
 						temp = working_directory();
 					else
-						temp = ft_strdup(i);
+						temp = ft_strdup(input);
+					free(i);
 					i = ft_substr(temp, 0, ft_strlen_lastrepo(temp));
 					free (temp);
 				}
 				else
-						i = ft_strjoin(working_directory(), ft_strjoin("/", split[j]));
+				{
+					free(i);
+					i = ft_strjoin_properly(working_directory(), ft_strjoin("/", split[j]));
+				}
 			}
 			free_array(split);
 		}
 		else
 		{
-			if (get_env(app, "CDPATH"))
+			free(i);
+			i = ft_strdup(input);
+			if (get_env(app, "CDPATH") && get_env(app, "CDPATH")[0])
 			{
 				while (split[++j])
 				{
 					if (ft_strcmp(split[j], "."))
+					{
+						free(i);
 						i = working_directory() ;
+					}
 					else if (ft_strcmp(split[j], ".."))
 					{
 						if (j == 0)
 							temp = working_directory();
 						else
 							temp = ft_strdup(i);
+						free(i);
 						i = ft_substr(temp, 0, ft_strlen_lastrepo(temp));
 						free (temp);
 					}
 					else
 					{
 						if (j == 0)
-							i = ft_strjoin(get_env(app, "CDPATH"), split[j]);
+						{
+							free (i);
+							i = ft_strjoin_properly(get_env(app, "CDPATH"), ft_strdup(split[j]));
+						}
 						else
 						{
-							temp = ft_strjoin(i, "/");
+							temp = ft_strjoin_properly(i, ft_strdup("/"));
 							i = ft_strjoin_properly(temp, ft_strdup(split[j]));
 						}
 					}
 				}
-				free_array(split);
 				printf("%s\n", i);
 			}
+			free_array(split);
 		}
 	}
 	return (i);
