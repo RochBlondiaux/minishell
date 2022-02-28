@@ -12,62 +12,60 @@
 
 #include "../../../../includes/minishell.h"
 
-static int	contains_envars(t_app *app, char *a)
+char	*get_env_string(char *input, int *index)
 {
-	size_t	index;
-	char	*s;
+	size_t	end;
+	char	*key;
 
-	index = -1;
-	while (a[++index])
-	{
-		if (a[index] == '$' && a[index + 1])
-		{
-			if (a[index + 1] == '?' && (!a[index + 2] || a[index + 2] == ' '))
-				return (1);
-			s = get_env(app, &a[index + 1]);
-			if (!s)
-				continue ;
-			return (1);
-		}
-	}
-	return (0);
-}
-
-static char	*get_env_string(char *src)
-{
-	int	index;
-
-	index = ft_strchr(src, '$');
-	if (index == -1)
+	end = ft_strchr(&input[*index], ' ');
+	if (end == 0)
+		end = ft_strlen(input);
+	key = ft_substr(input, *index, end);
+	if (!key)
 		return (NULL);
-	index++;
-	while (src[index] && (ft_isalpha(src[index]) || (src[index] == '?'
-				&& (!src[index + 1] || !ft_isalpha(src[index + 1])))))
-		index++;
-	return (ft_substr(src, ft_strchr(src, '$'), index));
+	*index += end;
+	return (key);
 }
 
-static void expand_single(t_app *app, char **string)
+char	*get_next_env_vars(char *input, int *index)
 {
-	char	*v;
-	char	*env;
+	size_t	i;
 
-	if (!contains_envars(app, *string))
-		return ;
-	v = get_env_string(*string);
-	if (!v)
-		return ;
-	env = get_env(app, &v[1]);
-	if (!env && v[1] != '?')
-		return;
-	if (v[1] == '?')
-		v = replace_str(*string, v, ft_itoa(app->last_exit));
-	else
-		v = replace_str(*string, v, ft_strdup(env));
-	reset_str(string, ft_strdup(v));
+	i = *index;
+	while (input[++i])
+	{
+		if (input[i] != '$' || !input[i + 1] || !ft_isalnum(input[i + 1]))
+			continue ;
+		*index = i;
+		return (get_env_string(input, index));
+	}
+	*index = i;
+	return (NULL);
 }
 
 void	expand_env_vars(t_app *app, char **input)
 {
-		expand_single(app, input);
+	int		i;
+	char	*key;
+	char	*value;
+	char	*r;
+
+	i = -1;
+	r = *input;
+	while (i < (int) ft_strlen(r))
+	{
+		key = get_next_env_vars(r, &i);
+		if (key)
+		{
+			value = get_env(app, &key[1]);
+			if (!value)
+			{
+				free(key);
+				continue ;
+			}
+			r = replace_str(r, key, value);
+			free(key);
+		}
+	}
+	*input = r;
 }

@@ -12,37 +12,44 @@
 
 #include "../../../includes/minishell.h"
 
-static void	replace_utils(char **destptr, char **sentence)
+static char	*ft_strstr(char *str, char *to_find)
 {
-	**destptr = **sentence;
-	(*destptr)++;
-	(*sentence)++;
+	int	i;
+	int	j;
+
+	i = -1;
+	while (str[++i])
+	{
+		j = 0;
+		while (to_find[j] == str[i + j])
+		{
+			if (to_find[j + 1] == '\0')
+				return (str + i);
+			j++;
+		}
+	}
+	return (FALSE);
 }
 
-char	*replace_str(char *sentence, char *find, char *replace)
+char	*replace_str(char *str, char *find, char *replace)
 {
-	char	*dest;
-	char	*destptr;
+	char	*pos;
+	char	temp[1024];
+	int		index;
+	int		owlen;
 
-	dest = malloc(ft_strlen(sentence) - ft_strlen(find)
-			+ ft_strlen(replace) + 1);
-	if (!dest)
-		return (sentence);
-	destptr = dest;
-	*dest = 0;
-	while (*sentence)
+	owlen = ft_strlen(find);
+	if (ft_strcmp(find, replace) < 0)
+		return (str);
+	pos = ft_strstr(str, find);
+	while (pos)
 	{
-		if (!ft_strncmp(sentence, find, ft_strlen(find)))
-		{
-			ft_strcat(destptr, replace);
-			sentence += ft_strlen(find);
-			destptr += ft_strlen(replace);
-		}
-		else
-			replace_utils(&destptr, &sentence);
+		ft_strlcpy(temp, str, ft_strlen(temp) + ft_strlen(str));
+		index = pos - str;
+		str[index] = '\0';
+		ft_strcat(str, replace);
+		ft_strcat(str, temp + index + owlen);
+		pos = ft_strstr(str, find);
 	}
-	*destptr = 0;
-	free(find);
-	free(replace);
-	return (dest);
+	return (str);
 }
