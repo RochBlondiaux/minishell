@@ -174,4 +174,13 @@ size_t		commands_length(t_command **args);
  */
 int			is_builtin(t_command *cmd);
 
+/**
+ * Redirections utils
+ */
+t_redir		*create_redirection(t_redirection type, char *path);
+void		add_redirection(t_redir **list, t_redir *redir);
+void		free_redirections(t_redir **list);
+size_t		redirections_length(t_redir *list);
+void		foreach_redirections(t_redir *list, t_redirection type, void (*f)(t_redir *e));
+
 #endif

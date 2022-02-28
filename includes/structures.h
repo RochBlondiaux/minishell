@@ -19,6 +19,12 @@ typedef	struct	s_pipe {
 	int	backup;
 }	t_pipe;
 
+typedef struct s_redir {
+	t_redirection	type;
+	char			*path;
+	struct s_redir	*next;
+}					t_redir;
+
 typedef struct s_command {
 	char				*name;
 	char				**args;

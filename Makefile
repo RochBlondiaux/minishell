@@ -99,6 +99,11 @@ SRC_NAME =	main.c \
 			utils/map/init.c \
 			utils/map/get.c \
 			utils/map/remove.c \
+			utils/redirections/new.c \
+			utils/redirections/free.c \
+			utils/redirections/add.c \
+			utils/redirections/foreach.c \
+			utils/redirections/length.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -132,6 +137,7 @@ obj:
 	@mkdir -p $(OBJ_PATH)/utils/env
 	@mkdir -p $(OBJ_PATH)/utils/map
 	@mkdir -p $(OBJ_PATH)/utils/commands
+	@mkdir -p $(OBJ_PATH)/utils/redirections
 	@mkdir -p $(OBJ_PATH)/utils/builtins
 	@mkdir -p $(OBJ_PATH)/utils/modules
 	@mkdir -p $(OBJ_PATH)/utils/modules/lexer
