@@ -19,7 +19,6 @@ int	expand(t_app *app, t_command **commands)
 	i = -1;
 	while (commands[++i])
 	{
-		expand_env_vars(app, commands[i]);
 		expand_input(app, commands[i]);
 		if (!expand_output(app, commands[i]))
 			return (1);

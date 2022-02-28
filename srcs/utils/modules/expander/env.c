@@ -12,15 +12,23 @@
 
 #include "../../../../includes/minishell.h"
 
-static int	contains_envars(char *a)
+static int	contains_envars(t_app *app, char *a)
 {
 	size_t	index;
+	char	*s;
 
 	index = -1;
 	while (a[++index])
 	{
 		if (a[index] == '$' && a[index + 1])
+		{
+			if (a[index + 1] == '?' && (!a[index + 2] || a[index + 2] == ' '))
+				return (1);
+			s = get_env(app, &a[index + 1]);
+			if (!s)
+				continue ;
 			return (1);
+		}
 	}
 	return (0);
 }
@@ -39,30 +47,27 @@ static char	*get_env_string(char *src)
 	return (ft_substr(src, ft_strchr(src, '$'), index));
 }
 
-void	expand_env_vars(t_app *app, t_command *cmd)
+static void expand_single(t_app *app, char **string)
 {
-	int		index;
 	char	*v;
 	char	*env;
 
-	index = -1;
-	while (cmd->args[++index])
-	{
-		if (!contains_envars(cmd->args[index]))
-			continue ;
-		v = get_env_string(cmd->args[index]);
-		if (!v)
-			continue ;
-		env = get_env(app, &v[1]);
-		if (env)
-			v = replace_str(cmd->args[index], v, ft_strdup(env));
-		else
-		{
-			if (v[1] == '?')
-				v = replace_str(cmd->args[index], v, ft_itoa(app->last_exit));
-			else
-				v = replace_str(cmd->args[index], v, ft_strdup(&v[0]));
-		}
-		reset_str(&cmd->args[index], v);
-	}
+	if (!contains_envars(app, *string))
+		return ;
+	v = get_env_string(*string);
+	if (!v)
+		return ;
+	env = get_env(app, &v[1]);
+	if (!env && v[1] != '?')
+		return;
+	if (v[1] == '?')
+		v = replace_str(*string, v, ft_itoa(app->last_exit));
+	else
+		v = replace_str(*string, v, ft_strdup(env));
+	reset_str(string, ft_strdup(v));
+}
+
+void	expand_env_vars(t_app *app, char **input)
+{
+		expand_single(app, input);
 }

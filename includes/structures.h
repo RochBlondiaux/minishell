@@ -28,12 +28,7 @@ typedef struct s_redir {
 typedef struct s_command {
 	char				*name;
 	char				**args;
-	char				*input_path;
-	char				*output_path;
-	int					input_fd;
-	int					output_fd;
-	int					delimiter;
-	int					appender;
+	t_redir				*redirections;
 	int					status;
 	t_token				next_token;
 	t_token				previous_token;

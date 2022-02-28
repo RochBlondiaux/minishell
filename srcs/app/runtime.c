@@ -28,6 +28,7 @@ int	runtime(t_app *app, char *input)
 		str_error(app, SYNTAX_ERROR);
 		return (FALSE);
 	}
+	expand_env_vars(app, &input);
 	commands = parse(input);
 	if (expand(app, commands))
 		executor(app, commands);
