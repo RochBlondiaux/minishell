@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   runtime.c                                          :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,29 +10,48 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
-int	runtime(t_app *app, char *input)
+static char	*get_files(void)
 {
-	t_token		*tokens;
-	int			result;
-	t_command	**commands;
+	DIR				*d;
+	struct dirent	*dir;
+	char			*c;
+	char			*hd;
 
-	result = 0;
-	tokens = lexer(app, input, &result);
-	if (!tokens)
-		return (FALSE);
-	result = syntaxer(input, tokens);
-	if (!result)
-	{
-		str_error(app, SYNTAX_ERROR);
-		return (FALSE);
+	hd = working_directory();
+	d = opendir(hd);
+	if (d) {
+		dir = readdir(d);
+		c = ft_strdup("");
+		while (dir) {
+			if (dir->d_name && dir->d_name[0] && dir->d_name[0] != '.')
+				c = ft_strjoin_properly(c, ft_strjoin(dir->d_name, " "));
+			dir = readdir(d);
+		}
+		closedir(d);
+		return (c);
 	}
-	expand_env_vars(app, &input);
-	//expand_wildcards(app, &input);
-	commands = parse(input);
-	if (expand(app, commands))
-		executor(app, commands);
-	free_command_map(commands);
-	return (TRUE);
+	return (ft_strdup("*"));
+}
+
+void	expand_wildcards(t_app *app, char **input)
+{
+	int		i;
+	char	*files;
+	char	*r;
+
+	i = -1;
+	(void) app;
+	r = *input;
+	while (r[++i])
+	{
+		if (r[i] != '*')
+			continue ;
+		files = get_files();
+		if (!files)
+			continue ;
+		r = replace_str(ft_strdup(r), "*", files);
+	}
+	*input = r;
 }

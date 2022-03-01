@@ -63,6 +63,7 @@ SRC_NAME =	main.c                                \
 			utils/modules/executor/execution.c    \
 			utils/modules/executor/pipe.c         \
 			utils/modules/lexer/token.c           \
+			utils/modules/expander/wildcard.c     \
 			utils/modules/expander/env.c          \
 			utils/modules/expander/input.c        \
 			utils/modules/expander/output.c       \

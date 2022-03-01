@@ -86,7 +86,7 @@ int			expand_output(t_app *app, t_command *cmd);
 int			contains_redirection(char *raw);
 void		check_for_env(t_app *app, t_command **cmd);
 void		check_for_args_env(t_command *cmd);
-
+void		expand_wildcards(t_app *app, char **input);
 
 /**
  * Builtins
