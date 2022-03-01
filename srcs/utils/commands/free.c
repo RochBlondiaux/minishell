@@ -14,9 +14,8 @@
 
 void	free_command(t_command *cmd)
 {
-	free(cmd->input_path);
-	free(cmd->output_path);
 	free(cmd->name);
+	free_redirections(&cmd->redirections);
 	free_array(cmd->args);
 	free(cmd);
 }

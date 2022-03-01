@@ -74,7 +74,7 @@ char		**parse_raw_commands(char *raw);
 char		*parse_redirections(t_command *command, char *raw);
 char		**parse_quotes(char *raw);
 void		expand_env_vars(t_app *app, char **input);
-void		expand_input(t_app *app, t_command *cmd);
+int			expand_input(t_app *app, t_command *cmd);
 void		parse_cmd_tokens(t_command **cmds, char *raw);
 char		*get_executable(t_app *app, t_command *cmd, char *input);
 int			fork_cmd(t_app *app, t_command *cmd);

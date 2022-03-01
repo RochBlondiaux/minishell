@@ -14,20 +14,33 @@
 
 int	expand_output(t_app *app, t_command *cmd)
 {
-	if (!cmd->output_path
-		|| !cmd->output_path[0])
-		return (0);
-	if (cmd->output_path[0] == '$')
+	t_redir	*r;
+
+	r = cmd->redirections;
+	while (r)
 	{
-		error(app, "ambiguous redirection", "");
-		app->last_exit = 1;
-		return (1);
+		if (r->type == OUTPUT || r->type == APPENDER)
+		{
+			if (!r->path || !r->path[0] || r->path[0] == '$')
+			{
+				error(app, cmd->name, "ambiguous redirect");
+				return (FALSE);
+			}
+			if (r->type == APPENDER)
+				cmd->output_fd = open(r->path,
+									  O_CREAT | O_RDWR | O_APPEND, S_IRUSR
+									  | S_IRGRP | S_IWGRP | S_IWUSR);
+			else
+				cmd->output_fd = open(r->path,
+									  O_CREAT | O_RDWR, S_IRUSR
+									  | S_IRGRP | S_IWGRP | S_IWUSR);
+			if (cmd->output_fd <= 0)
+			{
+				error(app, r->path, "No such file or directory");
+				return (FALSE);
+			}
+		}
+		r = r->next;
 	}
-	else
-		cmd->output_fd = open(cmd->output_path,
-				  O_CREAT | O_RDWR | O_APPEND, S_IRUSR
-				  | S_IRGRP | S_IWGRP | S_IWUSR);
-	if (cmd->output_fd <= 0)
-		str_error(app, cmd->name);
-	return (0);
+	return (TRUE);
 }

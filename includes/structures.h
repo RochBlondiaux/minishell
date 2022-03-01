@@ -36,12 +36,8 @@ typedef struct s_command {
 	struct s_command	*next_cmd;
 	pid_t				pid;
 	int					p_status;
-	char 				*input_path;
-	char 				*output_path;
-	int					delimiter;
-	int					appender;
-	int					output_fd;
 	int					input_fd;
+	int					output_fd;
 }						t_command;
 
 typedef struct s_env {
