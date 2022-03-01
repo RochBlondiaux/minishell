@@ -12,18 +12,34 @@
 
 #include "../../../../includes/minishell.h"
 
-char	*get_env_string(char *input, int *index)
+static int	get_end(char *input, char i)
+{
+	size_t	index;
+
+	index = i;
+	while (input[index])
+	{
+		if (input[index] == ' ')
+			return (index);
+		index++;
+	}
+	return (index);
+}
+
+static char	*get_env_string(char *input, int *index)
 {
 	size_t	end;
 	char	*key;
 
 	end = ft_strchr(&input[*index], ' ');
 	if (end == 0)
-		end = ft_strlen(input);
+		end = get_end(input, *index);
 	key = ft_substr(input, *index, end);
 	if (!key)
 		return (NULL);
-	*index += end;
+	if (end == 0)
+		end++;
+	*index += end - 1;
 	return (key);
 }
 

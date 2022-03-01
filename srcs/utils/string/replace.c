@@ -39,7 +39,7 @@ char	*replace_first(char *str, char *find, char *replace)
 
 	start = ft_strstr(str, find);
 	if (start >= (int) ft_strlen(str))
-		return (ft_strdup(str));
+		return (str);
 	tmp = ft_strjoin_properly(ft_substr(str, 0, start), ft_strdup(replace));
 	if (start + ft_strlen(find) == ft_strlen(str))
 		return (tmp);
