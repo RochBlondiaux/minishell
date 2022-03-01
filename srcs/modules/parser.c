@@ -52,5 +52,6 @@ t_command	**parse(char *input)
 	cmds[index] = NULL;
 	free_array(raw_cmds);
 	parse_cmd_tokens(cmds, input);
+	free(input);
 	return (cmds);
 }
