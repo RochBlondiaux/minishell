@@ -71,6 +71,8 @@ char	**parse_raw_commands(char *raw)
 	j = 0;
 	while (raw[++i] && j < count_commands(raw))
 	{
+		if (i == 0 && raw[i] == '$')
+			while (raw[++i] != ' ');
 		cmds[j++] = ft_substr(raw, i, strchr_sep(&raw[i], 0));
 		i += strchr_sep(&raw[i], 1);
 		if (raw[i + 1] && (raw[i + 1] == '|' || raw[i + 1] == '&'))

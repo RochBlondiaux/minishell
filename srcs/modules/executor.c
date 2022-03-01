@@ -32,6 +32,7 @@ static int	execute_native_command(t_app *app, t_command *cmd, t_pipe *pipe)
 {
 	char	*executable;
 
+	check_for_args_env(cmd);
 	executable = get_executable(app, cmd, cmd->name);
 	if (!executable)
 		return (FALSE);
@@ -77,6 +78,7 @@ void	executor(t_app *app, t_command **cmds)
 	t_pipe	*pipe;
 
 	i = -1;
+	check_for_env(app, cmds);
 	init_commands(cmds);
 	pipe = init_pipeline(app);
 	if (!pipe)
