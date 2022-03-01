@@ -12,7 +12,7 @@
 
 #include "../../../includes/minishell.h"
 
-static char	*ft_strstr(char *str, char *to_find)
+static int ft_strstr(char *str, char *to_find)
 {
 	int	i;
 	int	j;
@@ -24,32 +24,35 @@ static char	*ft_strstr(char *str, char *to_find)
 		while (to_find[j] == str[i + j])
 		{
 			if (to_find[j + 1] == '\0')
-				return (str + i);
+				return (i);
 			j++;
 		}
 	}
-	return (FALSE);
+	return (ft_strlen(str));
+}
+
+char	*replace_first(char *str, char *find, char *replace)
+{
+	int		start;
+	char	*after;
+	char	*tmp;
+
+	start = ft_strstr(str, find);
+	if (start >= (int) ft_strlen(str))
+		return (ft_strdup(str));
+	tmp = ft_strjoin_properly(ft_substr(str, 0, start), ft_strdup(replace));
+	if (start + ft_strlen(find) == ft_strlen(str))
+		return (tmp);
+	after = ft_substr(str, start + ft_strlen(find), ft_strlen(str));
+	return (ft_strjoin_properly(tmp, after));
 }
 
 char	*replace_str(char *str, char *find, char *replace)
 {
-	char	*pos;
-	char	temp[1024];
-	int		index;
-	int		owlen;
+	char	*tmp;
 
-	owlen = ft_strlen(find);
-	if (ft_strcmp(find, replace) < 0)
-		return (str);
-	pos = ft_strstr(str, find);
-	while (pos)
-	{
-		ft_strlcpy(temp, str, ft_strlen(temp) + ft_strlen(str));
-		index = pos - str;
-		str[index] = '\0';
-		ft_strcat(str, replace);
-		ft_strcat(str, temp + index + owlen);
-		pos = ft_strstr(str, find);
-	}
-	return (str);
+	tmp = ft_strdup(str);
+	while (ft_strstr(tmp, find) < (int) ft_strlen(tmp))
+		reset_str(&tmp, replace_first(tmp, find, replace));
+	return (tmp);
 }

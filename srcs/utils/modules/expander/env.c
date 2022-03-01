@@ -43,18 +43,18 @@ char	*get_next_env_vars(char *input, int *index)
 	return (NULL);
 }
 
-void	expand_env_vars(t_app *app, char **input)
+void expand_env_vars(t_app *app, char **input)
 {
 	int		i;
+	char	*t;
 	char	*key;
 	char	*value;
-	char	*r;
 
 	i = -1;
-	r = *input;
-	while (i < (int) ft_strlen(r))
+	t = ft_strdup(*input);
+	while (t[++i])
 	{
-		key = get_next_env_vars(r, &i);
+		key = get_next_env_vars(t, &i);
 		if (key)
 		{
 			value = get_env(app, &key[1]);
@@ -63,9 +63,9 @@ void	expand_env_vars(t_app *app, char **input)
 				free(key);
 				continue ;
 			}
-			r = replace_str(r, key, value);
+			reset_str(&t, replace_str(t, key, value));
 			free(key);
 		}
 	}
-	*input = r;
+	*input = t;
 }
