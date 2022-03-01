@@ -59,7 +59,7 @@ char	*get_next_env_vars(char *input, int *index)
 	return (NULL);
 }
 
-void expand_env_vars(t_app *app, char **input)
+void	expand_env_vars(t_app *app, char **input)
 {
 	int		i;
 	char	*t;

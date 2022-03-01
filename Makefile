@@ -104,7 +104,6 @@ SRC_NAME =	main.c                                \
 			utils/redirections/new.c              \
 			utils/redirections/free.c             \
 			utils/redirections/add.c              \
-			utils/redirections/foreach.c          \
 			utils/redirections/length.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)

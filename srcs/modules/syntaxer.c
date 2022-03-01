@@ -70,7 +70,7 @@ static int	args_check(char *input)
 		if (args[index + 1]
 			&& (get_real_token(args[index]) != LITERAL
 				&& get_real_token(args[index + 1]) != LITERAL)
-					&& is_redir_in_quotes(&q, args[index]))
+			&& is_redir_in_quotes(&q, args[index]))
 		{
 			free_array(args);
 			return (FALSE);

@@ -21,10 +21,12 @@ static char	*get_files(void)
 
 	hd = working_directory();
 	d = opendir(hd);
-	if (d) {
+	if (d)
+	{
 		dir = readdir(d);
 		c = ft_strdup("");
-		while (dir) {
+		while (dir)
+		{
 			if (dir->d_name && dir->d_name[0] && dir->d_name[0] != '.')
 				c = ft_strjoin_properly(c, ft_strjoin(dir->d_name, " "));
 			dir = readdir(d);

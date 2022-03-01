@@ -14,10 +14,11 @@
 
 size_t	redirections_length(t_redir *list)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
-	while (list) {
+	while (list)
+	{
 		i++;
 		list = list->next;
 	}

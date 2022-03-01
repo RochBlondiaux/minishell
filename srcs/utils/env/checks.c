@@ -20,7 +20,7 @@ static t_env	*check_existence(t_env *env, char *name)
 	{
 		tmp = (env)->next;
 		if (tmp && (ft_strcmp_sensitive(tmp->key, name)
-			|| ft_strcmp_sensitive(tmp->value, name)))
+				|| ft_strcmp_sensitive(tmp->value, name)))
 			return (tmp);
 		env = tmp;
 	}

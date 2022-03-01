@@ -74,7 +74,7 @@ static void	execute_command(t_app *app, t_command *cmd, t_pipe *pipe)
 
 void	executor(t_app *app, t_command **cmds)
 {
-	int	i;
+	int		i;
 	t_pipe	*pipe;
 
 	i = -1;

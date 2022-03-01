@@ -87,7 +87,8 @@ static char	*sup_quote(char *arg)
 	else
 	{
 		i = -1;
-		dest = malloc(sizeof(char) * (ft_strlen(arg) - nb_quotes(arg, quote) + 1));
+		dest = malloc(sizeof(char) * (ft_strlen(arg)
+					- nb_quotes(arg, quote) + 1));
 		while (arg[++i])
 		{
 			if (arg[i] != quote)

@@ -12,7 +12,7 @@
 
 #include "../../../includes/minishell.h"
 
-t_redir *create_redirection(t_redirection type, char *path)
+t_redir	*create_redirection(t_redirection type, char *path)
 {
 	t_redir	*redir;
 

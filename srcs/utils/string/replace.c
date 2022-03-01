@@ -12,7 +12,7 @@
 
 #include "../../../includes/minishell.h"
 
-static int ft_strstr(char *str, char *to_find)
+static int	ft_strstr(char *str, char *to_find)
 {
 	int	i;
 	int	j;

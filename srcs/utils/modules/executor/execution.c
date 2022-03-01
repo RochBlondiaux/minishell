@@ -12,7 +12,7 @@
 
 #include "../../../../includes/minishell.h"
 
-static void update_status(t_command *cmd)
+static void	update_status(t_command *cmd)
 {
 	if (WIFEXITED(cmd->p_status))
 		cmd->p_status = WEXITSTATUS(cmd->p_status);
@@ -23,7 +23,8 @@ static void update_status(t_command *cmd)
 
 void	execute_native(t_app *app, t_command *cmd, char *e, t_pipe *pipe)
 {
-	if (cmd->pid == 0) {
+	if (cmd->pid == 0)
+	{
 		enable_signal(app);
 		dup2(pipe->backup, 0);
 		if (cmd->next_token == PIPE && cmd->next_cmd)
@@ -40,7 +41,8 @@ void	execute_native(t_app *app, t_command *cmd, char *e, t_pipe *pipe)
 		execve(e, get_executable_args(cmd), NULL);
 		exit(1);
 	}
-	else {
+	else
+	{
 		signal(SIGINT, SIG_IGN);
 		waitpid(cmd->pid, &cmd->p_status, 0);
 		disable_signal(app);

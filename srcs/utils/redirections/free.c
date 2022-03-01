@@ -12,7 +12,7 @@
 
 #include "../../../includes/minishell.h"
 
-void free_redirections(t_redir **list)
+void	free_redirections(t_redir **list)
 {
 	t_redir	*tmp;
 
