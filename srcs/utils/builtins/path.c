@@ -88,8 +88,10 @@ static char	*is_a_path(char *input, char **split)
 {
 	size_t	j;
 	char	*temp;
+	char	*tmp;
 
 	j = -1;
+	tmp = ft_strdup(input);
 	while (split[++j])
 	{
 		if (ft_strcmp(split[j], "."))
@@ -114,6 +116,10 @@ static char	*is_a_path(char *input, char **split)
 			ft_strjoin("/", split[j]));
 			}
 		}
+		temp = path(input);
+		if (!path(temp))
+			reset_str(&input, ft_strdup(tmp));
+	free(tmp);
 	free_array(split);
 	return (input);
 }
