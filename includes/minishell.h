@@ -92,7 +92,7 @@ void		expand_wildcards(t_app *app, char **input);
  * Builtins
  */
 void		dispatch_builtins(t_app *app, t_command *cmd);
-void		builtin_echo(t_command *cmd);
+void		builtin_echo(t_app *app, t_command *cmd);
 void		builtin_cd(t_app *app, t_command *cmd);
 void		builtin_pwd(t_app *app, t_command *cmd);
 void		builtin_exit(t_app *app, t_command *cmd);
