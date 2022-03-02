@@ -74,6 +74,7 @@ SRC_NAME =	main.c                                \
 			utils/modules/parser/separators.c     \
 			utils/modules/parser/quotes.c         \
 			utils/builtins/is.c                   \
+			utils/builtins/path.c                 \
 			utils/string/strcat.c                 \
 			utils/string/replace.c                \
 			utils/string/reset.c                  \

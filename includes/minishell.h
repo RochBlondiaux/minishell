@@ -176,6 +176,7 @@ size_t		commands_length(t_command **args);
  * Builtins utils
  */
 int			is_builtin(t_command *cmd);
+char		*get_path(t_app *app, char *input);
 
 /**
  * Redirections utils

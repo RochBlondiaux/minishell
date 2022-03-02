@@ -26,6 +26,7 @@ int	runtime(t_app *app, char *input)
 	if (!result)
 	{
 		str_error(app, SYNTAX_ERROR);
+		app->last_exit = 1;
 		return (FALSE);
 	}
 	expand_env_vars(app, &input);

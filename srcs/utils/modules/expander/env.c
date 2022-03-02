@@ -21,7 +21,7 @@ static int	get_end(char *input, char i, int *q)
 	{
 		if (*q == 0)
 		{
-			if (input[index] == ' ')
+			if (input[index] == ' ' || input[index] == '$')
 				return (index);
 		}
 		else if (*q == 1)
