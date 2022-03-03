@@ -80,23 +80,18 @@ static int	args_check(char *input)
 	return (TRUE);
 }
 
-int	check_redirections(char *input)
+int	check_redirections(t_token *tokens)
 {
 	size_t	index;
-	char	**args;
 
-	args = ft_split(input, ' ');
 	index = -1;
-	while (args[++index])
+	while (tokens[++index])
 	{
-		if (get_real_token(args[index]) != LITERAL
-			&& get_real_token(args[index + 1]) != LITERAL)
-		{
-			free_array(args);
+		if (tokens[index] == REDIRECTION
+			&& tokens[index + 2]
+			&& tokens[index + 2] != LITERAL)
 			return (FALSE);
-		}
 	}
-	free_array(args);
 	return (TRUE);
 }
 
@@ -109,7 +104,7 @@ int	syntaxer(char *input, t_token *tokens)
 		|| tokens[tokens_length(tokens) - 1] != LITERAL
 		|| !check_duplicated(tokens)
 		|| !args_check(input)
-		|| !check_redirections(input))
+		|| !check_redirections(tokens))
 		result = FALSE;
 	free(tokens);
 	if (!result)
