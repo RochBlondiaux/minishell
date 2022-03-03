@@ -57,6 +57,8 @@ char	*get_executable(t_app *app, t_command *cmd, char *input)
 	i = -1;
 	if (get_env(app, "PATH") == NULL)
 		return (ft_strdup(""));
+	if (access(input, F_OK) == FALSE)
+		return (ft_strdup(input));
 	paths = ft_split(get_env(app, "PATH"), ':');
 	path = NULL;
 	while (paths[++i])
