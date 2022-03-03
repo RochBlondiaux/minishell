@@ -24,5 +24,11 @@
 # define PERMISSION_DENIED "Permission denied"
 # define FORK_ERROR "Fork error"
 # define PIPE_ERROR "PIPE error"
+# define HOME_UNDEFINED "You don't have a house"
+# define PWD_UNDEFINED "PWD not set"
+# define ENV_ERROR "Unable to fetch env variables."
+# define AMBIGUOUS_REDIRECTION "Ambiguous redirect"
+# define INVALID_CONTEXT "not valid in this context: "
+# define MALLOC_ERROR "malloc error"
 
 #endif

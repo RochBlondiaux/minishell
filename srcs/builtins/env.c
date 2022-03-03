@@ -19,7 +19,7 @@ void	builtin_env(t_app *app, t_command *cmd)
 	tmp = app->env;
 	if (!app->env)
 	{
-		error(app, "env", "Unable to fetch env variables.");
+		error(app, "env", ENV_ERROR);
 		return ;
 	}
 	while (tmp)

@@ -35,13 +35,13 @@ int	expand_output(t_app *app, t_command *cmd)
 		{
 			if (!r->path || !r->path[0] || r->path[0] == '$')
 			{
-				error(app, cmd->name, "ambiguous redirect");
+				error(app, cmd->name, AMBIGUOUS_REDIRECTION);
 				return (FALSE);
 			}
 			open_fd(r, cmd);
 			if (cmd->output_fd <= 0)
 			{
-				error(app, r->path, "No such file or directory");
+				str_error(app, r->path);
 				return (FALSE);
 			}
 		}

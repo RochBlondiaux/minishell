@@ -25,6 +25,6 @@ void	builtin_pwd(t_app *app, t_command *cmd)
 	else
 	{
 		cmd->status = 1;
-		error(app, "pwd", "PWD not defined.");
+		error(app, "pwd", PWD_UNDEFINED);
 	}
 }

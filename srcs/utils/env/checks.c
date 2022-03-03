@@ -43,12 +43,12 @@ int	check_new_env(t_app *app, char *var)
 		return (1);
 	if (check_env(app, var) != 0)
 	{
-		error(app, "export", "not valid in this context: ");
+		error(app, "export", INVALID_CONTEXT);
 		return (1);
 	}
 	if (var[0] == '=')
 	{
-		error(app, "export", "not valid in this context: ");
+		error(app, "export", INVALID_CONTEXT);
 		return (1);
 	}
 	return (0);
@@ -95,7 +95,7 @@ int	print_right_output(t_app *app, t_command *cmd)
 	}
 	if (ret == 2)
 	{
-		error(app, "export", "not valid in this context: ");
+		error(app, "export", INVALID_CONTEXT);
 		cmd->status = 1;
 		return (1);
 	}

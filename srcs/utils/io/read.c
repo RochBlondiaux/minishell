@@ -20,7 +20,7 @@ static char	*ft_read(t_app *app, int fd)
 	buffer = malloc(READ_BUFFER_SIZE + 1);
 	if (!buffer)
 	{
-		str_error(app, "Malloc Error");
+		str_error(app, MALLOC_ERROR);
 		return (NULL);
 	}
 	red = read(fd, buffer, READ_BUFFER_SIZE);
