@@ -44,6 +44,7 @@ void	builtin_cd(t_app *app, t_command *cmd)
 	{
 		str_error(app, "cd");
 		cmd->status = 1;
+		set_path(app, working_directory());
 		return ;
 	}
 	cmd->status = 0;
