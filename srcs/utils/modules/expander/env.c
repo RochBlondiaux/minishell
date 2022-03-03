@@ -12,111 +12,65 @@
 
 #include "../../../../includes/minishell.h"
 
-static int	get_end(char *input, char i, int *q)
+static int	should_ignore(char *i, size_t start, size_t end)
 {
+	int		q;
 	size_t	index;
 
-	index = i;
-	while (input[index])
+	q = 0;
+	index = -1;
+	if (index - start == 1)
+		return (TRUE);
+	while (i[++index] && index < end)
 	{
-		if (*q == 0)
-		{
-			if (input[index] == ' ' || input[index] == '$')
-				return (index);
-		}
-		else if (*q == 1)
-		{
-			if (input[index] == '\'')
-			{
-				*q = 0;
-				return (index);
-			}
-		}
-		else if (*q == 2)
-		{
-			if (input[index] == '"')
-			{
-				*q = 0;
-				return (index);
-			}
-		}
-		index++;
+		is_in_quotes(&q, i[index]);
+		if (index == start)
+			return (q == 2);
 	}
-	return (index);
+	return (FALSE);
 }
 
-static char	*get_env_string(char *input, int *index, int * q)
+static char	*get_remaining(char *i)
 {
-	size_t	end;
-	char	*key;
+	size_t	start;
+	size_t	index;
 
-	if (*q == 0)
-		end = ft_strchr(&input[*index], ' ');
-	else if (*q == 1)
-		end = ft_strchr(&input[*index], '\'');
-	else if (*q == 2)
-		end = ft_strchr(&input[*index], '"');
-	if (end == 0)
-		end = get_end(input, *index, q);
-	//printf("I: %d E: %zu R: %s\n", *index, end, &input[*index]);
-	key = ft_substr(input, *index, end);
-	if (!key)
+	start = ft_strchr(i, '$');
+	if (start == 0)
 		return (NULL);
-	if (end == 0)
-		end++;
-	*index += end - 1;
-	return (key);
-}
-
-static char	*get_next_env_vars(char *input, int *index, int *q)
-{
-	size_t	i;
-
-	i = *index;
-	while (input[++i])
+	index = start;
+	while (i[++index] && ft_isalnum(i[index]))
+		;
+	if (should_ignore(i, start, index))
 	{
-		if (input[i] == '\'')
-			*q = 1;
-		if (input[i] == '"')
-			*q = 2;
-		if (input[i] != '$' || !input[i + 1] || !ft_isalnum(input[i + 1]))
-			continue ;
-		*index = i;
-		return (get_env_string(input, index, q));
+		return (NULL);
 	}
-	*index = i;
-	return (NULL);
+	return (ft_substr(i, start, index - start));
 }
 
 void	expand_env_vars(t_app *app, char **input)
 {
-	int		i;
 	char	*t;
 	char	*key;
 	char	*value;
-	int		q;
+	int		index;
 
-	i = -1;
-	q = 0;
+	index = -1;
 	t = ft_strdup(*input);
-	while (t[++i])
+	key = get_remaining(t);
+	while (input[++index])
 	{
-		key = get_next_env_vars(t, &i, &q);
 		if (key)
 		{
-			if (q != 1)
-				value = get_env(app, &key[1]);
-			else if (q == 1)
-				value = ft_strdup(key);
+			value = get_env(app, &key[1]);
 			if (!value)
-				value = ft_strdup("");
-			if (q != 1)
-				reset_str(&t, replace_str(t, key, value));
-			else
-				free(value);
+				value = "";
+			reset_str(&t, replace_str(t, key, value));
+			index += ft_strlen(value);
 			free(key);
 		}
+		key = get_remaining(t);
 	}
-	printf("Input: %s\n", t);
+	free(key);
 	*input = t;
 }
