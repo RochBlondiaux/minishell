@@ -38,6 +38,7 @@ void	builtin_cd(t_app *app, t_command *cmd)
 	if (!path)
 	{
 		cmd->status = 1;
+		error(app, "cd", "You don t have a house");
 		return ;
 	}
 	if (!set_path(app, path))
