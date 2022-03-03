@@ -80,6 +80,43 @@ static int	args_check(char *input)
 	return (TRUE);
 }
 
+char *g(t_token t)
+{
+	switch (t)
+	{
+		case LITERAL:
+			return "LITERAL";
+		case REDIRECTION:
+			return "REDIR";
+		case AMPERSAND:
+			return "&";
+		case AND:
+			return "&&";
+		case OR:
+			return "|";
+		case PIPE:
+			return "||";
+		default:
+			return "?";
+	}
+}
+
+int	check_redirections(char *input)
+{
+	size_t	index;
+	char	**args;
+
+	args = ft_split(input, ' ');
+	index = -1;
+	while (args[++index])
+	{
+		if (get_real_token(args[index]) != LITERAL
+			&& get_real_token(args[index + 1]) != LITERAL)
+			return (FALSE);
+	}
+	return (TRUE);
+}
+
 int	syntaxer(char *input, t_token *tokens)
 {
 	int	result;
@@ -88,7 +125,8 @@ int	syntaxer(char *input, t_token *tokens)
 	if ((tokens[0] != LITERAL && tokens[0] != REDIRECTION)
 		|| tokens[tokens_length(tokens) - 1] != LITERAL
 		|| !check_duplicated(tokens)
-		|| !args_check(input))
+		|| !args_check(input)
+		|| !check_redirections(input))
 		result = FALSE;
 	free(tokens);
 	if (!result)
