@@ -12,12 +12,24 @@
 
 #include "../../includes/minishell.h"
 
+static size_t	arr_length(char **array)
+{
+	size_t	i;
+
+	i = 0;
+	if (!array[i])
+		return (i);
+	while (array[i])
+		i++;
+	return (i);
+}
+
 void	builtin_unset(t_app *app, t_command *cmd)
 {
 	size_t	i;
 	int		nb_error;
 
-	if (array_length(cmd->args) < 1)
+	if (arr_length(cmd->args) < 1)
 	{
 		error(app, "unset", NOT_ENOUGH_ARGS);
 		return ;

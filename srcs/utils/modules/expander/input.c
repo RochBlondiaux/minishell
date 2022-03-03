@@ -24,6 +24,7 @@ int	expand_input(t_app *app, t_command *cmd)
 			if (!r->path || !r->path[0] || r->path[0] == '$')
 			{
 				error(app, cmd->name, AMBIGUOUS_REDIRECTION);
+				app->last_exit = 1;
 				return (FALSE);
 			}
 			cmd->input_fd = open(r->path, O_RDONLY);

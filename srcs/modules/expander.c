@@ -17,14 +17,6 @@ int	expand(t_app *app, t_command **commands)
 	size_t	i;
 
 	i = -1;
-	if (commands[0]->name && !commands[0]->name[0]
-		&& !commands[1])
-	{
-		errno = 13;
-		str_error(app, "");
-		app->last_exit = 126;
-		return (FALSE);
-	}
 	while (commands[++i])
 	{
 		if (!expand_output(app, commands[i])
