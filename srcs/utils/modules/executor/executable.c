@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create.c                                          :+:      :+:    :+:    */
+/*   executable.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,19 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
-t_command	*create_command(char **args)
+int	find_executable(t_app *app, t_command *cmd)
 {
-	t_command	*cmd;
+	char	*bin;
 
-	cmd = malloc(sizeof(t_command));
-	if (!cmd)
-		return (NULL);
-	cmd->name = ft_strdup(args[0]);
-	cmd->args = sub_array(args, 1, array_length(args));
-	cmd->status = 0;
-	cmd->redirections = NULL;
-	free_array(args);
-	return (cmd);
+	if (is_builtin(cmd))
+		return (TRUE);
+	bin = get_executable(app, cmd, cmd->name);
+	if (!bin)
+		return (FALSE);
+	if (!bin[0])
+	{
+		free(bin);
+		return (-1);
+	}
+	reset_str(&cmd->executable, bin);
+	return (TRUE);
 }

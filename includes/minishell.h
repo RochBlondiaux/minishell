@@ -81,12 +81,15 @@ int			fork_cmd(t_app *app, t_command *cmd);
 char		**get_executable_args(t_command *cmd);
 t_pipe		*init_pipeline(t_app *app);
 void		update_pipeline(t_app *app, t_pipe *p);
-void		execute_native(t_app *app, t_command *cmd, char *e, t_pipe *pipe);
+void		execute_native(t_app *app, t_command *cmd, t_pipe *pipe);
 int			expand_output(t_app *app, t_command *cmd);
 int			contains_redirection(char *raw);
 void		check_for_env(t_app *app, t_command **cmd);
 void		check_for_args_env(t_command *cmd);
 void		expand_wildcards(t_app *app, char **input);
+int			find_executable(t_app *app, t_command *cmd);
+void		handle_redirections(t_command *cmd, t_pipe *pipe);
+void		execute_async_command(t_app *app, t_command *cmd, t_pipe *pipe);
 
 /**
  * Builtins
@@ -166,7 +169,6 @@ size_t		ft_contains(char *s, char c);
 /**
  * Commands utils
  */
-t_command	*create_command(char **args);
 void		free_command(t_command *cmd);
 void		free_command_map(t_command **map);
 t_command	*init_command(void);

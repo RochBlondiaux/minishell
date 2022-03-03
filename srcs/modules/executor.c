@@ -28,48 +28,18 @@ static void	init_commands(t_command **cmds)
 	cmds[i - 1]->next_cmd = NULL;
 }
 
-static int	execute_native_command(t_app *app, t_command *cmd, t_pipe *pipe)
-{
-	char	*executable;
-
-	check_for_args_env(cmd);
-	executable = get_executable(app, cmd, cmd->name);
-	if (!executable)
-		return (FALSE);
-	if (!executable[0])
-	{
-		free(executable);
-		return (-1);
-	}
-	if (!fork_cmd(app, cmd))
-	{
-		free(executable);
-		return (FALSE);
-	}
-	execute_native(app, cmd, executable, pipe);
-	free(executable);
-	return (TRUE);
-}
-
 static void	execute_command(t_app *app, t_command *cmd, t_pipe *pipe)
 {
-	int	ret;
-
-	if (is_builtin(cmd))
+	if (!find_executable(app, cmd) && !is_builtin(cmd))
 	{
-		dispatch_builtins(app, cmd);
+		cmd->status = 127;
+		error(app, cmd->name, COMMAND_NOT_FOUND);
 		return ;
 	}
-	ret = execute_native_command(app, cmd, pipe);
-	if (ret != FALSE)
-	{
-		if (ret == -1)
-			return ;
-		cmd->status = cmd->p_status;
+	if (!fork_cmd(app, cmd))
 		return ;
-	}
-	cmd->status = 127;
-	error(app, cmd->name, COMMAND_NOT_FOUND);
+	execute_native(app, cmd, pipe);
+	cmd->status = cmd->p_status;
 }
 
 void	executor(t_app *app, t_command **cmds)

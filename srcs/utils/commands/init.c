@@ -26,5 +26,6 @@ t_command	*init_command(void)
 	cmd->redirections = NULL;
 	cmd->input_fd = -1;
 	cmd->output_fd = -1;
+	cmd->executable = ft_strdup("");
 	return (cmd);
 }

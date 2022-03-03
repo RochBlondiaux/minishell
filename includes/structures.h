@@ -13,7 +13,7 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
-typedef	struct s_pipe {
+typedef struct s_pipe {
 	int	in;
 	int	out;
 	int	backup;
@@ -38,6 +38,7 @@ typedef struct s_command {
 	int					p_status;
 	int					input_fd;
 	int					output_fd;
+	char				*executable;
 }						t_command;
 
 typedef struct s_env {

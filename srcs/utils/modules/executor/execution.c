@@ -12,6 +12,19 @@
 
 #include "../../../../includes/minishell.h"
 
+void	handle_redirections(t_command *cmd, t_pipe *pipe)
+{
+	close(pipe->in);
+	if (cmd->input_fd > 0)
+	{
+		dup2(cmd->input_fd, STDIN_FILENO);
+		close(cmd->input_fd);
+	}
+	close(pipe->out);
+	if (cmd->output_fd > 0)
+		dup2(cmd->output_fd, STDOUT_FILENO);
+}
+
 static void	update_status(t_command *cmd)
 {
 	if (WIFEXITED(cmd->p_status))
@@ -21,7 +34,7 @@ static void	update_status(t_command *cmd)
 	cmd->p_status = WTERMSIG(cmd->p_status);
 }
 
-void	execute_native(t_app *app, t_command *cmd, char *e, t_pipe *pipe)
+void	execute_async(t_app *app, t_command *cmd, t_pipe *pipe)
 {
 	if (cmd->pid == 0)
 	{
@@ -29,16 +42,11 @@ void	execute_native(t_app *app, t_command *cmd, char *e, t_pipe *pipe)
 		dup2(pipe->backup, 0);
 		if (cmd->next_token == PIPE && cmd->next_cmd)
 			dup2(pipe->out, STDOUT_FILENO);
-		close(pipe->in);
-		if (cmd->input_fd > 0)
-		{
-			dup2(cmd->input_fd, STDIN_FILENO);
-			close(cmd->input_fd);
-		}
-		close(pipe->out);
-		if (cmd->output_fd > 0)
-			dup2(cmd->output_fd, STDOUT_FILENO);
-		execve(e, get_executable_args(cmd), NULL);
+		handle_redirections(cmd, pipe);
+		if (is_builtin(cmd))
+			dispatch_builtins(app, cmd);
+		else
+			execve(cmd->executable, get_executable_args(cmd), NULL);
 		exit(1);
 	}
 	else
@@ -48,6 +56,31 @@ void	execute_native(t_app *app, t_command *cmd, char *e, t_pipe *pipe)
 		disable_signal(app);
 		close(pipe->out);
 		update_status(cmd);
+		if (is_builtin(cmd))
+			cmd->p_status = cmd->status;
 		pipe->backup = pipe->in;
 	}
+}
+
+void	execute_native(t_app *app, t_command *cmd, t_pipe *pipe)
+{
+	if (is_builtin(cmd) && !ft_strcmp(cmd->name, "echo"))
+	{
+		if (cmd->pid == 0)
+		{
+			close(pipe->in);
+			close(pipe->out);
+			exit(0);
+		}
+		else
+		{
+			waitpid(cmd->pid, &cmd->p_status, 0);
+			dispatch_builtins(app, cmd);
+			cmd->p_status = cmd->status;
+			close(pipe->out);
+			pipe->backup = pipe->in;
+		}
+	}
+	else
+		execute_async(app, cmd, pipe);
 }

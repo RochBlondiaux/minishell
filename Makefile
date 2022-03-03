@@ -52,7 +52,6 @@ SRC_NAME =	main.c                                \
 			utils/app/prompt.c                    \
 			utils/app/error.c                     \
 			utils/app/signals.c                   \
-			utils/commands/create.c               \
 			utils/commands/free.c                 \
 			utils/commands/init.c                 \
 			utils/commands/length.c               \
@@ -60,6 +59,7 @@ SRC_NAME =	main.c                                \
 			utils/modules/executor/checks.c       \
 			utils/modules/executor/path.c         \
 			utils/modules/executor/args.c         \
+			utils/modules/executor/executable.c   \
 			utils/modules/executor/execution.c    \
 			utils/modules/executor/pipe.c         \
 			utils/modules/lexer/token.c           \

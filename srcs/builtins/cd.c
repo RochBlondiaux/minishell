@@ -20,6 +20,7 @@ static int	set_path(t_app *app, char *a)
 	set_env(app, "PWD", a);
 	ret = chdir(a);
 	free(a);
+	wait(0);
 	return (ret == FALSE);
 }
 
