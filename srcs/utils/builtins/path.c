@@ -25,13 +25,6 @@ static size_t	ft_strlen_lastrepo(char *s)
 	return (1);
 }
 
-static char	*right_dir(t_app *app)
-{
-	if (!home_directory(app)[0])
-			return (working_directory());
-		return (home_directory(app));
-}
-
 static char	*get_old_path(t_app *app)
 {
 	char	*old;
@@ -141,7 +134,7 @@ char	*get_path(t_app *app, char *input)
 	char	*i;
  
 	if (!input)
-		return(right_dir(app));
+		return (home_directory(app));
 	if (ft_strcmp(input, "-"))
 	{
 		i = get_old_path(app);
