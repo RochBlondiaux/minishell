@@ -183,6 +183,12 @@ size_t		commands_length(t_command **args);
  */
 int			is_builtin(t_command *cmd);
 char		*get_path(t_app *app, char *input);
+size_t		ft_strlen_lastrepo(char *s);
+char		*is_a_path(char *input, char **split);
+char		*cdpath_exist(t_app *app, char *input, char **split);
+char		*get_path(t_app *app, char *input);
+char		*get_new_path(char *input, char *arg);
+char		*get_rep_path(char *input, char *arg, int j);
 
 /**
  * Redirections utils

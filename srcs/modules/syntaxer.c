@@ -80,27 +80,6 @@ static int	args_check(char *input)
 	return (TRUE);
 }
 
-char *g(t_token t)
-{
-	switch (t)
-	{
-		case LITERAL:
-			return "LITERAL";
-		case REDIRECTION:
-			return "REDIR";
-		case AMPERSAND:
-			return "&";
-		case AND:
-			return "&&";
-		case OR:
-			return "|";
-		case PIPE:
-			return "||";
-		default:
-			return "?";
-	}
-}
-
 int	check_redirections(char *input)
 {
 	size_t	index;

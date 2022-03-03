@@ -75,6 +75,7 @@ SRC_NAME =	main.c                                \
 			utils/modules/parser/quotes.c         \
 			utils/modules/parser/fill_quotes.c    \
 			utils/builtins/is.c                   \
+			utils/builtins/get_path.c             \
 			utils/builtins/path.c                 \
 			utils/string/strcat.c                 \
 			utils/string/replace.c                \
