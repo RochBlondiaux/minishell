@@ -91,8 +91,12 @@ int	check_redirections(char *input)
 	{
 		if (get_real_token(args[index]) != LITERAL
 			&& get_real_token(args[index + 1]) != LITERAL)
+		{
+			free_array(args);
 			return (FALSE);
+		}
 	}
+	free_array(args);
 	return (TRUE);
 }
 
