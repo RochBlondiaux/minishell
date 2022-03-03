@@ -15,7 +15,7 @@
 static size_t	ft_strlen_lastrepo(char *s)
 {
 	size_t	i;
- 
+
 	i = ft_strlen(s);
 	while (--i > 0)
 	{
@@ -28,7 +28,7 @@ static size_t	ft_strlen_lastrepo(char *s)
 static char	*get_old_path(t_app *app)
 {
 	char	*old;
- 
+
 	old = get_env(app, "OLDPWD");
 	if (!old)
 	{
@@ -41,7 +41,7 @@ static char	*get_old_path(t_app *app)
 static char	*get_new_path(char *input, char *arg)
 {
 	char	*temp;
- 
+
 	temp = ft_strjoin_properly(input, ft_strdup("/"));
 	input = ft_strjoin_properly(temp, ft_strdup(arg));
 	return (input);
@@ -58,7 +58,7 @@ static char	*chose_path(t_app *app, char *input, char **split)
 {
 	size_t	j;
 	char	*temp;
- 
+
 	j = -1;
 	while (split[++j])
 	{
@@ -96,7 +96,7 @@ static char	*is_a_path(char *input, char **split)
 	size_t	j;
 	char	*temp;
 	char	*tmp;
- 
+
 	j = -1;
 	tmp = ft_strdup(input);
 	while (split[++j])
@@ -118,7 +118,7 @@ static char	*is_a_path(char *input, char **split)
 			input = ft_strjoin_properly(working_directory(),
 			ft_strjoin("/", split[j]));
 		}
-		temp = strdup(input);
+		temp = path(input);
 		if (!temp)
 			reset_str(&input, ft_strdup(tmp));
 		free(temp);
@@ -132,7 +132,7 @@ char	*get_path(t_app *app, char *input)
 {
 	char	**split;
 	char	*i;
- 
+
 	if (!input)
 		return (home_directory(app));
 	if (ft_strcmp(input, "-"))

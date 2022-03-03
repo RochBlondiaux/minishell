@@ -25,7 +25,8 @@ static int	set_path(t_app *app, char *a)
 
 void	builtin_cd(t_app *app, t_command *cmd)
 {
-	char	*path;
+	char	*paths;
+	char	*temp;
 
 	if (array_length(cmd->args) > 1)
 	{
@@ -33,19 +34,20 @@ void	builtin_cd(t_app *app, t_command *cmd)
 		cmd->status = 1;
 		return ;
 	}
-	path = get_path(app, cmd->args[0]);
-	if (!path)
+	paths = get_path(app, cmd->args[0]);
+	if (!paths)
 	{
 		cmd->status = 1;
 		error(app, "cd", HOME_UNDEFINED);
 		return ;
 	}
-	if (!set_path(app, path))
+	temp = path(paths);
+	free(paths);
+	if (!temp)
 	{
 		str_error(app, "cd");
 		cmd->status = 1;
-		set_path(app, working_directory());
 		return ;
 	}
-	cmd->status = 0;
+	set_path(app, temp);
 }
