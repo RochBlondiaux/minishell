@@ -53,13 +53,20 @@ char	*get_rep_path(char *input, char *arg, int j)
 	return (path);
 }
 
+static char	*get_good_dir(t_app *app)
+{
+	if (home_directory(app) && !home_directory(app)[0])
+		return (working_directory());
+	return (NULL);
+}
+
 char	*get_path(t_app *app, char *input)
 {
 	char	**split;
 	char	*i;
 
 	if (!input)
-		return (home_directory(app));
+		return (get_good_dir(app));
 	if (ft_strcmp(input, "-"))
 	{
 		i = get_old_path(app);

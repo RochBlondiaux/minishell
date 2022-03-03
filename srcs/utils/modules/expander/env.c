@@ -36,15 +36,13 @@ static char	*get_remaining(char *i)
 	size_t	index;
 
 	start = ft_strchr(i, '$');
-	if (start == 0)
+	if (start == 0 || i[start + 1] == '?' || !i[start + 1])
 		return (NULL);
 	index = start;
 	while (i[++index] && ft_isalnum(i[index]))
 		;
 	if (should_ignore(i, start, index))
-	{
 		return (NULL);
-	}
 	return (ft_substr(i, start, index - start));
 }
 
