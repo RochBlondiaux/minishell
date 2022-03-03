@@ -58,6 +58,7 @@ static char	*get_env_string(char *input, int *index, int * q)
 		end = ft_strchr(&input[*index], '"');
 	if (end == 0)
 		end = get_end(input, *index, q);
+	//printf("I: %d E: %zu R: %s\n", *index, end, &input[*index]);
 	key = ft_substr(input, *index, end);
 	if (!key)
 		return (NULL);
@@ -116,5 +117,6 @@ void	expand_env_vars(t_app *app, char **input)
 			free(key);
 		}
 	}
+	printf("Input: %s\n", t);
 	*input = t;
 }
