@@ -90,6 +90,10 @@ void		expand_wildcards(t_app *app, char **input);
 int			find_executable(t_app *app, t_command *cmd);
 void		handle_redirections(t_command *cmd, t_pipe *pipe);
 void		execute_async_command(t_app *app, t_command *cmd, t_pipe *pipe);
+int			get_quote_in_here(char *s);
+void		fill(char **args, char **raw);
+char		*sup_quote(char *arg);
+int			is_quote_in_here(char *s);
 
 /**
  * Builtins
