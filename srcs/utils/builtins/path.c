@@ -28,7 +28,7 @@ size_t	ft_strlen_lastrepo(char *s)
 static char	*chose_cdpath(t_app *app, char *input, char *arg)
 {
 	free(input);
-	input = ft_strjoin_properly(get_env(app, "CDPATH"), ft_strdup(arg));
+	input = ft_strjoin(get_env(app, "CDPATH"), arg);
 	return (input);
 }
 

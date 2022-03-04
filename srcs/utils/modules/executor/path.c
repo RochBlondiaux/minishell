@@ -58,32 +58,37 @@ static char	*no_path(t_app *app, t_command *cmd)
 	return (ft_strdup(""));
 }
 
-char	*get_executable(t_app *app, t_command *cmd, char *input)
+static char	*free_all_arr(char *path, char **paths, char *s)
+{
+	free(path);
+	free_array(paths);
+	return (s);
+}
+
+char	*get_executable(t_app *a, t_command *b, char *c)
 {
 	char		**paths;
 	int			i;
 	char		*path;
-	char		*tmp;
+	char		*t;
 
 	i = -1;
-	if (get_env(app, "PATH") == NULL)
-		return (no_path(app, cmd));
-	if (access(input, F_OK) == FALSE)
-		return (ft_strdup(input));
-	paths = ft_split(get_env(app, "PATH"), ':');
+	if (get_env(a, "PATH") == NULL)
+		return (no_path(a, b));
+	if (access(c, F_OK) == FALSE)
+		return (ft_strdup(c));
+	if (c[0] == '.' && c[1] == '/')
+		return (NULL);
+	paths = ft_split(get_env(a, "PATH"), ':');
 	path = NULL;
 	while (paths[++i])
 	{
-		tmp = get_accurate_path(paths[i], input);
-		if (tmp && !path && access(tmp, F_OK) == FALSE)
-			path = ft_strdup(tmp);
-		else if (access(tmp, F_OK | X_OK) == 0)
-		{
-			free(path);
-			free_array(paths);
-			return (exec_errors(app, cmd, tmp, input));
-		}
-		free(tmp);
+		t = get_accurate_path(paths[i], c);
+		if (t && !path && access(t, F_OK) == FALSE)
+			path = ft_strdup(t);
+		else if (access(t, F_OK | X_OK) == 0)
+			return (free_all_arr(path, paths, exec_errors(a, b, t, c)));
+		free(t);
 	}
 	free_array(paths);
 	return (path);

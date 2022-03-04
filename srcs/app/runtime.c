@@ -30,7 +30,8 @@ int	runtime(t_app *app, char *input)
 		return (FALSE);
 	}
 	input = expand_env_vars(app, input);
-	reset_str(&input, expand_wildcards(app, input));
+	if (ft_strchr(input, '*'))
+		reset_str(&input, expand_wildcards(app, input));
 	commands = parse(input);
 	if (expand(app, commands))
 		executor(app, commands);

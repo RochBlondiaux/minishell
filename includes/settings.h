@@ -13,11 +13,11 @@
 #ifndef SETTINGS_H
 # define SETTINGS_H
 
-# define PROMPT_SYMBOL "\033[0;32m➜ \033[0m"
-# define ERROR_PROMPT_SYMBOL "\033[0;31m➜ \033[0m"
+# define PROMPT_SYMBOL "🧐\033[0;32m➜ \033[0m"
+# define ERROR_PROMPT_SYMBOL "🤯\033[0;31m➜ \033[0m"
 
-# define D_QUOTE_PROMPT "\033[0;34mdquote \033[0;32m> \033[0m"
-# define QUOTE_PROMPT "\033[0;34mquote \033[0;32m> \033[0m"
+# define D_QUOTE_PROMPT "😚\033[0;34mdquote \033[0;32m> \033[0m"
+# define QUOTE_PROMPT "🤓\033[0;34mquote \033[0;32m> \033[0m"
 
 # define READ_BUFFER_SIZE 1024
 

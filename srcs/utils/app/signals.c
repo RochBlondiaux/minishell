@@ -22,10 +22,9 @@ void	ctrl_c_handler(int sig)
 	if (sig == SIGINT && app)
 	{
 		app->last_exit = 130;
-		printf("\n");
-		rl_on_new_line();
-//		rl_replace_line("", 0);
-		rl_redisplay();
+		ft_putstr_fd("\b\b  ", 2);
+		ft_putstr_fd("\n", 2);
+		ft_putstr_fd(get_prompt_symbol(g_app), 2);
 	}
 }
 

@@ -28,6 +28,35 @@ static void	init_commands(t_command **cmds)
 	cmds[i - 1]->next_cmd = NULL;
 }
 
+static int	has_permission(t_app *app, t_command *cmd)
+{
+	struct stat	statbuf;
+
+	if (!lstat(cmd->executable, &statbuf))
+	{
+		if (statbuf.st_mode & S_IFREG)
+		{
+			if (statbuf.st_mode & S_IXUSR)
+				return (TRUE);
+			else
+			{
+				cmd->status = 1;
+				error(app, PERMISSION_DENIED, cmd->name);
+				return (FALSE);
+			}
+		}
+		else
+		{
+			cmd->status = 1;
+			error(app, IS_DIRECTORY, cmd->name);
+			return (FALSE);
+		}
+	}
+	if (access(cmd->executable, F_OK | X_OK) == FALSE)
+		return (TRUE);
+	return (TRUE);
+}
+
 static void	execute_command(t_app *app, t_command *cmd, t_pipe *pipe)
 {
 	if (!find_executable(app, cmd) && !is_builtin(cmd))
@@ -36,6 +65,8 @@ static void	execute_command(t_app *app, t_command *cmd, t_pipe *pipe)
 		error(app, cmd->name, COMMAND_NOT_FOUND);
 		return ;
 	}
+	if (!has_permission(app, cmd))
+		return ;
 	if (is_builtin(cmd) && !ft_strcmp(cmd->name, "echo"))
 		return (dispatch_builtins(app, cmd));
 	if (!fork_cmd(app, cmd))
