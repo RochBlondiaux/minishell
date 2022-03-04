@@ -74,6 +74,7 @@ void	execute_native(t_app *app, t_command *cmd, t_pipe *pipe)
 		}
 		else
 		{
+			signal(SIGINT, SIG_IGN);
 			waitpid(cmd->pid, &cmd->p_status, 0);
 			dispatch_builtins(app, cmd);
 			cmd->p_status = cmd->status;

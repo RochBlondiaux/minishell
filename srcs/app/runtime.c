@@ -29,7 +29,7 @@ int	runtime(t_app *app, char *input)
 		app->last_exit = 2;
 		return (FALSE);
 	}
-	expand_env_vars(app, &input);
+	input = expand_env_vars(app, input);
 	//expand_wildcards(app, &input);
 	commands = parse(input);
 	if (expand(app, commands))

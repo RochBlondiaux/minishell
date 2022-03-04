@@ -46,7 +46,7 @@ static char	*get_remaining(char *i)
 	return (ft_substr(i, start, index - start));
 }
 
-void	expand_env_vars(t_app *app, char **input)
+char	*expand_env_vars(t_app *app, char *input)
 {
 	char	*t;
 	char	*key;
@@ -54,9 +54,9 @@ void	expand_env_vars(t_app *app, char **input)
 	int		index;
 
 	index = -1;
-	t = ft_strdup(*input);
+	t = ft_strdup(input);
 	key = get_remaining(t);
-	while (input[++index])
+	while (t[++index])
 	{
 		if (key)
 		{
@@ -70,5 +70,5 @@ void	expand_env_vars(t_app *app, char **input)
 		key = get_remaining(t);
 	}
 	free(key);
-	*input = t;
+	return (t);
 }

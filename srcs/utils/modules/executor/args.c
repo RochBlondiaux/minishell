@@ -16,13 +16,14 @@ char	**get_executable_args(t_command *cmd)
 {
 	char	**a;
 	size_t	i;
+	size_t	j;
 
-	a = malloc(sizeof(char *) * array_length(cmd->args) + 2);
-	i = 0;
+	a = malloc(sizeof(char *) * (array_length(cmd->args) + 2));
 	a[0] = ft_strdup(cmd->name);
-	i = -1;
-	while (cmd->args[++i])
-		a[i + 1] = ft_strdup(cmd->args[i]);
-	a[i + 1] = NULL;
+	i = 0;
+	j = -1;
+	while (cmd->args[++j])
+		a[++i] = ft_strdup(cmd->args[j]);
+	a[++i] = NULL;
 	return (a);
 }

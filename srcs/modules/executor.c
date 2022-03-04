@@ -14,15 +14,15 @@
 
 static void	init_commands(t_command **cmds)
 {
-	int	i;
+	size_t	i;
 
 	i = -1;
 	cmds[0]->previous_cmd = NULL;
 	while (cmds[++i])
 	{
-		if (cmds[i - 1])
+		if (i > 0)
 			cmds[i]->previous_cmd = cmds[i - 1];
-		if (cmds[i + 1])
+		if (i < commands_length(cmds))
 			cmds[i]->next_cmd = cmds[i + 1];
 	}
 	cmds[i - 1]->next_cmd = NULL;

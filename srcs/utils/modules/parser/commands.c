@@ -63,21 +63,23 @@ char	**parse_raw_commands(char *raw)
 	char	**cmds;
 	size_t	i;
 	size_t	j;
+	size_t	cmds_c;
 
-	cmds = malloc(sizeof(char *) * (count_commands(raw) + 1));
+	cmds_c = count_commands(raw);
+	cmds = malloc(sizeof(char *) * (cmds_c + 1));
 	if (!cmds)
 		return (NULL);
 	i = -1;
 	j = 0;
-	while (raw[++i] && j < count_commands(raw))
+	while (raw[++i] && j < cmds_c)
 	{
-		if (i == 0 && raw[i] == '$')
-			while (raw[++i] != ' ')
-				;
-		cmds[j++] = ft_substr(raw, i, strchr_sep(&raw[i], 0));
-		i += strchr_sep(&raw[i], 1);
+		cmds[j] = ft_substr(raw, i, strchr_sep(&raw[i], 0));
+		j ++;
+		i += strchr_sep(&raw[i], 1) - 1;
 		if (raw[i + 1] && (raw[i + 1] == '|' || raw[i + 1] == '&'))
 			i++;
+		if (!raw[i])
+			break ;
 	}
 	cmds[j] = NULL;
 	return (cmds);

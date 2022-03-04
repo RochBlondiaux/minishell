@@ -73,7 +73,7 @@ size_t		count_commands(char *args);
 char		**parse_raw_commands(char *raw);
 char		*parse_redirections(t_command *command, char *raw);
 char		**parse_quotes(char *raw);
-void		expand_env_vars(t_app *app, char **input);
+char		*expand_env_vars(t_app *app, char *input);
 int			expand_input(t_app *app, t_command *cmd);
 void		parse_cmd_tokens(t_command **cmds, char *raw);
 char		*get_executable(t_app *app, t_command *cmd, char *input);

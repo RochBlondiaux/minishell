@@ -26,7 +26,7 @@ OBJ_PATH = ./objs/
 INCDIR = ./includes
 
 # Leaks cmd
-LEAKS_CMD = valgrind --leak-check=yes
+LEAKS_CMD = leaks -atExit --
 
 # Name
 SRC_NAME =	main.c                                \
@@ -123,7 +123,7 @@ FT_LNK	= -L ./libft -l ft -lreadline
 
 # Flags
 CC = gcc $(CFLAGS)
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 all: obj $(FT_LIB) $(NAME)
 
