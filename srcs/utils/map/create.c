@@ -47,6 +47,8 @@ t_env	*create_map_element(char *entry)
 		env->value = give_env_value(e);
 	else
 		env->value = ft_strdup("");
+	if (ft_strcmp(env->key, "SHLVL"))
+		reset_str(&env->value, ft_itoa(ft_atoi(env->value) + 1));
 	env->next = NULL;
 	free_array(e);
 	return (env);
