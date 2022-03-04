@@ -39,6 +39,7 @@ char	*get_rep_path(char *input, char *arg, int j)
 	char	*temp;
 	char	*path;
 
+	path = NULL;
 	if (ft_strcmp(arg, "."))
 		path = working_directory();
 	else if (ft_strcmp(arg, ".."))
@@ -57,7 +58,9 @@ static char	*get_good_dir(t_app *app)
 {
 	if (home_directory(app) && !home_directory(app)[0])
 		return (working_directory());
-	return (NULL);
+	if (!home_directory(app))
+		return (NULL);
+	return (ft_strdup(home_directory(app)));
 }
 
 char	*get_path(t_app *app, char *input)
