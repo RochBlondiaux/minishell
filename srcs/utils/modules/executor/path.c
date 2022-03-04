@@ -65,8 +65,6 @@ char	*get_executable(t_app *app, t_command *cmd, char *input)
 	char		*path;
 	char		*tmp;
 
-// CHANGER CA MARHCE PAS GENRE ./TEST = rien alors que ca devrait etre no 
-//					such file or directory
 	i = -1;
 	if (get_env(app, "PATH") == NULL)
 		return (no_path(app, cmd));

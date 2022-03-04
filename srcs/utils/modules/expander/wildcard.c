@@ -31,29 +31,27 @@ static char	*get_files(void)
 				c = ft_strjoin_properly(c, ft_strjoin(dir->d_name, " "));
 			dir = readdir(d);
 		}
+		free(hd);
 		closedir(d);
 		return (c);
 	}
+	free(hd);
 	return (ft_strdup("*"));
 }
 
-void	expand_wildcards(t_app *app, char **input)
+char	*expand_wildcards(t_app *app, char *input)
 {
-	int		i;
 	char	*files;
 	char	*r;
 
-	i = -1;
 	(void) app;
-	r = *input;
-	while (r[++i])
-	{
-		if (r[i] != '*')
-			continue ;
-		files = get_files();
-		if (!files)
-			continue ;
-		r = replace_str(ft_strdup(r), "*", files);
-	}
-	*input = r;
+	r = input;
+	if (ft_strchr(r, '*') == 0)
+		return (r);
+	files = get_files();
+	if (!files)
+		return (r);
+	r = replace_str(r, "*", files);
+	free(files);
+	return (r);
 }

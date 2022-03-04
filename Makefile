@@ -123,7 +123,7 @@ FT_LNK	= -L ./libft -l ft -lreadline
 
 # Flags
 CC = gcc $(CFLAGS)
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 all: obj $(FT_LIB) $(NAME)
 

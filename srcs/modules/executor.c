@@ -36,6 +36,8 @@ static void	execute_command(t_app *app, t_command *cmd, t_pipe *pipe)
 		error(app, cmd->name, COMMAND_NOT_FOUND);
 		return ;
 	}
+	if (is_builtin(cmd) && !ft_strcmp(cmd->name, "echo"))
+		return (dispatch_builtins(app, cmd));
 	if (!fork_cmd(app, cmd))
 		return ;
 	execute_native(app, cmd, pipe);
