@@ -48,7 +48,7 @@ static int	has_permission(t_app *app, t_command *cmd)
 		else
 		{
 			cmd->status = 1;
-			error(app, IS_DIRECTORY, cmd->name);
+			error(app, cmd->name, IS_DIRECTORY);
 			return (FALSE);
 		}
 	}

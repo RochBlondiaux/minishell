@@ -21,7 +21,7 @@
 # define UNSET_ERROR "unset: invalid parameter name"
 # define OLDPWD_UNDEFINED "OLDPWD not set"
 # define NOT_ENOUGH_ARGS "👌 Not enough arguments"
-# define PERMISSION_DENIED "✋🏻 Permission denied"
+# define PERMISSION_DENIED "✋ Permission denied"
 # define FORK_ERROR "🍴 Fork error"
 # define PIPE_ERROR "🔩 PIPE error"
 # define HOME_UNDEFINED "🏚 You don't have a house!"

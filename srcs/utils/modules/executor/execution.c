@@ -36,8 +36,11 @@ static void	update_status(t_command *cmd)
 
 void	execute_native(t_app *app, t_command *cmd, t_pipe *pipe)
 {
+	char	**env;
+
 	if (cmd->pid == 0)
 	{
+		env = format_env(app);
 		enable_signal(app);
 		dup2(pipe->backup, 0);
 		if (cmd->next_token == PIPE && cmd->next_cmd)
@@ -46,7 +49,7 @@ void	execute_native(t_app *app, t_command *cmd, t_pipe *pipe)
 		if (is_builtin(cmd))
 			dispatch_builtins(app, cmd);
 		else
-			execve(cmd->executable, get_executable_args(cmd), NULL);
+			execve(cmd->executable, get_executable_args(cmd), env);
 		exit(1);
 	}
 	else

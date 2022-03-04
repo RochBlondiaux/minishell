@@ -145,6 +145,7 @@ void		set_env(t_app *app, char *name, char *key);
 int			check_new_env(t_app *app, char *var);
 int			print_right_output(t_app *app, t_command *cmd);
 void		free_env(t_env *env);
+char		**format_env(t_app *app);
 
 /**
  * IO Utils

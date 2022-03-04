@@ -86,6 +86,7 @@ SRC_NAME =	main.c                                \
 			utils/env/set.c                       \
 			utils/env/checks.c                    \
 			utils/env/free.c                      \
+			utils/env/format.c                    \
 			utils/array/length.c                  \
 			utils/array/free.c                    \
 			utils/array/sub.c                     \
