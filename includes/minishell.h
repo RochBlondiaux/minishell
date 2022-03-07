@@ -52,6 +52,7 @@ int			runtime(t_app *app, char *input);
 void		start_application(t_app *app);
 void		stop_application(t_app *app);
 void		handle_mode(t_app *app, char *input, char **ret);
+char		*get_right_prompt(t_app *app);
 
 /**
  * Modules
@@ -202,5 +203,7 @@ size_t		redirections_length(t_redir *list);
  * Delimiters utils
  */
 int			contains_del(char *input);
+char		*is_the_del(char *input);
+void		delimit_all(t_app *app, char *delimitor);
 
 #endif

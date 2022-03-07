@@ -23,7 +23,7 @@ static int	has_close_quote(t_app *app, char *s)
 		|| (mode == QUOTE && ft_contains(s, '\'') % 2 == 1));
 }
 
-static char	*get_right_prompt(t_app *app)
+char	*get_right_prompt(t_app *app)
 {
 	if (app->mode == D_QUOTE)
 		return (D_QUOTE_PROMPT);
@@ -78,7 +78,10 @@ void	handle_mode(t_app *app, char *input, char **ret)
 	update_mode(app, input);
 	if (app->mode == NORMAL)
 		return ;
-	tmp = get_arg(app);
+	else if (app->mode == DELIMIT)
+		delimit_all(app, is_the_del(input));
+	else
+		tmp = get_arg(app);
 	app->mode = NORMAL;
 	if (!tmp)
 		return ;
