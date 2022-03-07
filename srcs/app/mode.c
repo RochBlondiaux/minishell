@@ -27,7 +27,9 @@ static char	*get_right_prompt(t_app *app)
 {
 	if (app->mode == D_QUOTE)
 		return (D_QUOTE_PROMPT);
-	return (QUOTE_PROMPT);
+	else if (app->mode == QUOTE)
+		return (QUOTE_PROMPT);
+	return (DELIMIT_PROMPT);
 }
 
 static void	update_mode(t_app *app, char *input)
@@ -40,6 +42,8 @@ static void	update_mode(t_app *app, char *input)
 		app->mode = D_QUOTE;
 	else if (ft_contains(input, '\'') == 1)
 		app->mode = QUOTE;
+	else if (contains_del(input))
+		app->mode = DELIMIT;
 	else
 		app->mode = NORMAL;
 }

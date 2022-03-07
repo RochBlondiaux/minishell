@@ -17,6 +17,7 @@ typedef enum s_prompt_mode {
 	NORMAL,
 	QUOTE,
 	D_QUOTE,
+	DELIMIT,
 }		t_prompt_mode;
 
 typedef enum s_redirection {

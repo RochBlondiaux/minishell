@@ -198,4 +198,9 @@ void		add_redirection(t_redir **list, t_redir *redir);
 void		free_redirections(t_redir **list);
 size_t		redirections_length(t_redir *list);
 
+/**
+ * Delimiters utils
+ */
+int			contains_del(char *input);
+
 #endif

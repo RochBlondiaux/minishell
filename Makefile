@@ -108,7 +108,8 @@ SRC_NAME =	main.c                                \
 			utils/redirections/new.c              \
 			utils/redirections/free.c             \
 			utils/redirections/add.c              \
-			utils/redirections/length.c
+			utils/redirections/length.c           \
+			utils/delimiters/delimit.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -139,6 +140,7 @@ obj:
 	@mkdir -p $(OBJ_PATH)/utils/app
 	@mkdir -p $(OBJ_PATH)/utils/string
 	@mkdir -p $(OBJ_PATH)/utils/array
+	@mkdir -p $(OBJ_PATH)/utils/delimiters
 	@mkdir -p $(OBJ_PATH)/utils/env
 	@mkdir -p $(OBJ_PATH)/utils/map
 	@mkdir -p $(OBJ_PATH)/utils/commands
