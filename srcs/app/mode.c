@@ -79,7 +79,7 @@ void	handle_mode(t_app *app, char *input, char **ret)
 	if (app->mode == NORMAL)
 		return ;
 	else if (app->mode == DELIMIT)
-		delimit_all(app, is_the_del(input));
+		reset_str(ret, delimit_all(app, input, is_the_del(input)));
 	else
 		tmp = get_arg(app);
 	app->mode = NORMAL;

@@ -12,6 +12,33 @@
 
 #include "../../../includes/minishell.h"
 
+static char	*get_rid_delim(char *input)
+{
+	size_t	i;
+	size_t	j;
+	char	*dest;
+
+	i = -1;
+	while (input[++i])
+	{
+		if (input[i] == '<' && input[i + 1] == '<')
+			break ;
+	}
+	dest = ft_substr(input, 0, i);
+	j = 0;
+	while (input[i] == ' ' || input[i] == '<')
+		i ++;
+	while (input[i + j])
+	{
+		if (input[i + j] == ' ')
+			break ;
+		j ++;
+	}
+	dest = ft_strjoin_properly(dest, ft_substr(input, i + j + 1,
+				ft_strlen(input) - (i + j + 1)));
+	return (dest);
+}
+
 int	contains_del(char *input)
 {
 	size_t	i;
@@ -35,23 +62,22 @@ char	*is_the_del(char *input)
 	while (input[++i])
 	{
 		if (input[i] == '<' && input[i + 1] == '<')
-			break;
+			break ;
 	}
 	i += 2;
 	if (input[i] == ' ')
 		i ++;
-	while (input[i + j] != ' ' && input[i + j])
+	while (input[i + j] && input[i + j] != ' ')
 		j ++;
-	return (ft_substr(input, i, i + j));
+	return (ft_substr(input, i, j));
 }
 
-void	delimit_all(t_app *app, char *delimitor)
+char	*delimit_all(t_app *app, char *input, char *delimitor)
 {
-	char	*input;
+	char	*line;
 
-	input = readline(get_right_prompt(app));
-	if (ft_strcmp(input, delimitor) == 0)
-		delimit_all(app, delimitor);
-	else
-		return;
+	line = readline(DELIMIT_PROMPT);
+	if (ft_strcmp_sensitive(line, delimitor) == 0)
+		delimit_all(app, input, delimitor);
+	return (get_rid_delim(input));
 }

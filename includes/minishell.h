@@ -204,6 +204,6 @@ size_t		redirections_length(t_redir *list);
  */
 int			contains_del(char *input);
 char		*is_the_del(char *input);
-void		delimit_all(t_app *app, char *delimitor);
+char		*delimit_all(t_app *app, char *input, char *delimitor);
 
 #endif

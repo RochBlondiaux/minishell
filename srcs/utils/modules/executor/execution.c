@@ -34,18 +34,26 @@ static void	update_status(t_command *cmd)
 	cmd->p_status = WTERMSIG(cmd->p_status);
 }
 
+static char	**normed(t_app *app, t_command *cmd, t_pipe *pipe)
+{
+	char	**env;
+
+	env = format_env(app);
+	enable_signal(app);
+	dup2(pipe->backup, 0);
+	if (cmd->next_token == PIPE && cmd->next_cmd)
+		dup2(pipe->out, STDOUT_FILENO);
+	handle_redirections(cmd, pipe);
+	return (env);
+}
+
 void	execute_native(t_app *app, t_command *cmd, t_pipe *pipe)
 {
 	char	**env;
 
 	if (cmd->pid == 0)
 	{
-		env = format_env(app);
-		enable_signal(app);
-		dup2(pipe->backup, 0);
-		if (cmd->next_token == PIPE && cmd->next_cmd)
-			dup2(pipe->out, STDOUT_FILENO);
-		handle_redirections(cmd, pipe);
+		env = normed(app, cmd, pipe);
 		if (is_builtin(cmd))
 			dispatch_builtins(app, cmd);
 		else
