@@ -24,7 +24,13 @@ void	start_application_loop(t_app *app)
 		handle_mode(app, line, &line);
 		add_history(line);
 		rv = runtime(app, line);
-		if (!line)
+		if (!line && app->mode != NORMAL)
+		{
+			app->mode = NORMAL;
+			printf("\n");
+			continue ;
+		}
+		else if (!line && app->mode == NORMAL)
 			break ;
 		if (!rv || !ft_strlen(line))
 		{

@@ -76,8 +76,23 @@ char	*delimit_all(t_app *app, char *input, char *delimitor)
 {
 	char	*line;
 
-	line = readline(DELIMIT_PROMPT);
-	if (ft_strcmp_sensitive(line, delimitor) == 0)
-		delimit_all(app, input, delimitor);
+	line = readline(get_right_prompt(app));
+	while (line)
+	{
+		if (!line)
+			break ;
+		if (ft_strcmp_sensitive(line, delimitor) == 0)
+		{
+			free(line);
+			line = readline(get_right_prompt(app));
+		}
+		else
+			break ;
+	}
+	free(delimitor);
+	if (!line)
+		return (NULL);
+	free(line);
+	app->mode = NORMAL;
 	return (get_rid_delim(input));
 }

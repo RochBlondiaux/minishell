@@ -58,15 +58,13 @@ char	*get_arg(t_app *app)
 	while (!has_close_quote(app, input))
 	{
 		if (!input)
-		{
-			errno = 125;
-			str_error(app, "-minishell");
-			return (NULL);
-		}
+			break ;
 		tmp = ft_strjoin_properly(ft_strjoin_properly(tmp,
 					input), ft_strdup("\n"));
 		input = readline(get_right_prompt(app));
 	}
+	if (!input)
+		return (NULL);
 	tmp = ft_strjoin_properly(tmp, input);
 	return (tmp);
 }
@@ -78,13 +76,13 @@ void	handle_mode(t_app *app, char *input, char **ret)
 	update_mode(app, input);
 	if (app->mode == NORMAL)
 		return ;
-	else if (app->mode == DELIMIT)
-		reset_str(ret, delimit_all(app, input, is_the_del(input)));
+	if (app->mode == DELIMIT)
+		return (reset_str(ret, delimit_all(app, input, is_the_del(input))));
 	else
 		tmp = get_arg(app);
-	app->mode = NORMAL;
 	if (!tmp)
-		return ;
+		return (reset_str(ret, NULL));
+	app->mode = NORMAL;
 	input = ft_strjoin_properly(input, ft_strdup("\n"));
 	*ret = ft_strjoin_properly(input, tmp);
 }
