@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
+/*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/29 16:57:17 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:49:51 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void		check_for_env(t_app *app, t_command **cmd);
 void		check_for_args_env(t_command *cmd);
 char		*expand_wildcards(t_app *app, char *input);
 int			find_executable(t_app *app, t_command *cmd);
-void		handle_redirections(t_command *cmd, t_pipe *pipe);
 int			get_quote_in_here(char *s);
 void		fill(char **args, char **raw);
 char		*sup_quote(char *arg);
@@ -205,6 +204,6 @@ size_t		redirections_length(t_redir *list);
  */
 int			contains_del(char *input);
 char		*is_the_del(char *input);
-char		*delimit_all(t_app *app, char *input, char *delimitor);
+char		*delimit_all(t_app *app, t_command *cmd);
 
 #endif

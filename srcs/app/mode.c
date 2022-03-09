@@ -27,7 +27,7 @@ char	*get_right_prompt(t_app *app)
 {
 	if (app->mode == D_QUOTE)
 		return (D_QUOTE_PROMPT);
-	else if (app->mode == QUOTE)
+	if (app->mode == QUOTE)
 		return (QUOTE_PROMPT);
 	return (DELIMIT_PROMPT);
 }
@@ -42,8 +42,6 @@ static void	update_mode(t_app *app, char *input)
 		app->mode = D_QUOTE;
 	else if (ft_contains(input, '\'') == 1)
 		app->mode = QUOTE;
-	else if (contains_del(input))
-		app->mode = DELIMIT;
 	else
 		app->mode = NORMAL;
 }
@@ -74,10 +72,8 @@ void	handle_mode(t_app *app, char *input, char **ret)
 	char	*tmp;
 
 	update_mode(app, input);
-	if (app->mode == NORMAL)
+	if (app->mode == NORMAL || app->mode == DELIMITER)
 		return ;
-	if (app->mode == DELIMIT)
-		return (reset_str(ret, delimit_all(app, input, is_the_del(input))));
 	else
 		tmp = get_arg(app);
 	if (!tmp)

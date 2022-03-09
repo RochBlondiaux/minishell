@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
+/*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/29 16:57:17 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:50:13 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-void	handle_redirections(t_command *cmd, t_pipe *pipe)
+static void	handle_redirections(t_app *app, t_command *cmd, t_pipe *pipe)
 {
+	int		fd;
+	char	*c;
+
 	close(pipe->in);
 	if (cmd->input_fd > 0)
 	{
@@ -23,6 +26,19 @@ void	handle_redirections(t_command *cmd, t_pipe *pipe)
 	close(pipe->out);
 	if (cmd->output_fd > 0)
 		dup2(cmd->output_fd, STDOUT_FILENO);
+	c = delimit_all(app, cmd);
+	if (c)
+	{
+		fd = open(c, O_RDONLY);
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+		unlink(c);
+	}
+	else if (!c)
+	{
+		printf("\n");
+		exit (0);
+	}
 }
 
 static void	update_status(t_command *cmd)
@@ -43,7 +59,7 @@ static char	**normed(t_app *app, t_command *cmd, t_pipe *pipe)
 	dup2(pipe->backup, 0);
 	if (cmd->next_token == PIPE && cmd->next_cmd)
 		dup2(pipe->out, STDOUT_FILENO);
-	handle_redirections(cmd, pipe);
+	handle_redirections(app, cmd, pipe);
 	return (env);
 }
 
