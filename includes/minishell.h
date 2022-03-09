@@ -170,6 +170,7 @@ int			strchr_separator(char *s);
 void		is_in_quotes(int *quote, char c);
 void		reset_str(char **original, char *replacement);
 size_t		ft_contains(char *s, char c);
+char		*replace_first(char *str, char *find, char *replace);
 
 /**
  * Commands utils

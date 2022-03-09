@@ -21,7 +21,7 @@ static int	should_ignore(char *i, size_t start, size_t end)
 	index = -1;
 	if (index - start == 1)
 		return (TRUE);
-	while (i[++index] && index < end)
+	while (i[++index] && index <= end)
 	{
 		is_in_quotes(&q, i[index]);
 		if (index == start)
@@ -30,19 +30,28 @@ static int	should_ignore(char *i, size_t start, size_t end)
 	return (FALSE);
 }
 
-static char	*get_remaining(char *i)
+static char	*get_remaining(char *i, int *i1)
 {
 	size_t	start;
 	size_t	index;
 
-	start = ft_strchr(i, '$');
+	start = ft_strchr(&i[*i1], '$');
+	if (start > 0)
+		start += *i1;
 	if (start == 0 || i[start + 1] == '?')
+	{
+		(*i1)++;
 		return (NULL);
+	}
 	index = start;
 	while (i[++index] && ft_isalnum(i[index]))
 		;
 	if (should_ignore(i, start, index))
+	{
+		(*i1) += ft_strchr(&i[start], '$') + 1;
 		return (NULL);
+	}
+	(*i1) += (index - start);
 	return (ft_substr(i, start, index - start));
 }
 
@@ -53,21 +62,20 @@ char	*expand_env_vars(t_app *app, char *input)
 	char	*value;
 	int		index;
 
-	index = -1;
+	index = 0;
 	t = ft_strdup(input);
-	key = get_remaining(t);
-	while (t[++index])
+	key = get_remaining(t, &index);
+	while (t[index])
 	{
 		if (key)
 		{
 			value = get_env(app, &key[1]);
 			if (!value)
 				value = "";
-			reset_str(&t, replace_str(t, key, value));
-			index += ft_strlen(value);
+			reset_str(&t, replace_first(t, key, value));
 			free(key);
 		}
-		key = get_remaining(t);
+		key = get_remaining(t, &index);
 	}
 	free(key);
 	return (t);
