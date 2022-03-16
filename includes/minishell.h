@@ -168,6 +168,8 @@ char		*replace_str(char *sentence, char *find, char *replace);
 int			strchr_separator(char *s);
 void		is_in_quotes(int *quote, char c);
 void		reset_str(char **original, char *replacement);
+void		reset_cmd(t_app *app, t_command *cmd, char *input);
+char		*reset_arg(char *original, char *replacement);
 size_t		ft_contains(char *s, char c);
 char		*replace_first(char *str, char *find, char *replace);
 
@@ -205,5 +207,9 @@ size_t		redirections_length(t_redir *list);
 int			contains_del(char *input);
 char		*is_the_del(char *input);
 char		*delimit_all(t_app *app, t_command *cmd);
+int			is_a_delim(t_redir *r);
+char		*join_delims(char *args, char *line, int *i, size_t *j);
+void		handle_delims(t_app *app, t_command *cmd);
+int			ft_contains_delim(char *input);
 
 #endif

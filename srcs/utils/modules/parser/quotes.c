@@ -68,10 +68,7 @@ int	is_quote_in_here(char *s)
 			i ++;
 		}
 		if (s[i] == same_quote)
-		{
 			quote ++;
-			continue ;
-		}
 	}
 	if (quote % 2 == 0 || quote == 0)
 		return (0);

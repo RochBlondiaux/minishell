@@ -27,7 +27,7 @@ void	start_application_loop(t_app *app)
 		if (!line && app->mode != NORMAL)
 		{
 			app->mode = NORMAL;
-			printf("\n");
+			app->exit = 1;
 			continue ;
 		}
 		else if (!line && app->mode == NORMAL)

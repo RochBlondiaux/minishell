@@ -21,12 +21,12 @@ void	ctrl_c_handler(int sig)
 	app = g_app;
 	if (sig == SIGINT && app)
 	{
-		if (app->mode != NORMAL)
-			app->mode = NORMAL;
+		app->mode = NORMAL;
 		app->last_exit = 130;
+		app->exit = 1;
 		ft_putstr_fd("\b\b  ", 2);
 		ft_putstr_fd("\n", 2);
-		ft_putstr_fd(get_prompt_symbol(g_app), 2);
+		ft_putstr_fd(get_prompt_symbol(app), 2);
 	}
 }
 

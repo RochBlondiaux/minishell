@@ -27,9 +27,11 @@ char	*get_right_prompt(t_app *app)
 {
 	if (app->mode == D_QUOTE)
 		return (D_QUOTE_PROMPT);
-	if (app->mode == QUOTE)
+	else if (app->mode == QUOTE)
 		return (QUOTE_PROMPT);
-	return (DELIMIT_PROMPT);
+	else if (app->mode == DELIMIT)
+		return (DELIMIT_PROMPT);
+	return (PROMPT_SYMBOL);
 }
 
 static void	update_mode(t_app *app, char *input)
@@ -42,6 +44,8 @@ static void	update_mode(t_app *app, char *input)
 		app->mode = D_QUOTE;
 	else if (ft_contains(input, '\'') == 1)
 		app->mode = QUOTE;
+	else if (ft_contains_delim(input) != FALSE)
+		app->mode = DELIMIT;
 	else
 		app->mode = NORMAL;
 }
@@ -51,18 +55,20 @@ char	*get_arg(t_app *app)
 	char	*input;
 	char	*tmp;
 
-	input = readline(get_right_prompt(app));
 	tmp = ft_strdup("");
-	while (!has_close_quote(app, input))
+	while (1)
 	{
-		if (!input)
+		input = readline(get_right_prompt(app));
+		if (!input || has_close_quote(app, input))
 			break ;
+		if (app->mode == NORMAL)
+		{
+			free(tmp);
+			return (ft_strtrim(input, "\n"));
+		}
 		tmp = ft_strjoin_properly(ft_strjoin_properly(tmp,
 					input), ft_strdup("\n"));
-		input = readline(get_right_prompt(app));
 	}
-	if (!input)
-		return (NULL);
 	tmp = ft_strjoin_properly(tmp, input);
 	return (tmp);
 }
@@ -72,13 +78,11 @@ void	handle_mode(t_app *app, char *input, char **ret)
 	char	*tmp;
 
 	update_mode(app, input);
-	if (app->mode == NORMAL || app->mode == DELIMITER)
+	if (app->mode == NORMAL || app->mode == DELIMIT)
 		return ;
-	else
-		tmp = get_arg(app);
-	if (!tmp)
-		return (reset_str(ret, NULL));
-	app->mode = NORMAL;
+	tmp = get_arg(app);
+	if (app->mode == NORMAL)
+		return (reset_str(ret, tmp));
 	input = ft_strjoin_properly(input, ft_strdup("\n"));
 	*ret = ft_strjoin_properly(input, tmp);
 }

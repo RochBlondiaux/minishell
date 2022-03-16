@@ -12,6 +12,20 @@
 
 #include "../../../includes/minishell.h"
 
+int	ft_contains_delim(char *input)
+{
+	size_t	i;
+
+	i = -1;
+	while (input[++i])
+	{
+		if (input[i] == '<' && input[i + 1] == '<'
+			&& input[i + 2] && input[i + 2] != '<')
+			return (TRUE);
+	}
+	return (FALSE);
+}
+
 size_t	ft_contains(char *s, char c)
 {
 	size_t	j;

@@ -49,7 +49,7 @@ static char	**are_the_del(t_redir *r)
 	return (dest);
 }
 
-static int	is_a_delim(t_redir *r)
+int	is_a_delim(t_redir *r)
 {
 	t_redir	*tmp;
 
@@ -72,30 +72,22 @@ static char	*print_delim(t_app *app, char **delimitors)
 
 	i = -1;
 	j = 0;
-	line = readline(DELIMIT_PROMPT);
 	args = ft_strdup("");
-	while (line)
+	while (1)
 	{
-		if (!line)
-			break ;
+		line = readline(get_right_prompt(app));
 		if (ft_strcmp_sensitive(line, delimitors[j]) == 0)
-		{
-			i = -1;
-			j = -1;
-			args = ft_strjoin_properly(args, ft_strdup(line));
-			args = ft_strjoin_properly(args, ft_strdup("\n"));
-		}
+			args = join_delims(args, line, &i, &j);
 		else if (ft_strcmp_sensitive(line, delimitors[j]) != 0)
 			i += 1;
-		if (i == ((int)array_length(delimitors) - 1))
+		if (app->mode == NORMAL)
+			return (reset_arg(args, line));
+		if ((i == ((int)array_length(delimitors) - 1)))
 			break ;
 		free(line);
-		line = readline(get_right_prompt(app));
 		j ++;
 	}
 	free_array(delimitors);
-	if (!line)
-		return (NULL);
 	free(line);
 	return (args);
 }
@@ -106,12 +98,14 @@ char	*delimit_all(t_app *app, t_command *cmd)
 	int		fd;
 	char	*a;
 
-	if (is_a_delim(cmd->redirections) == 0)
-		return (NULL);
 	delimitors = are_the_del(cmd->redirections);
 	a = print_delim(app, delimitors);
-	if (!a)
-		return (NULL);
+	if (app->mode == NORMAL)
+	{
+		free_array(delimitors);
+		return (a);
+	}
+	app->mode = NORMAL;
 	fd = open("jas2ASSD66aS6gg56q6ev3as3dxx6v6cxv565",
 			O_CREAT | O_RDWR | O_APPEND, S_IRUSR
 			| S_IRGRP | S_IWGRP | S_IWUSR);

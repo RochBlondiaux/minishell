@@ -43,26 +43,28 @@ static char	*get_unquoted(char *arg, int quote)
 			dest[++j] = arg[i];
 	}
 	dest[++j] = '\0';
+	dest = ft_strtrim(dest, " ");
 	return (dest);
 }
 
-static char	*fill_quotes(char **raw, char *args, int i, int quote)
+static char	*fill_quotes(char **raw, char *args, size_t *i, int quote)
 {
-	quote = raw[i][get_quote_in_here(raw[i])];
-	while (quote != 0 && raw[i] && raw[i + 1])
+	quote = raw[*i][get_quote_in_here(raw[*i])];
+	while (quote != 0 && raw[*i] && raw[*i + 1])
 	{
 		if (!args)
-			args = ft_strjoin(raw[i], " ");
+			args = ft_strjoin(raw[*i], " ");
 		else
 			args = ft_strjoin_properly(args,
-					ft_strjoin(raw[i], " "));
-		if (get_quote_in_here(raw[i + 1]) != -1)
+					ft_strjoin(raw[*i], " "));
+		if (get_quote_in_here(raw[*i + 1]) != -1)
 		{
 			args = ft_strjoin_properly(args,
-					ft_strjoin(raw[i + 1], " "));
+					ft_strjoin(raw[*i + 1], " "));
 			args = sup_quote(args);
 			quote = 0;
 		}
+		*i += 1;
 	}
 	return (args);
 }
@@ -107,8 +109,7 @@ void	fill(char **args, char **raw)
 		else
 		{
 			j ++;
-			args[j] = fill_quotes(raw, args[j], i, quote);
-			i ++;
+			args[j] = fill_quotes(raw, args[j], &i, quote);
 		}
 	}
 	args[++j] = NULL;
