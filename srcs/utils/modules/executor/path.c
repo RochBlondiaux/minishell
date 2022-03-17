@@ -6,7 +6,7 @@
 /*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/03/04 10:14:26 by lfilloux         ###   ########.fr       */
+/*   Updated: 2022/03/17 14:12:30 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ char	*get_executable(t_app *a, t_command *b, char *c)
 	i = -1;
 	if (get_env(a, "PATH") == NULL)
 		return (no_path(a, b));
-	if (access(c, F_OK) == FALSE)
-		return (ft_strdup(c));
 	if (c[0] == '.' && c[1] == '/')
-		return (NULL);
+		return (ft_strdup(c));
+	if ((access(c, F_OK) == FALSE))
+		return (right_file(c));
 	paths = ft_split(get_env(a, "PATH"), ':');
 	path = NULL;
 	while (paths[++i])

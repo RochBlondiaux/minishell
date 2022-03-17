@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runtime.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
+/*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/29 16:57:17 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/03/17 13:49:39 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	runtime(t_app *app, char *input)
 		return (FALSE);
 	}
 	input = expand_env_vars(app, input);
-	//if (ft_strchr(input, '*'))
-	//	reset_str(&input, expand_wildcards(app, input));
+	if (!input)
+		return (FALSE);
 	commands = parse(input);
 	if (expand(app, commands))
 		executor(app, commands);

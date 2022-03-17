@@ -31,7 +31,10 @@ void	start_application_loop(t_app *app)
 			continue ;
 		}
 		else if (!line && app->mode == NORMAL)
+		{
+			printf("\n");
 			break ;
+		}
 		if (!rv || !ft_strlen(line))
 		{
 			free(line);

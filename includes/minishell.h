@@ -6,7 +6,7 @@
 /*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/03/09 18:49:51 by lfilloux         ###   ########.fr       */
+/*   Updated: 2022/03/17 14:13:46 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void		add_map_element(t_env **env, t_env *new);
 void		free_map(t_env **env);
 t_env		*create_map_element(char *entry);
 t_env		*get_map_element(t_env *env, char *name);
-int			remove_map_element(t_app *app, t_env **env, char *key);
+int			remove_map_element(t_env **env, char *key);
 void		print_sorted_map(t_env *env);
 size_t		map_length(t_env *env);
 
@@ -172,6 +172,7 @@ void		reset_cmd(t_app *app, t_command *cmd, char *input);
 char		*reset_arg(char *original, char *replacement);
 size_t		ft_contains(char *s, char c);
 char		*replace_first(char *str, char *find, char *replace);
+char		*right_file(char *c);
 
 /**
  * Commands utils

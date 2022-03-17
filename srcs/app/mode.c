@@ -70,6 +70,8 @@ char	*get_arg(t_app *app)
 					input), ft_strdup("\n"));
 	}
 	tmp = ft_strjoin_properly(tmp, input);
+	if (!input)
+		return (NULL);
 	return (tmp);
 }
 
@@ -81,7 +83,7 @@ void	handle_mode(t_app *app, char *input, char **ret)
 	if (app->mode == NORMAL || app->mode == DELIMIT)
 		return ;
 	tmp = get_arg(app);
-	if (app->mode == NORMAL)
+	if (app->mode == NORMAL || !tmp)
 		return (reset_str(ret, tmp));
 	input = ft_strjoin_properly(input, ft_strdup("\n"));
 	*ret = ft_strjoin_properly(input, tmp);

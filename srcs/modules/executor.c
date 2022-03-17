@@ -6,7 +6,7 @@
 /*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/03/09 16:50:46 by lfilloux         ###   ########.fr       */
+/*   Updated: 2022/03/17 14:07:01 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	has_permission(t_app *app, t_command *cmd)
 				return (TRUE);
 			else
 			{
-				cmd->status = 1;
+				cmd->status = 126;
 				error(app, PERMISSION_DENIED, cmd->name);
 				return (FALSE);
 			}

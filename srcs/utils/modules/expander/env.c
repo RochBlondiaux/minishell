@@ -6,7 +6,7 @@
 /*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/03/04 10:22:45 by lfilloux         ###   ########.fr       */
+/*   Updated: 2022/03/17 13:57:43 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,33 @@ static char	*get_remaining(char *i, int *i1)
 	return (ft_substr(i, start, index - start));
 }
 
+static int	solo_env(t_app *app, char **input)
+{
+	size_t	i;
+	size_t	j;
+
+	j = -1;
+	while (input[++j])
+	{
+		i = 0;
+		if (input[j][i] != '$' || get_env(app, input[j]))
+		{
+			free_array(input);
+			return (FALSE);
+		}
+		while (input[j][++i])
+		{
+			if (input[j][i] == ' ' || input[j][i] == '$')
+			{
+				free_array(input);
+				return (FALSE);
+			}
+		}
+	}
+	free_array(input);
+	return (TRUE);
+}
+
 char	*expand_env_vars(t_app *app, char *input)
 {
 	char	*t;
@@ -63,6 +90,8 @@ char	*expand_env_vars(t_app *app, char *input)
 	int		index;
 
 	index = 0;
+	if (solo_env(app, ft_split(input, ' ')) == TRUE)
+		return (NULL);
 	t = ft_strdup(input);
 	key = get_remaining(t, &index);
 	while (t[index])

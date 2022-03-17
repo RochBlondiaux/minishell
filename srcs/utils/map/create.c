@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
+/*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/29 16:57:17 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/03/17 14:30:17 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_env	*create_map_element(char *entry)
 	char	**e;
 	t_env	*env;
 
-	if (ft_strchr(entry, '=') <= 0)
+	if (ft_strchr(entry, '=') != 0)
 		return (NULL);
 	env = malloc(sizeof(t_env));
 	if (!env)

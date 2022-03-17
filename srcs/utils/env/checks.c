@@ -12,40 +12,10 @@
 
 #include "../../../includes/minishell.h"
 
-static t_env	*check_existence(t_env *env, char *name)
-{
-	t_env	*tmp;
-
-	while (env)
-	{
-		tmp = (env)->next;
-		if (tmp && (ft_strcmp_sensitive(tmp->key, name)
-				|| ft_strcmp_sensitive(tmp->value, name)))
-			return (tmp);
-		env = tmp;
-	}
-	return (NULL);
-}
-
-static int	check_env(t_app *app, char *arg)
-{
-	t_env	*env;
-
-	env = check_existence(app->env, arg);
-	if (!env)
-		return (0);
-	return (1);
-}
-
 int	check_new_env(t_app *app, char *var)
 {
 	if (!var[0])
 		return (1);
-	if (check_env(app, var) != 0)
-	{
-		error(app, "export", INVALID_CONTEXT);
-		return (1);
-	}
 	if (var[0] == '=')
 	{
 		error(app, "export", INVALID_CONTEXT);

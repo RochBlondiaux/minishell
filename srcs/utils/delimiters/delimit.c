@@ -82,7 +82,7 @@ static char	*print_delim(t_app *app, char **delimitors)
 			i += 1;
 		if (app->mode == NORMAL)
 			return (reset_arg(args, line));
-		if ((i == ((int)array_length(delimitors) - 1)))
+		if (i == ((int)array_length(delimitors) - 1))
 			break ;
 		free(line);
 		j ++;

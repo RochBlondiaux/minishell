@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executable.c                                       :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/03/17 12:35:36 by lfilloux         ###   ########.fr       */
+/*   Created: 2022/03/17 14:13:16 by lfilloux          #+#    #+#             */
+/*   Updated: 2022/03/17 14:13:29 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-int	find_executable(t_app *app, t_command *cmd)
+char	*right_file(char *c)
 {
-	char	*bin;
-
-	if (is_builtin(cmd))
-		return (TRUE);
-	bin = get_executable(app, cmd, cmd->name);
-	if (!bin)
-		return (FALSE);
-	if (!bin[0])
-	{
-		free(bin);
-		return (-1);
-	}
-	reset_str(&cmd->executable, bin);
-	return (TRUE);
+	if ((access(c, F_OK) == FALSE) && c[0] == '/')
+		return (ft_strdup(c));
+	else if ((access(c, F_OK) == FALSE) && c[0] != '/')
+		return (NULL);
+	return (NULL);
 }

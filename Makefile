@@ -80,6 +80,7 @@ SRC_NAME =	main.c                                \
 			utils/string/strcat.c                 \
 			utils/string/replace.c                \
 			utils/string/joins.c                  \
+			utils/string/path.c                   \
 			utils/string/reset.c                  \
 			utils/string/contains.c               \
 			utils/string/strchr_separator.c       \
