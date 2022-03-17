@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
+/*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/29 16:57:17 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/03/17 15:57:11 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,27 @@ int	get_quote_in_here(char *s)
 			return (i);
 	}
 	return (-1);
+}
+
+int	choose_quote(char *s)
+{
+	size_t	i;
+	int		dq;
+	int		q;
+
+	i = -1;
+	dq = 0;
+	q = 0;
+	while (s[++i])
+	{
+		if (s[i] == '\'')
+			q ++;
+		else if (s[i] == '"')
+			dq ++;
+	}
+	if (q < dq)
+		return (0);
+	return (1);
 }
 
 int	is_quote_in_here(char *s)

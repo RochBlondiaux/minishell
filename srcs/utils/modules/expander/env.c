@@ -6,7 +6,7 @@
 /*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/03/17 13:57:43 by lfilloux         ###   ########.fr       */
+/*   Updated: 2022/03/17 15:57:18 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,30 @@ static int	solo_env(t_app *app, char **input)
 	return (TRUE);
 }
 
+static char	*add_quotes(char *value)
+{
+	char	*dest;
+	size_t	i;
+	size_t	j;
+	int		q;
+
+	i = -1;
+	j = -1;
+	dest = malloc(sizeof(char) * (ft_strlen(value) + 3));
+	if (!dest)
+		return (NULL);
+	q = choose_quote(value);
+	if (q == 1)
+		dest[++i] = '"';
+	else
+		dest[++i] = '\'';
+	while (value[++j])
+		dest[++i] = value[j];
+	dest[++i] = dest[0];
+	dest[++i] = '\0';
+	return (dest);
+}
+
 char	*expand_env_vars(t_app *app, char *input)
 {
 	char	*t;
@@ -98,7 +122,7 @@ char	*expand_env_vars(t_app *app, char *input)
 	{
 		if (key)
 		{
-			value = get_env(app, &key[1]);
+			value = add_quotes(get_env(app, &key[1]));
 			if (!value)
 				value = "";
 			reset_str(&t, replace_first(t, key, value));

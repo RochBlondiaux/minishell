@@ -6,11 +6,24 @@
 /*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/03/17 14:30:17 by lfilloux         ###   ########.fr       */
+/*   Updated: 2022/03/17 14:33:07 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+static int	is_no_equal(char *entry)
+{
+	size_t	i;
+
+	i = -1;
+	while (entry[++i])
+	{
+		if (entry[i] == '=')
+			return (TRUE);
+	}
+	return (FALSE);
+}
 
 static char	*give_env_value(char **entry)
 {
@@ -36,7 +49,7 @@ t_env	*create_map_element(char *entry)
 	char	**e;
 	t_env	*env;
 
-	if (ft_strchr(entry, '=') != 0)
+	if (is_no_equal(entry) == FALSE)
 		return (NULL);
 	env = malloc(sizeof(t_env));
 	if (!env)

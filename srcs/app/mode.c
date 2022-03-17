@@ -42,7 +42,9 @@ static void	update_mode(t_app *app, char *input)
 		&& (ft_strchr(input, '\'') == 0
 			|| ft_strchr(input, '\'') > ft_strchr(input, '"')))
 		app->mode = D_QUOTE;
-	else if (ft_contains(input, '\'') == 1)
+	else if (ft_contains(input, '\'') == 1
+		&& (ft_strchr(input, '"') == 0
+			|| ft_strchr(input, '"') > ft_strchr(input, '\'')))
 		app->mode = QUOTE;
 	else if (ft_contains_delim(input) != FALSE)
 		app->mode = DELIMIT;

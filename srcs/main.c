@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rblondia <rblondia@student.42-lyon.fr>     +#+  +:+       +#+        */
+/*   By: lfilloux <lfilloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 19:04:49 by rblondia          #+#    #+#             */
-/*   Updated: 2022/01/29 16:57:17 by rblondia         ###   ########.fr       */
+/*   Updated: 2022/03/17 14:47:23 by lfilloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ int	main(int ac, char **av, char **env)
 {
 	t_app	*app;
 
-	(void) ac;
 	(void) av;
+	if (ac != 1)
+	{
+		ft_putstr_fd("No arguments needed!\n", 2);
+		return (-1);
+	}
 	app = load_application(env);
 	start_application(app);
 	stop_application(app);
